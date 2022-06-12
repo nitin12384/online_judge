@@ -40,6 +40,10 @@ submission_time : time
 
 (Notes : we store a directory path for each problem where all problem files are stored
 In the problem directory 
+
+absolute path = "C:\\....\data\problems_data"
+data_dir_path = "\1"
+
 /desc.txt : description of the file
 /input.txt : input details
 /output.txt : output details
@@ -53,7 +57,7 @@ out_1.txt, out_2.txt, ....
 
 problem_id : int, primary key
 name : string
-data_directory_path : string
+data_dir_path : string
 num_testcases : int
 time_limit : float (in sec) 
 memory_limit : int (in MB)
