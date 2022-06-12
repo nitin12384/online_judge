@@ -1,0 +1,2 @@
+First line contains two integers, M and N.
+Each of next M lines contains N space seperated integers, which are the numbers present in that row.

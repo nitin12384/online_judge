@@ -1,3 +1,6 @@
+
+POSTGRE-SQL
+
 Database for an online judge.
 
 Current scope for 
@@ -35,6 +38,8 @@ gender :
 ratings : int 
 
 -> Submission table 
+(note : submission code files are to be stored in folders data1, data2... each should have 
+not more that 10000 submission files)
 submission_id : int, primary key
 problem_id : int 
 user_id : int 
@@ -58,9 +63,12 @@ data_dir_path = "\1"
 /output.txt : output details
 /constraints : constraints details
 
-/test_cases/ : directory of test_cases, in which we have input/output files
+/testcases/ : directory of test_cases, in which we have input/output files
 inp_1.txt, inp_2.txt, ....inp_k.txt, where k is 'num_testcases'
-out_1.txt, out_2.txt, ....
+out_1.txt, out_2.txt, ...
+
+/examples/ : directory of examples 
+inp_1.txt, inp_2.txt, ... inp_k.txt where k is 'num_examples'
 
 )
 
@@ -94,6 +102,11 @@ num_dislikes : int
 
 
 
+// some global properties 
+
+DATA_HOME_WINDOWS = "C:\Users\kumniti\prog\Projects\online_judge\data"
+SUBMISSION_DATA_BASE_PATH = DATA_HOME\submissions 
+PROBLEM_DATA_BASE_PATH = DATA_HOME\problems
 
 
 

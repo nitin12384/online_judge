@@ -35,6 +35,7 @@ create table problems(
 	name varchar(100) not null,
 	data_dir_path varchar(50), -- Not absolute, but relative
 	num_testcases int default 1,
+	num_examples int default 1,
 	time_limit real default 1.0, -- in seconds
 	memory_limit int default 256, -- in Megabytes
 	source_limit int default 50000-- in Bytes
@@ -45,6 +46,8 @@ create table problem_languages(
 	problem_id int not null,
 	language varchar(20) not null
 );
+-- create index for efficience cause, there is no primary key
+create index problem_id_index on problem_languages(problem_id);
 
 drop table if exists problem_dynamic_data;
 create table problem_dynamic_data(
@@ -54,7 +57,7 @@ create table problem_dynamic_data(
 	num_uniq_user_accepted int default 0
 );
 
--- default data insertion
+-- default dummy data insertion
 -- dummy user, admin user
 insert into user_auth 
 values
@@ -65,3 +68,26 @@ insert into user_details
 values
 	(0, 'dummy', 'Mr. Dummy dumbledore'),
 	(1, 'admin01', 'Mr. Admin First');
+
+-- 1 problems in the Database
+insert into problems
+values
+	(1, 'Max Matrix Row', '/1', 1, 1, 1.0, 256, 50000); 
+
+-- the problem can be accepted in C++ 14, Java 11 python  only
+insert into problem_languages
+values 
+	(1, 'C++ 14'),
+	(1, 'Java 8'),
+	(1, 'Python 3.8');
+
+insert into problem_dynamic_data 
+values 
+	(1, 2, 1, 1);
+
+-- 1 submission made by dummy user which was Wrong Answer
+-- and one which was AC
+insert into submissions
+values
+	(1, 1, 0, '/data1/1.cpp', 353, 'WA', 2, 'C++ 14', '2000-01-01 00:00:01'),
+	(2, 1, 0, '/data1/2.cpp', 353, 'AC', 2, 'C++ 14', '2000-01-01 00:01:01'); 
