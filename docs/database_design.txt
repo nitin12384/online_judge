@@ -82,6 +82,10 @@ num_uniq_user_accepted : int
 num_likes : int
 num_dislikes : int
 
+-> global_configuration data 
+property : string 
+value : string 
+
 
 
 
