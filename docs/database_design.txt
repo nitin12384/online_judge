@@ -1,0 +1,6 @@
+Database for an online judge.
+
+Current scope for 
+-> User management and authentication
+-> Problems with multiple sample input output, multiple testcases
+-> Problem's dynamic submission data
