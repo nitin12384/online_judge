@@ -47,8 +47,4 @@ create table problem_dynamic_data(
 	num_uniq_user_accepted int default 0
 );
 
-drop table if exists global_config;
-create table global_config(
-	property varchar(100) primary key,
-	value varchar(100)
-);
+
