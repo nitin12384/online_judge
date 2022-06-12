@@ -4,3 +4,82 @@ Current scope for
 -> User management and authentication
 -> Problems with multiple sample input output, multiple testcases
 -> Problem's dynamic submission data
+-> Independent data of all submissions
+
+------ Use-cases of the database 
+
+->1. Get a problems detail with the id : name, description, input, output, 
+constraints, sample input/output, all languages in which submission allowed,
+time limit, memory limit, no of test cases, test cases 
+
+->2. Get all submissions of a problem, sorted by recentness, source size, 
+runtime, memory consumption,etc.
+ 
+->3. Get all submission of a user, sorted by recentness.
+
+->4. Get submission data from problem id : num_user_tried, num_user_accepted, ...
+
+------ Database design 
+
+-> User Authorization  table 
+user_id : int,  primary key
+user_password : string
+
+-> Submission table 
+submission_id : int, primary key
+problem_id : int 
+user_id : int 
+source_file_path : string
+source_size : int
+verdict : string 
+runtime : int, (in msec)
+language : string
+submission_time : time
+
+-> Problem table 
+
+(Notes : we store a directory path for each problem where all problem files are stored
+In the problem directory 
+/desc.txt : description of the file
+/input.txt : input details
+/output.txt : output details
+/constraints : constraints details
+
+/test_cases/ : directory of test_cases, in which we have input/output files
+inp_1.txt, inp_2.txt, ....inp_k.txt, where k is 'num_testcases'
+out_1.txt, out_2.txt, ....
+
+)
+
+problem_id : int, primary key
+name : string
+data_directory_path : string
+num_testcases : int
+time_limit : float (in sec) 
+memory_limit : int (in MB)
+source_limit : int (in Bytes)
+
+(Other fields - extra )
+publish_date : date
+author : string
+
+
+-> Problem_languages table
+(Notes : (problem_id, language) is the candidate key )
+problem_id : int
+language : string 
+
+-> problem_dynamic_data 
+problem_id : int, primary key
+num_submissions : int
+num_accepted : int
+num_uniq_user_accepted : int
+(Other fields : extra) 
+num_likes : int
+num_dislikes : int
+
+
+
+
+
+
