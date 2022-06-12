@@ -5,6 +5,13 @@ create table user_auth(
 	user_password varchar(30) not null
 );
 
+drop table if exists user_details;
+create table user_details(
+	user_id int primary key,
+	username varchar(30) not null,
+	full_name varchar(50)
+);
+
 drop table if exists submissions;
 create table submissions(
 	submission_id int primary key,
@@ -47,4 +54,14 @@ create table problem_dynamic_data(
 	num_uniq_user_accepted int default 0
 );
 
+-- default data insertion
+-- dummy user, admin user
+insert into user_auth 
+values
+	(0, 'dummy_password'),
+	(1, 'admin_password') ;
 
+insert into user_details
+values
+	(0, 'dummy', 'Mr. Dummy dumbledore'),
+	(1, 'admin01', 'Mr. Admin First');

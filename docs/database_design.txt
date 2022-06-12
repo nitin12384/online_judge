@@ -25,6 +25,15 @@ runtime, memory consumption,etc.
 user_id : int,  primary key
 user_password : string
 
+-> User Details table 
+user_id : int, primary key
+username : string not null
+full_name : string 
+
+(Other fields)
+gender : 
+ratings : int 
+
 -> Submission table 
 submission_id : int, primary key
 problem_id : int 
@@ -66,6 +75,7 @@ source_limit : int (in Bytes)
 (Other fields - extra )
 publish_date : date
 author : string
+difficulty : int
 
 
 -> Problem_languages table
