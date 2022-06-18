@@ -1,25 +1,29 @@
 # online_judge
 
 
+* ToDo List
+✔️ Done
+▶️ In progress
+
 -- Learning Basics (1 week)
 
-- 1a. Finish Django Learning Part 3,4           ✔️
-- 1b. Finish React Learning basic               ✔️
-- 1c. Learn MySQL + Django integration basics
-- 1d. Learn React + Django integration basics 
+- ✔️1a. Finish Django Learning Part 3,4
+- ✔️1b. Finish React Learning basic
+- ▶️1c. Learn MySQL + Django integration basics
+- ▶️1d. Learn React + Django integration basics 
 - *1e. Learn/Try docker basics and how to send and recieve files from docker .
 - *1f. Learn/Try user authentication in a website
 - *1g. Try using timeout, and running and compiling a code file, from a program.
 
 -- Design (1-2 day)
 
-- 2a. Decide the database architect, all tables, primary keys, foreign keys             ✔️
+- ✔️2a. Decide the database architect, all tables, primary keys, foreign keys
 - 2b. Decide the UI, 
 - 2c. Decide the backend architecture : dataflow, api, etc.
 
 -- Database ( 2-3 hour )
 
-- 3a. Create the database.
+- ▶️3a. Create the database.
 
 -- Implementing the Backend (1-1.5 week )
 
