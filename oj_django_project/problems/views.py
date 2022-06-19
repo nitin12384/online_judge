@@ -24,3 +24,9 @@ def submissions_detail(request, problem_id) :
     context = {'problem' : problem}
 
     return render(request, 'problems/submissions_detail.html', context)
+
+def submit(request, problem_id) :
+    
+    problem = get_object_or_404(Problem, pk=problem_id)
+    context = {'problem' : problem}
+    return render(request, 'problems/submit.html', context)
