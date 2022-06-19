@@ -7,7 +7,6 @@ from django.utils import timezone
 new_problem =   Problem(name='Max Matrix Row', data_dir_path='/1', difficulty=600, 
             num_testcases=2, time_limit=1.0)
 new_problem.save()
-
 assert new_problem.id == 1 
 
 new_language = Language(name='C++ 14')
