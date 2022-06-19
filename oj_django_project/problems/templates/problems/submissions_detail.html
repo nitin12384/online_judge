@@ -1,0 +1,37 @@
+<!--
+    required context 
+
+    problem : a Problem object
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Problems</title>
+    </head>
+    <body>
+        <div id="header-root"></div>
+        <div id="content-root">
+            <h2 class="heading2">Submissions of P{{problem.id}} {{problem.name}}</h2>
+            <table>
+                <thead>
+                    <td>ID</td>
+                    <td>Time of Submission</td>
+                    <td>Runtime</td>
+                    <td>Verdict</td>
+                </thead>
+            <tbody>
+                {% for submission in problem.submission_set.all %}
+                <tr id="submission-{{submission.id}}">
+                    <td>{{submission.id}}</td>
+                    <td>{{submission.submission_time}}</td>
+                    <td>{{submission.runtime}}</td>
+                    <td>{{submission.verdict}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </body>
+</html>

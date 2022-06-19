@@ -18,3 +18,9 @@ def detail(request, problem_id) :
 
     return render(request, 'problems/detail.html', context)
 
+def submissions_detail(request, problem_id) :
+    # all submission with that problem id 
+    problem = get_object_or_404(Problem, pk=problem_id)
+    context = {'problem' : problem}
+
+    return render(request, 'problems/submissions_detail.html', context)
