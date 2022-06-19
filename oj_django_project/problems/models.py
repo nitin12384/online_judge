@@ -29,9 +29,9 @@ submission_time : timestamp
 
 """
 class Submission(models.Model) :
-    problem_id = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     source_file_path = models.CharField(max_length=200)
-    verdict = models.CharField(max_length=20)
+    verdict = models.CharField(max_length=50) # Time Limit Exceeded on Test Case 1000 (37 chars)
     runtime = models.IntegerField()
     language_id = models.IntegerField()
     submission_time = models.DateTimeField()
@@ -49,8 +49,8 @@ problem_id,
 language_id
 """
 
-class ProblemLanuageRelation(models.Model) :
-    problem_id = models.ForeignKey(Problem, on_delete=models.CASCADE)
+class ProblemLanguageRelation(models.Model) :
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     language_id = models.IntegerField()
 
 
