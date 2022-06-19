@@ -6,8 +6,7 @@
     'input' 
     'output'
     'constraint'
-    'sample_io' : array of dict like 
-        { 'input' : , 'output' : , 'explanation' : }
+    'example' : array of dict like 
     
     'languages' : array of strings
 
@@ -31,7 +30,25 @@
                 </div>
             </div>
             <div id="problem-detail">
-                <div id
+                <div id="problem-desc">
+                    <p>{{description|linebreaksbr}}</p>
+                </div>
+                <div id="problem-inp">
+                    <h3>Input : </h3>
+                    <p>{{input|linebreaksbr}}</p>
+                </div>
+                <div id="problem-out">
+                    <h3>Output : </h3>
+                    <p>{{output|linebreaksbr}}</p>
+                </div>
+                <div id="problem-constraints">
+                    <h3>Constraints : </h3>
+                    <p>{{constraints|linebreaksbr}}</p>
+                </div>
+                <div id="problem-examples">
+                    <h3>Sample I/O examples : </h3>
+                    <p>{{examples|linebreaksbr}}</p>
+                </div>
             </div>
         </div>
     </body>
