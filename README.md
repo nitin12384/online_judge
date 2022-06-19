@@ -18,8 +18,8 @@
 -- Design (1-2 day)
 
 - ✔️2a. Decide the database architect, all tables, primary keys, foreign keys
-- 2b. Decide the UI, 
-- 2c. Decide the backend architecture : dataflow, api, etc.
+- ✔️2b. Decide the UI, 
+- ▶️2c. Decide the backend architecture : dataflow, api, etc.
 
 -- Database ( 2-3 hour )
 
@@ -27,7 +27,7 @@
 
 -- Implementing the Backend (1-1.5 week )
 
-- 4a. Getting List of problems 
+- ▶️4a. Getting List of problems 
 - 4b. Getting a problem details 
 - 4c. Submitting the code 
 - 4d. Getting the verdict
