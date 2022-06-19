@@ -1,10 +1,9 @@
 
-POSTGRE-SQL
+SQLITE 
 
 Database for an online judge.
 
 Current scope for 
--> User management and authentication
 -> Problems with multiple sample input output, multiple testcases
 -> Independent data of all submissions
 
@@ -14,27 +13,10 @@ Current scope for
 constraints, sample input/output, all languages in which submission allowed,
 time limit, memory limit, no of test cases, test cases 
 
-->2. Get all submissions of a problem, sorted by recentness, source size, 
-runtime, memory consumption,etc.
- 
-->3. Get all submission of a user, sorted by recentness.
+->2. Get all submissions of a problem, sorted by recentness
 
-->4. Get submission data from problem id : num_user_tried, num_user_accepted, ...
 
 ------ Database design 
-
--> User Authorization  table 
-user_id : int,  primary key
-user_password : string
-
--> User Details table 
-user_id : int, primary key
-username : string not null
-full_name : string 
-
-(Other fields)
-gender : 
-ratings : int 
 
 -> Submission table 
 (note : submission code files are to be stored in folders data1, data2... each should have 
@@ -47,8 +29,8 @@ source_size : int
 verdict : string 
 runtime : int, (in msec)
 language : string
-submission_time : time
-
+submission_time : timestamp
+difficulty : int
 -> Problem table 
 
 (Notes : we store a directory path for each problem where all problem files are stored
