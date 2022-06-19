@@ -5,5 +5,5 @@ app_name = 'problems'
 
 urlpatterns = [
     path('', views.index, name='index'),
-	# ex : polls/5/
+    path('problem/<int:problem_id>', views.detail, name='detail_path')
 ]
