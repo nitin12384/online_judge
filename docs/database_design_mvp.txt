@@ -15,22 +15,22 @@ time limit, memory limit, no of test cases, test cases
 
 ->2. Get all submissions of a problem, sorted by recentness
 
+->3. Get just id, name, difficulty list of all problems
 
 ------ Database design 
 
 -> Submission table 
 (note : submission code files are to be stored in folders data1, data2... each should have 
 not more that 10000 submission files)
-submission_id : int, primary key
-problem_id : int 
-user_id : int 
+id : int, primary key
+problem_id : int foreign key
 source_file_path : string
-source_size : int
 verdict : string 
 runtime : int, (in msec)
-language : string
+language : int 
 submission_time : timestamp
-difficulty : int
+
+
 -> Problem table 
 
 (Notes : we store a directory path for each problem where all problem files are stored
@@ -53,17 +53,11 @@ inp_1.txt, inp_2.txt, ... inp_k.txt where k is 'num_examples'
 
 )
 
-problem_id : int, primary key
+id : int, primary key
 name : string
 data_dir_path : string
 num_testcases : int
 time_limit : float (in sec) 
-memory_limit : int (in MB)
-source_limit : int (in Bytes)
-
-(Other fields - extra )
-publish_date : date
-author : string
 difficulty : int
 
 

@@ -1,0 +1,6 @@
+creat django project with venv
+$ django-admin startproject oj_django_project
+
+- make migrations of existing apps
+
+- put some models
