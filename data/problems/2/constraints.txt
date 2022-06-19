@@ -1,0 +1,2 @@
+1 <= N <= 10^5
+String S contains contains all lowercase letters.

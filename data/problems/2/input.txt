@@ -1,0 +1,2 @@
+First line an integer N, denoting the length of the string
+Second line contains the string S.
