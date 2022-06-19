@@ -3,4 +3,8 @@ $ django-admin startproject oj_django_project
 
 - make migrations of existing apps
 
-- put some models
+- put some models 
+
+- add app in settings.py, INSTALLED_APPS
+
+- makemigrations problems

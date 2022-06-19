@@ -16,7 +16,7 @@ class Problem(models.Model) :
     data_dir_path = models.CharField(max_length=200)
     difficulty = models.IntegerField()
     num_testcases = models.IntegerField()
-    time_limit = models.FloatField()
+    time_limit = models.FloatField(default=1)
 
 """
 id : int, primary key
@@ -42,7 +42,7 @@ name
 """
 
 class Language(models.Model) :
-    name = models.CharField(30)
+    name = models.CharField(max_length=30)
 
 """
 problem_id,
@@ -52,6 +52,6 @@ language_id
 class ProblemLanuageRelation(models.Model) :
     problem_id = models.ForeignKey(Problem, on_delete=models.CASCADE)
     language_id = models.IntegerField()
-    
+
 
     
