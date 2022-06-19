@@ -1,0 +1,102 @@
+
+POSTGRE-SQL
+
+Database for an online judge.
+
+Current scope for 
+-> User management and authentication
+-> Problems with multiple sample input output, multiple testcases
+-> Independent data of all submissions
+
+------ Use-cases of the database 
+
+->1. Get a problems detail with the id : name, description, input, output, 
+constraints, sample input/output, all languages in which submission allowed,
+time limit, memory limit, no of test cases, test cases 
+
+->2. Get all submissions of a problem, sorted by recentness, source size, 
+runtime, memory consumption,etc.
+ 
+->3. Get all submission of a user, sorted by recentness.
+
+->4. Get submission data from problem id : num_user_tried, num_user_accepted, ...
+
+------ Database design 
+
+-> User Authorization  table 
+user_id : int,  primary key
+user_password : string
+
+-> User Details table 
+user_id : int, primary key
+username : string not null
+full_name : string 
+
+(Other fields)
+gender : 
+ratings : int 
+
+-> Submission table 
+(note : submission code files are to be stored in folders data1, data2... each should have 
+not more that 10000 submission files)
+submission_id : int, primary key
+problem_id : int 
+user_id : int 
+source_file_path : string
+source_size : int
+verdict : string 
+runtime : int, (in msec)
+language : string
+submission_time : time
+
+-> Problem table 
+
+(Notes : we store a directory path for each problem where all problem files are stored
+In the problem directory 
+
+absolute path = "C:\\....\data\problems_data"
+data_dir_path = "\1"
+
+/desc.txt : description of the file
+/input.txt : input details
+/output.txt : output details
+/constraints : constraints details
+
+/testcases/ : directory of test_cases, in which we have input/output files
+inp_1.txt, inp_2.txt, ....inp_k.txt, where k is 'num_testcases'
+out_1.txt, out_2.txt, ...
+
+/examples/ : directory of examples 
+inp_1.txt, inp_2.txt, ... inp_k.txt where k is 'num_examples'
+
+)
+
+problem_id : int, primary key
+name : string
+data_dir_path : string
+num_testcases : int
+time_limit : float (in sec) 
+memory_limit : int (in MB)
+source_limit : int (in Bytes)
+
+(Other fields - extra )
+publish_date : date
+author : string
+difficulty : int
+
+
+-> Problem_languages table
+(Notes : (problem_id, language) is the candidate key )
+problem_id : int
+language : string 
+
+
+// some global properties 
+
+DATA_HOME_WINDOWS = "C:\Users\kumniti\prog\Projects\online_judge\data"
+SUBMISSION_DATA_BASE_PATH = DATA_HOME\submissions 
+PROBLEM_DATA_BASE_PATH = DATA_HOME\problems
+
+
+
+
