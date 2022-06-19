@@ -42,7 +42,8 @@ data_dir_path = "\1"
 /desc.txt : description of the file
 /input.txt : input details
 /output.txt : output details
-/constraints : constraints details
+/constraints.txt : constraints details
+/examples.txt : constraints details
 
 /testcases/ : directory of test_cases, in which we have input/output files
 inp_1.txt, inp_2.txt, ....inp_k.txt, where k is 'num_testcases'
