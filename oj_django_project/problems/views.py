@@ -28,5 +28,7 @@ def submissions_detail(request, problem_id) :
 def submit(request, problem_id) :
     
     problem = get_object_or_404(Problem, pk=problem_id)
-    context = {'problem' : problem}
+    
+    #TODO : later replace it with only required things
+    context = get_problem_detailed_context(problem)
     return render(request, 'problems/submit.html', context)

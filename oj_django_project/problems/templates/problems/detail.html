@@ -8,7 +8,7 @@
     'constraint'
     'example' : array of dict like 
     
-    'languages' : string representation of array of strings
+    'languages_str' : string representation of array of languages as strings
 
 -->
 
@@ -18,7 +18,13 @@
         <title>Problems</title>
     </head>
     <body>
-        <div id="header-root"></div>
+        <div id="header-root">
+            <h1>
+                <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                    Codesmed
+                </a>
+            </h1>
+        </div>
         <div id="content-root">
             <div id="problem-header">
                 <div class="problem-title">
@@ -28,6 +34,7 @@
                     <a href="{% url 'problems:submit_path' problem.id %}" class="button-link" >
                         Submit
                     </a>
+                    <br/>
                     <a href="{% url 'problems:submissions_detail_path' problem.id %}" class="button-link" >
                         View All Submissions
                     </a>
@@ -50,7 +57,7 @@
                     <p>{{constraints|linebreaksbr}}</p>
                 </div>
                 <div id="problem-languages">
-                    <p><strong>Languages Supported :</strong> {{languages}}</p>
+                    <p><strong>Languages Supported :</strong> {{languages_str}}</p>
                 </div>
                 <div id="problem-examples">
                     <h3>Sample I/O examples : </h3>

@@ -82,7 +82,7 @@ def get_problem_detailed_context(problem : Problem) -> dict :
     for plr in plr_set :
         language_id = plr.language_id 
         cur_language = Language.objects.get(pk=language_id)
-        languages.append(cur_language.name)
+        languages.append(cur_language)
 
     return {
         'problem' : problem,
@@ -92,7 +92,8 @@ def get_problem_detailed_context(problem : Problem) -> dict :
         'output' : file_data[2],
         'constraints' : file_data[3],
         'examples' : file_data[4],
-        'languages' : languages.__str__()
+        'languages' : languages,
+        'languages_str' : languages.__str__(),
 
     }
 

@@ -2,7 +2,7 @@
     required context 
 
     'problem' :  Problem object ,
-    'languages' : array of strings
+    'languages' : array of Language objects
 
 -->
 
@@ -12,22 +12,46 @@
         <title>Problems</title>
     </head>
     <body>
-        <div id="header-root"></div>
+        <div id="header-root">
+            <h1>
+                <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                    Codesmed
+                </a>
+            </h1>
+        </div>
         <div id="content-root">
             <div id="problem-header">
                 <div class="problem-title">
-                    <h2 class="heading2">Submit P{{problem.id}} {{problem.name}}</h2>
+                    <h2 class="heading2">Submit for 
+                        <a href="{% url 'problems:detail_path' problem.id %}">
+                        P{{problem.id}} {{problem.name}}
+                        </a>
+                    </h2>
                 </div>
             </div>
             <div id="submission-input">
                 <form>
-                <textarea id="sub-textarea" name="input-code" rows="30" cols="100" ></textarea>
+                <textarea id="sub-textarea" name="input-code" rows="25" cols="100" ></textarea>
                 <br />
-                <input type="submit" value="Submit" />
+                <select id="language-selector-list" name="language-selector">
+                {% for language in languages %}
+                    <option class="language-selector-option" value="{{language.id}}">
+                        {{language.name}}
+                    </option>    
+                {% endfor %}
+                </select>
+                <input type="submit" value="Submit" class="submit-button"/>
                 </form>
             </div>
+            <hr />
             <div id="verdict">
-
+                <div id="verdict-text">
+                    <span>Verdict : </span>
+                    <span id="verdict-span">Server is not functional yet to accept submissions.</span>
+                </div>
+                <div>
+                    <a href="">Refresh Verdict</a>
+                </div>
             </div>
         </div>
     </body>

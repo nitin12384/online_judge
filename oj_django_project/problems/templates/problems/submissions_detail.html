@@ -11,9 +11,19 @@
         <title>Problems</title>
     </head>
     <body>
-        <div id="header-root"></div>
+        <div id="header-root">
+            <h1>
+                <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                    Codesmed
+                </a>
+            </h1>
+        </div>
         <div id="content-root">
-            <h2 class="heading2">Submissions of P{{problem.id}} {{problem.name}}</h2>
+            <h2 class="heading2">Submissions of 
+                <a href="{% url 'problems:detail_path' problem.id %}">
+                    P{{problem.id}} {{problem.name}}
+                </a>
+            </h2>
             <table>
                 <thead>
                     <td>ID</td>
