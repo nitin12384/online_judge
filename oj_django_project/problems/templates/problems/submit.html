@@ -13,8 +13,6 @@
         {% load static %}
     </head>
     <body>
-        <script src="{% static '/problems/scripts/submit_handling.js' %}"></script>
-        <script src="{% static '/problems/scripts/test.js' %}"></script>
         <div id="header-root">
             <h1>
                 <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
@@ -48,14 +46,16 @@
             </div>
             <hr />
             <div id="verdict">
-                <div id="verdict-text">
-                    <span>Verdict : </span>
-                    <span id="verdict-element">Server is not functional yet to accept submissions.</span>
-                </div>
-                <div>
-                    <button onClick="handleVerdictRefresh()">Refresh Verdict</button>
-                </div>
+                <span>Verdict : </span>
+                <span id="verdict-element">Server is not functional yet to accept submissions.</span>
+                <img src= "{% static '/problems/images/loading_1.gif' %}" id="verdict-loading-gif"
+                alt="loading gif" hieght="15" width="15"/>
             </div>
         </div>
+
+        
+        <script src="{% static '/problems/scripts/submit_handling.js' %}"></script>
+        <script src="{% static '/problems/scripts/test.js' %}"></script>
+
     </body>
 </html>

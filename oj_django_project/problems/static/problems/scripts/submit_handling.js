@@ -1,5 +1,17 @@
 
 
+class Config{
+    static logging = true;
+    static last_sub_time_prop_name = 'last-submission-time';
+    static min_resub_time_delay = 30;
+    static NOT_EXISTS = 'value-does-not-exists';
+
+    // element id
+    static verdict_element_id = 'verdict-element' ;
+    static submitted_verdict_text = 'Code Submitted. Processing '
+    static verdict_loading_gif_id = 'verdict-loading-gif' ;
+}
+
 class Assertions{
     static assertTrue(bool_expr){
         if(!bool_expr){
@@ -9,17 +21,6 @@ class Assertions{
 }
 
 
-class Config{
-    static logging = true;
-    static last_sub_time_prop_name = 'last-submission-time';
-    static last_sub_id_prop_name = 'last-submission-id';
-    static min_resub_time_delay = 30;
-    static NOT_EXISTS = 'value-does-not-exists';
-    static verdict_element_id = 'verdict-element' ;
-    static submitted_verdict_text = 'Your code is submitted to the server.'
-    static no_submission_verdict_text = 'You have not submitted anything yet.'
-    
-}
 
 class Logger{
     static log(message){
@@ -31,16 +32,67 @@ class Logger{
     }
 }
 
+class VerdictManager{
+
+    static instance = new VerdictManager();
+
+    constructor(){
+        this.verdict_element = document.getElementById(Config.verdict_element_id);
+        this.verdict_loading_gif = document.getElementById(Config.verdict_loading_gif_id);
+    }
+
+    show_loading_gif(){
+        this.verdict_loading_gif.style.display = "inline";
+    }
+
+    hide_loading_gif(){
+        this.verdict_loading_gif.style.display = "none";
+    }
+
+    set_verdict(verdict){
+        // set verdict message in HTML DOM element.
+        this.verdict_element.innerHTML = verdict;
+    }
+
+}
+
 
 class Manager{
 
     static instance = new Manager();
 
-    constructor(){
-        // reset any submission data in the localStorage.
-        // happens of each page refresh
-        localStorage.setItem(Config.last_sub_time_prop_name, Config.NOT_EXISTS);
-        localStorage.setItem(Config.last_sub_id_prop_name,   Config.NOT_EXISTS);
+    // return Date object or null
+    get_last_sub_time(){
+        const last_sub_time_str = localStorage.getItem(Config.last_sub_time_prop_name);
+        let last_sub_time = null;
+        // convert from string to object
+        if(last_sub_time_str !== Config.NOT_EXISTS){
+            last_sub_time = new Date(last_sub_time_str);
+        }
+
+        return last_sub_time;
+    }
+
+    is_submission_delay_enough(){
+
+        const cur_time = new Date();
+        let diff_time_sec = Number.MAX_VALUE;
+
+        const last_sub_time = this.get_last_sub_time();
+        Logger.log("last_sub_time : " + last_sub_time);
+
+        if(last_sub_time !== null){
+            Assertions.assertTrue( cur_time >= last_sub_time ) ;
+            diff_time_sec = Math.floor( (cur_time - last_sub_time) / 1000) ;
+        }
+
+        Logger.log("diff_time_sec : " + diff_time_sec);
+
+        return (diff_time_sec >= Config.min_resub_time_delay);
+    }
+
+    set_last_sub_time(datetime){
+        localStorage.setItem(Config.last_sub_time_prop_name, datetime.toISOString());
     }
 
 
@@ -49,44 +101,11 @@ class Manager{
         Logger.log("Manager.submit() called.")
 
         // check when last submission was made, if more recently than 30 seconds, then say no.
-        const last_sub_time_str = localStorage.getItem(Config.last_sub_time_prop_name);
-        let last_sub_time = null;
-        // convert from string to object
-        if(last_sub_time_str !== Config.NOT_EXISTS){
-            last_sub_time = new Date(last_sub_time_str);
-        }
-
-        const cur_time = new Date();
-        let diff_time_sec = Config.min_resub_time_delay;
-
-        Logger.log("last_sub_time : " + last_sub_time);
-        //Logger.log(typeof(last_sub_time));
-        //Logger.log(last_sub_time[0]);
-        if(last_sub_time !== null){
-
-            //Logger.log("Afer chcek. last_sub_time : " + last_sub_time)
-            // equality case for instantaneous clicks
-            Assertions.assertTrue( cur_time >= last_sub_time ) ;
-            
-            diff_time_sec = Math.floor( (cur_time - last_sub_time) / 1000) ;
-        }
-
-        Logger.log("diff_time_sec : " + diff_time_sec);
-        
-        if(last_sub_time === null || 
-            diff_time_sec >= Config.min_resub_time_delay
-        ){
+        if(this.is_submission_delay_enough()){
             // save the submission time
-            localStorage.setItem(Config.last_sub_time_prop_name, cur_time.toISOString());
+            this.set_last_sub_time(new Date());
             // do the submission
-            // read the text area and POST to server 
-            let submission_id = this.send_submission() ;
-            
-            // save the submission id recieved
-            Logger.log("Submission sent . id : " + submission_id);
-            localStorage.setItem(Config.last_sub_id_prop_name, submission_id );
-            // set the verdict
-            this.set_verdict(Config.submitted_verdict_text);
+            this.send_submission_to_server();
         }
         else{
             // deny submission
@@ -99,38 +118,10 @@ class Manager{
         // read text area
         // read language option
         // send data to server
-        
-        // return submission_id
+        // update verdict to processing
+        // asynchronously update the verdict on recieving from server
     }
 
-    refresh_verdict(){
-        // get submission_id from localstorage
-        // if no submission then say no submission
-        let last_sub_id = localStorage.getItem(Config.last_sub_id_prop_name) ;
-        Assertions.assertTrue( last_sub_id !== null )
-
-        if(last_sub_id === Config.NOT_EXISTS){
-            this.set_verdict(Config.no_submission_verdict_text);
-        }
-        else{
-            // otherwise get_verdict_from_server 
-            // and set it in html element
-            let verdict = this.get_verdict_from_server(last_sub_id);
-            this.set_verdict(verdict);
-        }
-    }
-
-    set_verdict(verdict){
-        // set verdict message in HTML DOM element.
-        document.getElementById(Config.verdict_element_id).innerHTML = verdict;
-    }
-
-    get_verdict_from_server(submission_id){
-        // request server for verdict
-        // return verdict
-    }
-
-    
 
 }
 
@@ -140,15 +131,11 @@ function handleSubmit(){
     Manager.instance.submit();
 }
 
-function handleVerdictRefresh(){
-    Logger.log("handleVerdictRefresh() called");
-    Manager.instance.verdict();
+
+function onLoad(){
+    VerdictManager.hide_loading_gif();
 }
 
+onLoad();
 
-function test_sm(){
-    Logger.log("msg");
-}
-
-test_sm();
 
