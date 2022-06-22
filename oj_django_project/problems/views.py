@@ -26,7 +26,7 @@ def submissions_detail(request, problem_id) :
 
     return render(request, 'problems/submissions_detail.html', context)
 
-def submit(request, problem_id) :
+def submit_page(request, problem_id) :
     
     problem = get_object_or_404(Problem, pk=problem_id)
     
@@ -41,3 +41,10 @@ def get_verdict(request, submission_id) :
     })
 
     return JsonResponse(verdict_dict)    
+
+def submit(request) :
+    # request body contain code, and language and problem id
+    if request.method == 'POST' :
+        pass
+    else :
+        return HttpResponse("This endpoint is only for code submission");
