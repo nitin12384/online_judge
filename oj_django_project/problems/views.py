@@ -1,7 +1,8 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Problem
-from .utility import to_window_slash,get_problem_detailed_context
-
+from .models import Problem, Submission
+from .utility import get_problem_detailed_context
+ 
 
 # Create your views here.
 
@@ -32,3 +33,11 @@ def submit(request, problem_id) :
     #TODO : later replace it with only required things
     context = get_problem_detailed_context(problem)
     return render(request, 'problems/submit.html', context)
+
+def get_verdict(request, submission_id) :
+    submission:Submission = get_object_or_404(Submission, pk=submission_id)
+    verdict_dict = dict({
+        'verdict' : submission.verdict
+    })
+
+    return JsonResponse(verdict_dict)    
