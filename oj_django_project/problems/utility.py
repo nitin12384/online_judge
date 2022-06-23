@@ -97,7 +97,8 @@ def get_problem_detailed_context(problem : Problem) -> dict :
 
     }
 
-
+def log_utility(message) :
+    print(message)
     
 
 

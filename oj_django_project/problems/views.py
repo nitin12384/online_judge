@@ -1,7 +1,9 @@
+from cmath import log
+import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Problem, Submission
-from .utility import get_problem_detailed_context
+from .utility import get_problem_detailed_context, log_utility
  
 
 # Create your views here.
@@ -13,11 +15,13 @@ def index(request) :
 
     return render(request, 'problems/index.html', context)
 
+
 def detail(request, problem_id) :    
     problem = get_object_or_404(Problem, pk=problem_id)
     context = get_problem_detailed_context(problem)
 
     return render(request, 'problems/detail.html', context)
+
 
 def submissions_detail(request, problem_id) :
     # all submission with that problem id 
@@ -26,6 +30,7 @@ def submissions_detail(request, problem_id) :
 
     return render(request, 'problems/submissions_detail.html', context)
 
+
 def submit_page(request, problem_id) :
     
     problem = get_object_or_404(Problem, pk=problem_id)
@@ -33,6 +38,7 @@ def submit_page(request, problem_id) :
     #TODO : later replace it with only required things
     context = get_problem_detailed_context(problem)
     return render(request, 'problems/submit.html', context)
+
 
 def get_verdict(request, submission_id) :
     submission:Submission = get_object_or_404(Submission, pk=submission_id)
@@ -43,8 +49,21 @@ def get_verdict(request, submission_id) :
     return JsonResponse(verdict_dict)    
 
 def submit(request) :
+    if request.method != 'POST' :
+        return HttpResponse("This endpoint is only for code submission. Use POST request only.")
+    
     # request body contain code, and language and problem id
-    if request.method == 'POST' :
-        pass
-    else :
-        return HttpResponse("This endpoint is only for code submission");
+    body = json.loads(request.body)
+    problem_id = body['problem_id']
+    language_id = body['language_id']
+    code = body['code']
+
+    log_utility("Recieved submission for P-", problem_id, " language_id ", language_id)
+    code_file = open("new.temp.txt")
+    code_file.write(code)
+    code_file.close()
+
+
+    
+
+

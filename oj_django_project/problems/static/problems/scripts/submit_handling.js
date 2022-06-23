@@ -2,14 +2,18 @@
 
 class Config{
     static logging = true;
+    static debug_mode = true; // set it false in prod environment at least
     static last_sub_time_prop_name = 'last-submission-time';
-    static min_resub_time_delay = 30;
-    static NOT_EXISTS = 'value-does-not-exists';
+    static min_resub_time_delay = 5; // change in prod
+    static sending_submission_text = 'Sending Submission';
+    //static NOT_EXISTS = 'value-does-not-exists';
 
     // element id
     static verdict_element_id = 'verdict-element' ;
     static submitted_verdict_text = 'Code Submitted. Processing '
     static verdict_loading_gif_id = 'verdict-loading-gif' ;
+    static code_input_element_id = 'sub-textarea';
+    static language_selector_element_id = 'language-selector-list';
 }
 
 class Assertions{
@@ -20,8 +24,6 @@ class Assertions{
     }
 }
 
-
-
 class Logger{
     static log(message){
         // check if logging is on
@@ -31,6 +33,24 @@ class Logger{
         console.log("[" + (new Date().toLocaleString()) + "] " + message);
     }
 }
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
 
 class VerdictManager{
 
@@ -64,12 +84,9 @@ class Manager{
     // return Date object or null
     get_last_sub_time(){
         const last_sub_time_str = localStorage.getItem(Config.last_sub_time_prop_name);
-        let last_sub_time = null;
-        // convert from string to object
-        if(last_sub_time_str !== Config.NOT_EXISTS){
-            last_sub_time = new Date(last_sub_time_str);
-        }
 
+        // even if last_sub_time_str is null, or ISO string, it will work in both case automatically
+        let last_sub_time = new Date(last_sub_time_str)
         return last_sub_time;
     }
 
@@ -115,11 +132,58 @@ class Manager{
     }
 
     send_submission_to_server(){
+        
+        // update verdict to processing
+        VerdictManager.instance.set_verdict(Config.sending_submission_text);
+        VerdictManager.instance.show_loading_gif();
+        
+        // send data to server
+        // asynchronously update the verdict on recieving from server
+        const request = this.create_submission_request();
+        fetch(request).then(function(response){
+            Logger.log("Response recieved : " + response);
+            const verdict = "Verdict";
+            VerdictManager.instance.set_verdict("Verdict");
+            VerdictManager.instance.hide_loading_gif();
+        });
+    }
+
+    create_submission_request(){
+
+        Logger.log("create_submission_request() called");
         // read text area
         // read language option
-        // send data to server
-        // update verdict to processing
-        // asynchronously update the verdict on recieving from server
+        // read token 
+        // set headers and body
+        const csrftoken = getCookie('csrftoken');
+        const code = document.getElementById(Config.code_input_element_id).innerHTML ;
+        const lang_selector = document.getElementById(Config.language_selector_element_id);
+        const language_id = lang_selector.options[lang_selector.selectedIndex].value;
+        
+
+        const request = new Request(
+            'http://localhost:8000/submit/',
+            {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrftoken},
+                mode: 'same-origin', // Do not send CSRF token to another domain.
+                body : {
+                    'language_id' : language_id,
+                    //'problem_id'  : {{ problem.id }},
+                    'code' : code
+                }
+            }
+        )
+
+        
+        if(Config.debug_mode){
+            Logger.log("csrftoken : " + csrftoken + " language_id " + language_id + ' code : ' + code);
+            Logger.log(request);
+        }
+
+
+        // return request
+        return request;
     }
 
 
@@ -133,7 +197,7 @@ function handleSubmit(){
 
 
 function onLoad(){
-    VerdictManager.hide_loading_gif();
+    VerdictManager.instance.hide_loading_gif();
 }
 
 onLoad();

@@ -41,6 +41,11 @@ INSTALLED_APPS = [
 ]
 
 STATIC_URL = 'static/'
+CSRF_USE_SESSIONS = True
+CSRF_COOKIE_HTTPONLY = True
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
