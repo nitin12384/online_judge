@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Problem, Submission
 from .utility import get_problem_detailed_context, log_utility
- 
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -48,20 +48,31 @@ def get_verdict(request, submission_id) :
 
     return JsonResponse(verdict_dict)    
 
+@csrf_exempt
 def submit(request) :
     if request.method != 'POST' :
         return HttpResponse("This endpoint is only for code submission. Use POST request only.")
     
     # request body contain code, and language and problem id
-    body = json.loads(request.body)
+    req_body = request.body
+
+    print(req_body)
+
+    body=json.loads(req_body)
     problem_id = body['problem_id']
     language_id = body['language_id']
     code = body['code']
 
-    log_utility("Recieved submission for P-", problem_id, " language_id ", language_id)
-    code_file = open("new.temp.txt")
+    log_utility("Recieved submission for P-" + problem_id + " language_id " + language_id)
+    code_file = open("new.temp.txt", "w")
     code_file.write(code)
     code_file.close()
+
+    verdict_dict = dict({
+        'verdict' : 'Wrong answer of test 0. Ha ha ha.'
+    })
+
+    return JsonResponse(verdict_dict)
 
 
     

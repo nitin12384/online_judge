@@ -9,8 +9,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Problems</title>
+        <title>Submit P-{{problem.id}}</title>
         {% load static %}
+        <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
     </head>
     <body>
         <div id="header-root">
@@ -32,7 +33,7 @@
             </div>
             <div id="submission-input">
                 <form>
-                <textarea id="sub-textarea" name="input-code" rows="25" cols="100" maxlength="50000"></textarea>
+                <textarea id="submission-input-textarea" name="input-code" rows="25" cols="100" maxlength="50000"></textarea>
                 <br />
                 <select id="language-selector-list" name="language-selector">
                 {% for language in languages %}
@@ -53,7 +54,9 @@
             </div>
         </div>
 
-        
+        <script>
+            const cur_page_problem_id = {{problem.id}} ;
+        </script>
         <script src="{% static '/problems/scripts/submit_handling.js' %}"></script>
         <script src="{% static '/problems/scripts/test.js' %}"></script>
 

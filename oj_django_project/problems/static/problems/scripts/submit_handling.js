@@ -12,7 +12,7 @@ class Config{
     static verdict_element_id = 'verdict-element' ;
     static submitted_verdict_text = 'Code Submitted. Processing '
     static verdict_loading_gif_id = 'verdict-loading-gif' ;
-    static code_input_element_id = 'sub-textarea';
+    static code_input_element_id = 'submission-input-textarea';
     static language_selector_element_id = 'language-selector-list';
 }
 
@@ -117,8 +117,13 @@ class Manager{
 
         Logger.log("Manager.submit() called.")
 
+        
+        // code text should be non empty
+        if(document.getElementById(Config.code_input_element_id).value === ""){
+            alert("Empty Code")
+        }
         // check when last submission was made, if more recently than 30 seconds, then say no.
-        if(this.is_submission_delay_enough()){
+        else if(this.is_submission_delay_enough()){
             // save the submission time
             this.set_last_sub_time(new Date());
             // do the submission
@@ -131,6 +136,10 @@ class Manager{
    
     }
 
+    handleResponse(response){
+        
+    }
+
     send_submission_to_server(){
         
         // update verdict to processing
@@ -140,10 +149,13 @@ class Manager{
         // send data to server
         // asynchronously update the verdict on recieving from server
         const request = this.create_submission_request();
-        fetch(request).then(function(response){
-            Logger.log("Response recieved : " + response);
-            const verdict = "Verdict";
-            VerdictManager.instance.set_verdict("Verdict");
+        fetch(request).then((response) => {
+            Logger.log("Response recieved");
+            return response.json();
+        })
+        .then( (data) => {
+            const verdict = data.verdict;
+            VerdictManager.instance.set_verdict(verdict);
             VerdictManager.instance.hide_loading_gif();
         });
     }
@@ -156,29 +168,33 @@ class Manager{
         // read token 
         // set headers and body
         const csrftoken = getCookie('csrftoken');
-        const code = document.getElementById(Config.code_input_element_id).innerHTML ;
+        const code = document.getElementById(Config.code_input_element_id).value ;
         const lang_selector = document.getElementById(Config.language_selector_element_id);
         const language_id = lang_selector.options[lang_selector.selectedIndex].value;
         
+        // needs double quotes, needs comma seperation..
+        const body_str =  `{
+            "language_id" : "${language_id}",
+            "problem_id" : "${cur_page_problem_id}",
+            "code" : "${code}"
+        }`;
 
         const request = new Request(
             'http://localhost:8000/submit/',
             {
                 method: 'POST',
-                headers: {'X-CSRFToken': csrftoken},
-                mode: 'same-origin', // Do not send CSRF token to another domain.
-                body : {
-                    'language_id' : language_id,
-                    //'problem_id'  : {{ problem.id }},
-                    'code' : code
-                }
+                //headers: {'X-CSRFToken': csrftoken},
+                //mode: 'same-origin', // Do not send CSRF token to another domain.
+                body : body_str
             }
         )
 
         
         if(Config.debug_mode){
-            Logger.log("csrftoken : " + csrftoken + " language_id " + language_id + ' code : ' + code);
-            Logger.log(request);
+            Logger.log("Request - csrftoken : " + csrftoken + 
+            "\nlanguage_id : " + language_id + 
+            "\nproblem_id : " + cur_page_problem_id +
+            "\ncode : " + code);
         }
 
 
