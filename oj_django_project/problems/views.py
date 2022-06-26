@@ -3,12 +3,17 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Problem, Submission
-from .utility import get_problem_detailed_context, log_utility
+from .backend.utils import get_problem_detailed_context
 from django.views.decorators.csrf import csrf_exempt
-
+from .backend.utils import Logger
 # Create your views here.
 
+from .backend import DatabaseHandler
+
 def index(request) :
+
+    Logger.log('Index page requested')
+
     context = {
         'problem_list' : Problem.objects.all()
     }

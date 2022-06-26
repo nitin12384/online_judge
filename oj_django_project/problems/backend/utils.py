@@ -1,6 +1,30 @@
+from datetime import datetime
 
-from io import TextIOWrapper
-from .models import Problem,Language,ProblemLanguageRelation
+from ..models import Problem,Language,ProblemLanguageRelation
+
+class LogginMethods :
+    
+    LOG_STDOUT = 1
+
+class Logger :
+    def_logging_method=LogginMethods.LOG_STDOUT
+    
+    DJANGO_PROJECT_ROOT = '../../'
+    logFileName = DJANGO_PROJECT_ROOT + 'logs/log.txt'
+    verboseLogFileName = DJANGO_PROJECT_ROOT + 'logs/verbose_log.txt'
+    
+    #logFile = open(logFileName, 'a')
+    #verboseLogFile = open(verboseLogFileName, 'a')
+
+    def __inti__(self) :
+        self.logging_method=1
+    
+    def log(msg):
+        # msg could be str ...
+        if Logger.def_logging_method == LogginMethods.LOG_STDOUT :
+            print('[' + str(datetime.now()) + '] ' + msg)
+
+
 
 
 # global properties
@@ -22,7 +46,7 @@ def to_window_slash(s : str) -> str :
     return res
 
 
-def read_br_seperated_file(inp_file : TextIOWrapper) -> str :
+def read_br_seperated_file(inp_file) -> str :
     res = ""
     lines_list = inp_file.readlines()
     for line in lines_list : 
@@ -97,11 +121,5 @@ def get_problem_detailed_context(problem : Problem) -> dict :
 
     }
 
-def log_utility(message) :
-    print(message)
     
-
-
-
-
 

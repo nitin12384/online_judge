@@ -160,14 +160,7 @@ class Manager{
         });
     }
 
-    create_submission_request(){
-
-        Logger.log("create_submission_request() called");
-        // read text area
-        // read language option
-        // read token 
-        // set headers and body
-        const csrftoken = getCookie('csrftoken');
+    get_request_body(){
         const code = document.getElementById(Config.code_input_element_id).value ;
         const lang_selector = document.getElementById(Config.language_selector_element_id);
         const language_id = lang_selector.options[lang_selector.selectedIndex].value;
@@ -178,6 +171,21 @@ class Manager{
             "problem_id" : "${cur_page_problem_id}",
             "code" : "${code}"
         }`;
+
+        return body_str;
+    }
+
+    create_submission_request(){
+
+        Logger.log("create_submission_request() called");
+        // read text area
+        // read language option
+        // read token 
+        // set headers and body
+        const csrftoken = getCookie('csrftoken');
+
+        const body_str = this.get_request_body();
+        
 
         const request = new Request(
             'http://localhost:8000/submit/',
