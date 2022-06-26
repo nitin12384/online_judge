@@ -6,6 +6,8 @@ from .models import Problem, Submission
 from .backend.utils import get_problem_detailed_context
 from django.views.decorators.csrf import csrf_exempt
 from .backend.utils import Logger
+
+from .backend.core import SubmissionHandler
 # Create your views here.
 
 from .backend import DatabaseHandler
@@ -68,13 +70,12 @@ def submit(request) :
     language_id = body['language_id']
     code = body['code']
 
-    log_utility("Recieved submission for P-" + problem_id + " language_id " + language_id)
-    code_file = open("new.temp.txt", "w")
-    code_file.write(code)
-    code_file.close()
+    Logger.log("Recieved submission for P-" + problem_id + " language_id " + language_id)
+
+    verdict = SubmissionHandler.submit(code, problem_id, language_id)
 
     verdict_dict = dict({
-        'verdict' : 'Wrong answer of test 0. Ha ha ha.'
+        'verdict' : verdict
     })
 
     return JsonResponse(verdict_dict)

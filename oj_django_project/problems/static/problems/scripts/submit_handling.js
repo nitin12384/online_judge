@@ -172,6 +172,13 @@ class Manager{
             "code" : "${code}"
         }`;
 
+        if(Config.debug_mode){
+            Logger.log(//"Request - csrftoken : " + csrftoken + 
+            "\nlanguage_id : " + language_id + 
+            "\nproblem_id : " + cur_page_problem_id +
+            "\ncode : " + code);
+        }
+
         return body_str;
     }
 
@@ -198,12 +205,7 @@ class Manager{
         )
 
         
-        if(Config.debug_mode){
-            Logger.log("Request - csrftoken : " + csrftoken + 
-            "\nlanguage_id : " + language_id + 
-            "\nproblem_id : " + cur_page_problem_id +
-            "\ncode : " + code);
-        }
+        
 
 
         // return request
