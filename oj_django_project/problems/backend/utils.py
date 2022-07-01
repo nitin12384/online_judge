@@ -2,6 +2,8 @@ from datetime import datetime
 
 from ..models import Problem,Language,ProblemLanguageRelation
 
+from . import configs
+
 class LogginMethods :
     
     LOG_STDOUT = 1
@@ -28,12 +30,7 @@ class Logger :
 
 
 # global properties
-DATA_HOME_WINDOWS = r"C:\Users\kumniti\prog\Projects\online_judge\data"
-SUBMISSION_DATA_BASE_PATH = DATA_HOME_WINDOWS + r"\submissions" 
-PROBLEM_DATA_BASE_PATH = DATA_HOME_WINDOWS + r"\problems"
 
-ENVIROMENT  =  "WINDOWS_1"
-ENV_WINDOWS1 = "WINDOWS_1"
 
 def to_window_slash(s : str) -> str :
     assert s != None 
@@ -75,8 +72,8 @@ def get_problem_detailed_context(problem : Problem) -> dict :
     data_dir = None
 
     # get the data directory
-    if ENVIROMENT == ENV_WINDOWS1 :
-        data_dir = PROBLEM_DATA_BASE_PATH + to_window_slash(problem.data_dir_path)
+    if configs.ENVIRONMENT == configs.ENV_WINDOWS1 :
+        data_dir = configs.PROBLEM_DATA_BASE_PATH + to_window_slash(problem.data_dir_path)
 
     assert data_dir != None 
 
@@ -89,7 +86,7 @@ def get_problem_detailed_context(problem : Problem) -> dict :
     file_paths = [description_file_path, input_file_path, output_file_path, 
     constraints_file_path, examples_file_path]
 
-    if ENVIROMENT == ENV_WINDOWS1 :  
+    if configs.ENVIRONMENT == configs.ENV_WINDOWS1 :
         # convert slash acc. to windows
         file_paths = [to_window_slash(s) for s in file_paths]
     
