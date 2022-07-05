@@ -105,13 +105,13 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
             execution_result = self.execute_file_with_io(executable_file_path, inp_file_path, out_file_path)
 
             # Check result
-            # Todo
+            # Todo : confirm
             if execution_result.failed:
                 verdict = execution_result.message + "on TestCase #" + str(testcase_id)
                 break
 
             # compare and update verdict
-            # Todo
+            # Todo : test
             if not file_comparer_exact(out_file_path, expected_output_file_path):
                 verdict = "Wrong Answer on TestCase #" + str(testcase_id)
                 break
@@ -137,18 +137,22 @@ def get_output_dir_path() -> str:
     return configs.TEMP_OUTPUT_DATA_PATH
 
 
+# Todo : Confirm
 def get_inp_file_path(testcases_dir_path: str, testcase_id: int) -> str:
     return testcases_dir_path + r"/inp_" + str(testcase_id) + ".txt"
 
 
+# Todo : Confirm
 def get_expected_output_file_path(testcases_dir_path: str, testcase_id: int) -> str:
     return testcases_dir_path + r"/out_" + str(testcase_id) + ".txt"
 
 
+# Todo : Confirm
 def get_output_file_path(output_dir_path: str, testcase_id: int = 0) -> str:
     return output_dir_path + r"/gen_out_" + str(testcase_id) + ".txt"
 
 
+# Todo : Confirm
 def process(code_file_full_path: str, language_id: int,
             submission_id: int, problem_id: int, code_file_name_without_extension: str) -> str:
     # return verdict
@@ -169,5 +173,5 @@ def process(code_file_full_path: str, language_id: int,
     # Task : compile and run and generate output
     # match output of testcase i, before running for testcase i+1
     # and get the verdict
-
-    pass
+    return language_processor.process(code_file_full_path, code_file_name_without_extension,
+                                      num_testcases, testcases_dir_path, output_dir_path)
