@@ -16,6 +16,7 @@ class SubmissionHandler:
         # save code to file 
 
         num_sub = get_num_submissions()
+        file_name_without_extension = "code_" + str(num_sub+1)
         file_relative_path = SubmissionHandler.get_new_file_relative_path(language_id, num_sub)
         file_full_path = SubmissionHandler.get_new_file_full_path(file_relative_path)
         SubmissionHandler.save_to_file(code, file_full_path)
@@ -56,13 +57,14 @@ class SubmissionHandler:
 
     # completed
     @staticmethod
-    def get_new_file_relative_path(language_id: int, num_sub: int) -> str:
+    def get_new_file_relative_path(language_id: int, num_sub: int,
+                                   file_name_without_extension: str) -> str:
         # what should be the path of new file
         # relative path 
         file_extension = get_language_file_extension(language_id)
         data_dir = SubmissionHandler.get_next_sub_data_dir(num_sub)
 
-        file_name = "code" + str(num_sub + 1) + "." + file_extension
+        file_name = file_name_without_extension + "." + file_extension
         file_path = "/" + data_dir + "/" + file_name
         return file_path
 

@@ -22,12 +22,15 @@ class Logger :
         self.logging_method=1
     
     def log(msg):
-        # msg could be str ...
+        # msg could be str or may not be ...
         if Logger.def_logging_method == LogginMethods.LOG_STDOUT :
             print('[' + str(datetime.now()) + '] ' + msg)
 
 
-
+# Todo
+def command_runner(command: str):
+    # the limit is 8191 character .
+    pass
 
 # global properties
 
