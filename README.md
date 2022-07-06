@@ -1,3 +1,4 @@
+
 # online_judge
 
 
@@ -19,28 +20,28 @@
 
 - ✔️2a. Decide the database architect, all tables, primary keys, foreign keys
 - ✔️2b. Decide the UI, 
-- ▶️2c. Decide the backend architecture : dataflow, api, etc.
+- ✔️2c. Decide the backend architecture : dataflow, api, etc.
 
 -- Database ( 2-3 hour )
 
-- ▶️3a. Create the database.
+- ✔️3a. Create the database.
 
 -- Implementing the Backend (1-1.5 week )
 
-- ▶️4a. Getting List of problems 
-- 4b. Getting a problem details 
-- 4c. Submitting the code 
-- 4d. Getting the verdict
-- 4e. Getting n recent submissions 
+- ✔️4a. Getting List of problems 
+- ✔️4b. Getting a problem details 
+- ✔️4c. Submitting the code 
+- ▶️4d. Getting the verdict
+- ✔️4e. Getting n recent submissions 
 
 -- Implement the UI + backend finalizing (1 week )
 
-- 5a. Home page : List of problems
-- 5b. Problem page : problem details
-- 5c. Submit Page 
-- 5d. Submissions page : 10/20/{customizable} recent submissions
+- ▶️5a. Home page : List of problems
+- ▶️5b. Problem page : problem details
+- ▶️5c. Submit Page 
+- ▶️5d. Submissions page : 10/20/{customizable} recent submissions
 
-- 6a. Integrate all things ( 2-3 days)
+- ▶️6a. Integrate all things ( 2-3 days)
 
 -- MVP done
 

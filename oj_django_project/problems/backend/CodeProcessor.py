@@ -7,6 +7,7 @@ from .utils import command_runner
 from ..models import Problem
 from .validation import file_comparer_exact
 
+
 class CompilationResult:
     def __init__(self, failed: bool = False, message: str = configs.COMPILED_SUCCESSFULLY_MESSAGE):
         self.failed = failed
@@ -49,7 +50,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
         self.compiler_full_path = ""
         self.executable_file_extension = ".out"
 
-    # Todo
+    # Todo : test
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         # dir path should not end with a slash ?
 
@@ -76,6 +77,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
                              out_file_full_path: str) -> ExecutionResult:
         pass
 
+    # Todo : test
     def process(self, code_file_path: str, code_file_name_without_extension: str,
                 num_testcase: int, testcases_dir_path: str, output_dir_path) -> str:
         # preprocess
