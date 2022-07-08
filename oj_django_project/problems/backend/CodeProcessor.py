@@ -61,8 +61,9 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
         execution_info = run_command(command)
 
         compilation_result = CompilationResult()
-        compilation_result.failed = execution_info.failed
-        compilation_result.message = execution_info.message
+        if execution_info.failed:
+            compilation_result.failed = True
+            compilation_result.message = "Compilation Failed . Message : \n" + execution_info.message
 
         return executable_file_path, compilation_result
 

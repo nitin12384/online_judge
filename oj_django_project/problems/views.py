@@ -72,7 +72,7 @@ def submit(request):
 
     Logger.log("(views.py)Recieved submission for P-" + problem_id + " language_id " + language_id)
 
-    verdict = SubmissionHandler.submit(problem_id, language_id)
+    verdict = SubmissionHandler.submit(code, problem_id, language_id)
 
     verdict_dict = dict({
         'verdict': verdict

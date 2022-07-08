@@ -1,6 +1,11 @@
 
 from . import configs
 
+from .utils import Logger
+
+import os
+
+
 class ExecutionCap:
     def __init__(self,
                  runtime_cap: int,
@@ -22,5 +27,17 @@ class ExecutionInfo:
 # Todo
 def run_command(command: str, execution_cap: ExecutionCap) -> ExecutionInfo:
     # the limit is 8191 character .
-    return ExecutionInfo(0, 0)
+    if len(command) >= configs.COMMAND_LENGTH_LIMIT:
+        Logger.log("Command is too big " + command)
+        return None
+
+    Logger.log("Executing command : " + command)
+    ret_val = os.system(command)
+    Logger.log("ret_val of command : " + ret_val)
+    execution_info = ExecutionInfo()
+    if ret_val != 0:
+        execution_info.failed = True
+        execution_info.message = "Failed"
+
+    return execution_info
 

@@ -1,0 +1,18 @@
+ Volume in drive C is Windows
+ Volume Serial Number is 8C80-ED4E
+
+ Directory of C:\Users\kumniti\prog\Projects\online_judge
+
+07/08/2022  08:55 PM    <DIR>          .
+07/08/2022  08:55 PM    <DIR>          ..
+06/19/2022  07:46 PM               804 .gitignore
+07/08/2022  08:14 PM    <DIR>          .idea
+06/22/2022  11:58 AM    <DIR>          data
+06/22/2022  11:58 AM    <DIR>          db_scripts
+06/26/2022  07:22 PM    <DIR>          docs
+06/12/2022  12:08 PM            35,823 LICENSE
+06/26/2022  08:05 PM    <DIR>          oj_django_project
+07/08/2022  08:56 PM                 0 out.txt
+07/06/2022  07:30 AM             1,760 README.md
+               4 File(s)         38,387 bytes
+               7 Dir(s)  67,183,751,168 bytes free
