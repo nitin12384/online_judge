@@ -68,14 +68,14 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
         return executable_file_path, compilation_result
 
     def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
-        return quote_enclose(self.compiler_full_path) + configs.SPACE + \
+        return self.compiler_full_path + configs.SPACE + \
                quote_enclose(code_file_path) + " -o " + quote_enclose(executable_file_full_path)
 
     @staticmethod
     def get_execute_command(executable_file_path: str, inp_file_path: str,
                             out_file_path: str):
         # for c++ executables
-        return "cat " + quote_enclose(inp_file_path) + \
+        return "type " + quote_enclose(inp_file_path) + \
             " | " + quote_enclose(executable_file_path) + \
             " > " + out_file_path
 
@@ -120,7 +120,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
             # Check result
             if execution_info.failed:
-                verdict = execution_info.message + "on TestCase #" + str(testcase_id)
+                verdict = execution_info.message + " on TestCase #" + str(testcase_id)
                 break
 
             # compare and update verdict

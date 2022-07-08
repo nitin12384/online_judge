@@ -13,6 +13,7 @@ class ExecutionCap:
         self.memory_cap = memory_cap
         self.runtime_cap = runtime_cap
 
+
 # ugly global var
 default_execution_cap = ExecutionCap(5000, 500)
 
@@ -28,7 +29,7 @@ class ExecutionInfo:
 
 
 # Todo
-def run_command(command: str, execution_cap: ExecutionCap=default_execution_cap) -> ExecutionInfo:
+def run_command(command: str, execution_cap: ExecutionCap = default_execution_cap) -> ExecutionInfo:
     # the limit is 8191 character .
     if len(command) >= configs.COMMAND_LENGTH_LIMIT:
         Logger.log("Command is too big " + command)

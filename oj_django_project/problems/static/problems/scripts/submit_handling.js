@@ -160,8 +160,27 @@ class Manager{
         });
     }
 
+    // Todo : Make it more efficient
+    add_backslash_to_quotes(str){
+        let res = "";
+        //for(let c in str){
+        for(let i=0; i<str.length; i++){
+            let c = str[i];
+            if(c !== "\'" && c !== "\""){
+                res += String(c);
+            }
+            else{
+                res += "\\" + String(c) ;
+            }
+        }
+        return res;
+    }
+
     get_request_body(){
-        const code = document.getElementById(Config.code_input_element_id).value ;
+        let code = document.getElementById(Config.code_input_element_id).value ;
+
+        // Todo : This is a very temporary fix. Can you do something else ?
+        code = Manager.instance.add_backslash_to_quotes(code);
         const lang_selector = document.getElementById(Config.language_selector_element_id);
         const language_id = lang_selector.options[lang_selector.selectedIndex].value;
         

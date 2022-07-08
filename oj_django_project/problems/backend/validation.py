@@ -1,4 +1,5 @@
 
+from .utils import Logger
 
 # Todo : test
 def file_comparer_exact(file1_path: str, file2_path: str) -> bool:
@@ -18,8 +19,13 @@ def file_comparer_exact(file1_path: str, file2_path: str) -> bool:
 
         if line1 == "" and line2 == "":
             return True
-        elif line1 != line2:
+
+        line1 = line1.strip()
+        line2 = line2.strip()
+        if line1 != line2:
             # difference at line cur_line_num
+            Logger.log("file_comparer_exact. Found difference at line " + str(cur_line_num)
+                       + " line1 : " + line1 + " line2 : " + line2)
             return False
 
         cur_line_num += 1
