@@ -3,10 +3,9 @@
 from ast import Sub
 import math
 from datetime import datetime
-from .DatabaseHandler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission
+from .db_handler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission
 from . import configs
-from .CodeProcessor import process
-
+from .code_processor import process
 
 
 class SubmissionHandler:
@@ -17,7 +16,8 @@ class SubmissionHandler:
 
         num_sub = get_num_submissions()
         file_name_without_extension = "code_" + str(num_sub+1)
-        file_relative_path = SubmissionHandler.get_new_file_relative_path(language_id, num_sub)
+        file_relative_path = SubmissionHandler.get_new_file_relative_path(language_id, num_sub,
+                                                                          file_name_without_extension)
         file_full_path = SubmissionHandler.get_new_file_full_path(file_relative_path)
         SubmissionHandler.save_to_file(code, file_full_path)
 

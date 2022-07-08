@@ -1,7 +1,7 @@
 # necessary to use abstract class
 from abc import abstractmethod
 
-from .DatabaseHandler import get_problem
+from .db_handler import get_problem
 from . import configs
 from .utils import quote_enclose
 from .execution import run_command, ExecutionInfo, ExecutionCap
@@ -98,7 +98,8 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
                                                                                code_file_name_without_extension)
 
         if compilation_result.failed :
-            return "Compilation Error"
+            # runtime 0
+            return "Compilation Error",0
 
         verdict = "Accepted : Passed #" + str(num_testcase) + " Test Cases."
         runtime = -1
@@ -136,6 +137,7 @@ LanguageProcessorMapping = {
 
 
 def get_language_processor(language_id: int) -> LanguageProcessorBase:
+    assert type(language_id) == int
     return LanguageProcessorMapping[language_id]
 
 

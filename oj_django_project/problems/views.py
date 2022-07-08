@@ -10,7 +10,7 @@ from .backend.utils import Logger
 from .backend.core import SubmissionHandler
 # Create your views here.
 
-from .backend import DatabaseHandler
+from .backend import db_handler
 
 
 def index(request):
@@ -65,12 +65,13 @@ def submit(request):
 
     print(req_body)
 
-    body = json.loads(req_body)
-    problem_id = body['problem_id']
-    language_id = body['language_id']
+    body = json.loads(req_body, strict=False)
+    problem_id = int(body['problem_id'])
+    language_id = int(body['language_id'])
     code = body['code']
 
-    Logger.log("(views.py)Recieved submission for P-" + problem_id + " language_id " + language_id)
+    Logger.log("(views.py)Received submission for P-" + str(problem_id)
+               + " language_id " + str(language_id))
 
     verdict = SubmissionHandler.submit(code, problem_id, language_id)
 
