@@ -3,7 +3,8 @@ from abc import abstractmethod
 
 from .DatabaseHandler import get_problem
 from . import configs
-from .utils import run_command, quote_enclose
+from .utils import quote_enclose
+from .execution import run_command, ExecutionInfo, ExecutionCap
 from ..models import Problem
 from .validation import file_comparer_exact
 
@@ -12,13 +13,6 @@ from .validation import file_comparer_exact
 class CompilationResult:
     def __init__(self, failed: bool = False, message: str = configs.COMPILED_SUCCESSFULLY_MESSAGE):
         self.failed = failed
-        self.message = message
-
-
-class ExecutionResult:
-    def __init__(self, runtime: int = 0, failed: bool = False, message: str = "Successfully Executed"):
-        self.failed = failed
-        self.runtime = runtime
         self.message = message
 
 
@@ -64,8 +58,13 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
                                                         code_file_name_without_extension)
 
         command = self.get_compiler_command(code_file_path, executable_file_path)
-        run_command(command)
-        return executable_file_path, CompilationResult()
+        execution_info = run_command(command)
+
+        compilation_result = CompilationResult()
+        compilation_result.failed = execution_info.failed
+        compilation_result.message = execution_info.message
+
+        return executable_file_path, compilation_result
 
     def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
         return quote_enclose(self.compiler_full_path) + configs.SPACE + \
@@ -80,14 +79,13 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
             " > " + out_file_path
 
     def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
-                             out_file_path: str) -> ExecutionResult:
+                             out_file_path: str, runtime_limit: int, memory_limit: int) -> ExecutionInfo:
         command = self.get_execute_command(executable_file_path, inp_file_path, out_file_path)
-        run_command(command)
-        return ExecutionResult()
+        return run_command(command, ExecutionCap(runtime_limit, memory_limit))
 
-    # Todo : test
     def process(self, code_file_path: str, code_file_name_without_extension: str,
-                num_testcase: int, testcases_dir_path: str, output_dir_path) -> tuple:
+                num_testcase: int, testcases_dir_path: str, output_dir_path: str,
+                runtime_limit: int, memory_limit: int) -> tuple:
         # preprocess
         self.preprocess(code_file_path)
 
@@ -113,18 +111,17 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
             out_file_path = get_output_file_path(output_dir_path, testcase_id)
 
             # execute
-            execution_result = self.execute_file_with_io(executable_file_path, inp_file_path, out_file_path)
+            execution_info = self.execute_file_with_io(executable_file_path, inp_file_path, out_file_path,
+                                                       runtime_limit, memory_limit)
 
-            runtime = max(runtime, execution_result.runtime)
+            runtime = max(runtime, execution_info.runtime)
 
             # Check result
-            # Todo : confirm
-            if execution_result.failed:
-                verdict = execution_result.message + "on TestCase #" + str(testcase_id)
+            if execution_info.failed:
+                verdict = execution_info.message + "on TestCase #" + str(testcase_id)
                 break
 
             # compare and update verdict
-            # Todo : test
             if not file_comparer_exact(out_file_path, expected_output_file_path):
                 verdict = "Wrong Answer on TestCase #" + str(testcase_id)
                 break
@@ -150,22 +147,18 @@ def get_output_dir_path() -> str:
     return configs.TEMP_OUTPUT_DATA_PATH
 
 
-# Todo : Confirm
 def get_inp_file_path(testcases_dir_path: str, testcase_id: int) -> str:
     return testcases_dir_path + r"/inp_" + str(testcase_id) + ".txt"
 
 
-# Todo : Confirm
 def get_expected_output_file_path(testcases_dir_path: str, testcase_id: int) -> str:
     return testcases_dir_path + r"/out_" + str(testcase_id) + ".txt"
 
 
-# Todo : Confirm
 def get_output_file_path(output_dir_path: str, testcase_id: int = 0) -> str:
     return output_dir_path + r"/gen_out_" + str(testcase_id) + ".txt"
 
 
-# Todo : Confirm
 def process(code_file_full_path: str, language_id: int,
             submission_id: int, problem_id: int, code_file_name_without_extension: str) -> tuple:
     # return verdict, runtime
@@ -182,9 +175,12 @@ def process(code_file_full_path: str, language_id: int,
     num_testcases = problem.num_testcases
     testcases_dir_path = get_testcases_dir_path(problem)
     output_dir_path = get_output_dir_path()
+    runtime_limit = problem.time_limit
+    memory_limit = configs.DEFAULT_MEMORY_LIMIT  # MB , by default
 
     # Task : compile and run and generate output
     # match output of testcase i, before running for testcase i+1
     # and get the verdict
     return language_processor.process(code_file_full_path, code_file_name_without_extension,
-                                      num_testcases, testcases_dir_path, output_dir_path)
+                                      num_testcases, testcases_dir_path, output_dir_path,
+                                      runtime_limit, memory_limit)

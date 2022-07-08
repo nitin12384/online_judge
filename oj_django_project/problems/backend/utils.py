@@ -5,13 +5,6 @@ from ..models import Problem, Language, ProblemLanguageRelation
 from . import configs
 
 
-class CommandExecutionInfo:
-    def __init__(self, memory_usage: int, runtime: int, error_code: int, error_message: str):
-        self.memory_usage = memory_usage
-        self.runtime = runtime
-        self.error_message = error_message
-        self.error_code = error_code
-
 
 class LogginMethods:
     LOG_STDOUT = 1
@@ -27,19 +20,16 @@ class Logger:
     # logFile = open(logFileName, 'a')
     # verboseLogFile = open(verboseLogFileName, 'a')
 
-    def __inti__(self):
+    def __init__(self):
         self.logging_method = 1
 
+    @staticmethod
     def log(msg):
         # msg could be str or may not be ...
         if Logger.def_logging_method == LogginMethods.LOG_STDOUT:
             print('[' + str(datetime.now()) + '] ' + msg)
 
 
-# Todo
-def run_command(command: str):
-    # the limit is 8191 character .
-    return CommandExecutionInfo(0, 0, 0, "")
 
 
 # global properties
