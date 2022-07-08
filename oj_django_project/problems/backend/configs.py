@@ -22,3 +22,6 @@ COMMAND_LENGTH_LIMIT = 8191
 
 INITIAL_VERDICT_TEXT = "Processing"
 SECURITY_CHECK_FAILED_VERDICT = "Security check failed for your code"
+
+CPP_COMPILER_PATH = r"C:\MorePrograms\tdm_gcc_10.3.0\bin\g++.exe"
+

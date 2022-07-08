@@ -1,7 +1,7 @@
 
 from . import configs
 
-from .utils import Logger
+from .utils import Logger, to_window_slash
 
 import os
 
@@ -33,6 +33,9 @@ def run_command(command: str, execution_cap: ExecutionCap=default_execution_cap)
     if len(command) >= configs.COMMAND_LENGTH_LIMIT:
         Logger.log("Command is too big " + command)
         return None
+
+    if configs.ENVIRONMENT == configs.ENV_WINDOWS1:
+        command = to_window_slash(command)
 
     Logger.log("Executing command : " + command)
     ret_val = os.system(command)
