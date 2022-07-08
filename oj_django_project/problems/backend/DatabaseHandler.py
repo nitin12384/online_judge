@@ -35,3 +35,10 @@ def save_new_submission(problem_id: int, source_file_path: str,
                             submission_time=submission_time)
     submission.save()
     return submission.id
+
+
+def update_submission(submission_id: int, verdict, runtime):
+    submission = Submission.objects.get(pk=submission_id)
+    submission.verdict = verdict
+    submission.runtime = runtime
+    submission.save()

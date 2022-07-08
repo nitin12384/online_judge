@@ -3,7 +3,7 @@
 from ast import Sub
 import math
 from datetime import datetime
-from .DatabaseHandler import get_num_submissions, get_language_file_extension, save_new_submission
+from .DatabaseHandler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission
 from . import configs
 from .CodeProcessor import process
 
@@ -28,18 +28,16 @@ class SubmissionHandler:
         )
 
         # -- LanguageProcessor
-
         # preprocess
-
         # validate
-
         # compile and run with input
-
-
         # match output
-
         # get verdict
-        verdict = "Implementing"
+        verdict, runtime = process(file_full_path, language_id, submission_id,
+                                   problem_id, file_name_without_extension)
+
+        # save to submission database
+        update_submission(submission_id, verdict, runtime)
         return verdict
 
     # completed

@@ -3,11 +3,12 @@ from abc import abstractmethod
 
 from .DatabaseHandler import get_problem
 from . import configs
-from .utils import command_runner
+from .utils import run_command, quote_enclose
 from ..models import Problem
 from .validation import file_comparer_exact
 
 
+# can use enum here
 class CompilationResult:
     def __init__(self, failed: bool = False, message: str = configs.COMPILED_SUCCESSFULLY_MESSAGE):
         self.failed = failed
@@ -34,7 +35,7 @@ class LanguageProcessorBase:
     # Like abstract method
     # returns the output file full
     def create_executable_file(self, code_file_full_path: str,
-                               code_file_name_without_extension: str) -> tuple(str, CompilationResult):
+                               code_file_name_without_extension: str) -> tuple:
         pass
 
 
@@ -44,42 +45,49 @@ class CPPLanguageProcessor(LanguageProcessorBase):
 
 class CPP14LanguageProcessor(CPPLanguageProcessor):
 
-    # Todo
     def __init__(self):
         # configs like compiler_path
         self.compiler_full_path = ""
         self.executable_file_extension = ".out"
 
-    # Todo : test
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         # dir path should not end with a slash ?
 
         return executable_dir_path + configs.SLASH + code_file_name_without_extension \
                + self.executable_file_extension
 
-    # Todo
     # may generate compiler error
-    def create_executable_file(self, code_file_full_path: str,
-                               code_file_name_without_extension: str) -> tuple(str, str):
-        pass
+    # returns : executable_file_path, compilation_result
+    def create_executable_file(self, code_file_path: str,
+                               code_file_name_without_extension: str) -> tuple:
+        executable_file_path = self.get_executable_path(configs.TEMP_EXECUTABLE_DIR_PATH,
+                                                        code_file_name_without_extension)
 
-    # Todo
-    def get_compiler_command(self, code_file_full_path: str, executable_file_full_path: str) -> str:
-        pass
+        command = self.get_compiler_command(code_file_path, executable_file_path)
+        run_command(command)
+        return executable_file_path, CompilationResult()
 
-    # Make command for
-    # Todo
-    def get_execute_command(self, executable_file_full_path: str, inp_file_full_path: str,
-                            out_file_full_path: str):
-        pass
+    def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
+        return quote_enclose(self.compiler_full_path) + configs.SPACE + \
+               quote_enclose(code_file_path) + " -o " + quote_enclose(executable_file_full_path)
 
-    def execute_file_with_io(self, executable_file_full_path: str, inp_file_full_path: str,
-                             out_file_full_path: str) -> ExecutionResult:
-        pass
+    @staticmethod
+    def get_execute_command(executable_file_path: str, inp_file_path: str,
+                            out_file_path: str):
+        # for c++ executables
+        return "cat " + quote_enclose(inp_file_path) + \
+            " | " + quote_enclose(executable_file_path) + \
+            " > " + out_file_path
+
+    def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
+                             out_file_path: str) -> ExecutionResult:
+        command = self.get_execute_command(executable_file_path, inp_file_path, out_file_path)
+        run_command(command)
+        return ExecutionResult()
 
     # Todo : test
     def process(self, code_file_path: str, code_file_name_without_extension: str,
-                num_testcase: int, testcases_dir_path: str, output_dir_path) -> str:
+                num_testcase: int, testcases_dir_path: str, output_dir_path) -> tuple:
         # preprocess
         self.preprocess(code_file_path)
 
@@ -94,6 +102,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
             return "Compilation Error"
 
         verdict = "Accepted : Passed #" + str(num_testcase) + " Test Cases."
+        runtime = -1
 
         for testcase_id in range(1, num_testcase + 1):
             # get inp file path
@@ -105,6 +114,8 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
             # execute
             execution_result = self.execute_file_with_io(executable_file_path, inp_file_path, out_file_path)
+
+            runtime = max(runtime, execution_result.runtime)
 
             # Check result
             # Todo : confirm
@@ -118,7 +129,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
                 verdict = "Wrong Answer on TestCase #" + str(testcase_id)
                 break
 
-        return verdict
+        return verdict, runtime
 
 
 LanguageProcessorMapping = {
@@ -156,8 +167,8 @@ def get_output_file_path(output_dir_path: str, testcase_id: int = 0) -> str:
 
 # Todo : Confirm
 def process(code_file_full_path: str, language_id: int,
-            submission_id: int, problem_id: int, code_file_name_without_extension: str) -> str:
-    # return verdict
+            submission_id: int, problem_id: int, code_file_name_without_extension: str) -> tuple:
+    # return verdict, runtime
     language_processor = get_language_processor(language_id)
     # Task : preprocess
     language_processor.preprocess(code_file_full_path)
