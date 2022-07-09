@@ -240,9 +240,27 @@ function handleSubmit(){
     Manager.instance.submit();
 }
 
+function handle_tab_textarea(){
+    document.getElementById(Config.code_input_element_id).addEventListener('keydown', function(e) {
+        if (e.key == 'Tab') {
+          e.preventDefault();
+          var start = this.selectionStart;
+          var end = this.selectionEnd;
+      
+          // set textarea value to: text before caret + tab + text after caret
+          this.value = this.value.substring(0, start) +
+            "\t" + this.value.substring(end);
+      
+          // put caret at right position again
+          this.selectionStart =
+            this.selectionEnd = start + 1;
+        }
+      });
+}
 
 function onLoad(){
     VerdictManager.instance.hide_loading_gif();
+    handle_tab_textarea();
 }
 
 onLoad();

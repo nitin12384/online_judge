@@ -105,11 +105,13 @@ def get_problem_detailed_context(problem: Problem) -> dict:
     plr_set = problem.problemlanguagerelation_set.all()
 
     languages = []
+    languages_str = ""
 
     for plr in plr_set:
         language_id = plr.language_id
         cur_language = Language.objects.get(pk=language_id)
         languages.append(cur_language)
+        languages_str += cur_language.name + ", "
 
     return {
         'problem': problem,
@@ -120,6 +122,6 @@ def get_problem_detailed_context(problem: Problem) -> dict:
         'constraints': file_data[3],
         'examples': file_data[4],
         'languages': languages,
-        'languages_str': languages.__str__(),
+        'languages_str': languages_str,
 
     }
