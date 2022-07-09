@@ -1,6 +1,15 @@
 
 # Todo
 
+## Current Todo With priorities
+
+- Option to see compiler error 
+- Add user log in
+- deploy on firebase
+- add python, java
+- merge submit and problem page
+- 
+
 
 * ToDo List
 ✔️ Done
