@@ -63,3 +63,7 @@ target/
 *.out
 *.class
 *.jar
+
+# code files
+# not being tracked for now .
+data/submissions/

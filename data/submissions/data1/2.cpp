@@ -16,3 +16,4 @@ int main(){
     }
     std::cout << max << std::endl;
 }
+

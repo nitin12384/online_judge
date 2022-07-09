@@ -24,7 +24,7 @@ def file_comparer_exact(file1_path: str, file2_path: str) -> bool:
         line2 = line2.strip()
         if line1 != line2:
             # difference at line cur_line_num
-            Logger.log("file_comparer_exact. Found difference at line " + str(cur_line_num)
+            Logger.log("file_comparer_exact. Found difference at line#" + str(cur_line_num)
                        + " line1 : " + line1 + " line2 : " + line2)
             return False
 
