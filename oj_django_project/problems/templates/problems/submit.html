@@ -29,7 +29,11 @@
                         P{{problem.id}} {{problem.name}}
                         </a>
                     </h2>
+                    <a href="{% url 'problems:submissions_detail_path' problem.id %}" class="button-link" >
+                        View All Submissions
+                    </a>
                 </div>
+
             </div>
             <div id="submission-input">
                 <form>
