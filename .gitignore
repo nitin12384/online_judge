@@ -57,3 +57,9 @@ coverage.xml
 
 # PyBuilder
 target/
+
+# Build files for cpp, java
+*.exe
+*.out
+*.class
+*.jar
