@@ -11,6 +11,7 @@
         <title>Submissions P-{{problem.id}}</title>
         {% load static %}
         <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
     </head>
     <body>
         <div id="header-root">
@@ -28,10 +29,10 @@
             </h2>
             <table>
                 <thead>
-                    <td>ID</td>
-                    <td>Time of Submission</td>
-                    <td>Runtime</td>
-                    <td>Verdict</td>
+                    <td class="table-header-cell" >ID</td>
+                    <td class="table-header-cell" >Time of Submission</td>
+                    <td class="table-header-cell" >Runtime</td>
+                    <td class="table-header-cell" >Verdict</td>
                 </thead>
             <tbody>
                 {% for submission in problem.submission_set.all %}

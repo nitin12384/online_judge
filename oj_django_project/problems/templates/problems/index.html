@@ -11,6 +11,7 @@
         <title>Codesmed - Problemset</title>
         {% load static %}
         <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
     </head>
     <body>
         <div id="header-root">
@@ -24,11 +25,11 @@
             <h2 class="heading2">Problemset</h2>
             <table>
                 <thead>
-                    <td>ID</td>
-                    <td>Problem Name</td>
-                    <td>Difficulty</td>
+                    <td class="table-header-cell">ID</td>
+                    <td class="table-header-cell">Problem Name</td>
+                    <td class="table-header-cell">Difficulty</td>
                 </thead>
-            <tbody>
+                <tbody>
                 {% for problem in problem_list %}
                 <tr id="problem-{{problem.id}}">
                     <td>{{problem.id}}</td>
@@ -38,7 +39,7 @@
                     <td>{{problem.difficulty}}</td>
                 </tr>
                 {% endfor %}
-            </tbody>
+                </tbody>
             </table>
         </div>
     </body>
