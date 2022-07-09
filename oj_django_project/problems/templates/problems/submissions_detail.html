@@ -40,7 +40,7 @@
                     <td>{{submission.id}}</td>
                     <td>{{submission.submission_time}}</td>
                     <td>{{submission.runtime}}</td>
-                    <td>{{submission.verdict}}</td>
+                    <td class="verdict-text-{{submission.verdict_type}}">{{submission.verdict}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

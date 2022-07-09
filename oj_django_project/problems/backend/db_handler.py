@@ -1,3 +1,4 @@
+from re import sub
 from ..models import Problem, Language, ProblemLanguageRelation, Submission
 from datetime import datetime
 from . import configs
@@ -28,17 +29,20 @@ def save_new_submission(problem_id: int, source_file_path: str,
     assert problem is not None
 
     verdict = configs.INITIAL_VERDICT_TEXT
+    verdict_type = configs.INITIAL_VERDICT_TYPE
     runtime = 0
 
     submission = Submission(problem=problem, source_file_path=source_file_path,
-                            verdict=verdict, runtime=runtime, language_id=language_id,
+                            verdict=verdict, verdict_type=verdict_type, 
+                            runtime=runtime, language_id=language_id,
                             submission_time=submission_time)
     submission.save()
     return submission.id
 
 
-def update_submission(submission_id: int, verdict, runtime):
+def update_submission(submission_id: int, verdict: int, verdict_type: int, runtime: int):
     submission = Submission.objects.get(pk=submission_id)
     submission.verdict = verdict
+    submission.verdict_type = verdict_type
     submission.runtime = runtime
     submission.save()

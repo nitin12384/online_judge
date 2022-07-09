@@ -69,9 +69,12 @@ class VerdictManager{
         this.verdict_loading_gif.style.display = "none";
     }
 
-    set_verdict(verdict){
+    set_verdict(verdict, verdict_type){
         // set verdict message in HTML DOM element.
         this.verdict_element.innerHTML = verdict;
+        // make sure to assign correct class 
+        let verdict_element_class = "verdict-text-" + verdict_type
+        this.verdict_element.className = verdict_element_class
     }
 
 }
@@ -154,8 +157,7 @@ class Manager{
             return response.json();
         })
         .then( (data) => {
-            const verdict = data.verdict;
-            VerdictManager.instance.set_verdict(verdict);
+            VerdictManager.instance.set_verdict(data.verdict, data.verdict_type);
             VerdictManager.instance.hide_loading_gif();
         });
     }

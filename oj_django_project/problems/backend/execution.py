@@ -20,11 +20,15 @@ default_execution_cap = ExecutionCap(5000, 500)
 
 class ExecutionInfo:
     def __init__(self, memory_usage: int, runtime: int, failed: bool = False,
-                 return_code: int = 0, message: str = configs.EXECUTED_SUCCESSFULLY_MESSAGE):
+                 return_code: int = 0, runtime_cap_reached: bool=False,
+                 memory_cap_reached: bool=False,
+                 message: str = configs.EXECUTED_SUCCESSFULLY_MESSAGE):
         self.memory_usage = memory_usage
         self.runtime = runtime
         self.failed = failed
         self.return_code = return_code
+        self.runtime_cap_reached = runtime_cap_reached
+        self.memory_cap_reached = memory_cap_reached
         self.message = message
 
 

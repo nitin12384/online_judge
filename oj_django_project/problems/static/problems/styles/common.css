@@ -2,6 +2,10 @@
 :root{
     --primary_colour : #fffffa;
     --button_colour : rgba(80, 80, 80, 0.2);
+    --ac_green_colour : rgb(0,200,50);
+    --wa_red_colour : rgb(200,40,40);
+    --tle_yellow_colour : rgb(150,80,50);
+    --error_verdict_colour : rgb(40, 40, 40);
 }
 
 *{
@@ -84,4 +88,34 @@ h3{
 
 #submission-input-textarea{
     width: 100%;
+}
+
+/*verdict_type : -1 -> error, 0 -> AC, 1 -> WA, 2 -> RE, 3 -> TLE, 4 -> MLE, 5 -> CE*/
+
+.verdict-text--1{
+    color : var(--error_verdict_colour);
+}
+
+.verdict-text-0{
+    color: var(--ac_green_colour);
+}
+
+.verdict-text-1{
+    color: var(--wa_red_colour);
+}
+
+.verdict-text-2{
+    color: var(--wa_red_colour);
+}
+
+.verdict-text-3{
+    color: var(--tle_yellow_colour)
+}
+
+.verdict-text-4{
+    color: var(--wa_red_colour);
+}
+
+.verdict-text-5{
+    color: var(--wa_red_colour);
 }

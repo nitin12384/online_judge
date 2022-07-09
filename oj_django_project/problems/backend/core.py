@@ -33,12 +33,13 @@ class SubmissionHandler:
         # compile and run with input
         # match output
         # get verdict
-        verdict, runtime = process(file_full_path, language_id, submission_id,
+        verdict, verdict_type, runtime = process(file_full_path, language_id, submission_id,
                                    problem_id, file_name_without_extension)
 
         # save to submission database
-        update_submission(submission_id, verdict, runtime)
-        return verdict
+        update_submission(submission_id, verdict=verdict, verdict_type=verdict_type, 
+                          runtime=runtime)
+        return verdict, verdict_type
 
     # completed
 

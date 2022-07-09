@@ -73,10 +73,11 @@ def submit(request):
     Logger.log("(views.py)Received submission for P-" + str(problem_id)
                + " language_id " + str(language_id))
 
-    verdict = SubmissionHandler.submit(code, problem_id, language_id)
+    verdict, verdict_type = SubmissionHandler.submit(code, problem_id, language_id)
 
     verdict_dict = dict({
-        'verdict': verdict
+        'verdict': verdict,
+        'verdict_type' : verdict_type
     })
 
     return JsonResponse(verdict_dict)

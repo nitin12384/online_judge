@@ -21,6 +21,7 @@ DEFAULT_MEMORY_LIMIT = 500  # MB
 COMMAND_LENGTH_LIMIT = 8191
 
 INITIAL_VERDICT_TEXT = "Processing"
+INITIAL_VERDICT_TYPE = -1
 SECURITY_CHECK_FAILED_VERDICT = "Security check failed for your code"
 
 CPP_COMPILER_PATH = r"C:\MorePrograms\tdm_gcc_10.3.0\bin\g++.exe"

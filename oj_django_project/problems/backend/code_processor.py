@@ -96,12 +96,14 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
         executable_file_path, compilation_result = self.create_executable_file(code_file_path,
                                                                                code_file_name_without_extension)
-
+        # verdict_type : 0 -> AC, 1 -> WA, 2 -> RE, 3 -> TLE, 4 -> MLE, 5 -> CE
         if compilation_result.failed :
             # runtime 0
-            return "Compilation Error",0
+            # verdict_type  5
+            return "Compilation Error", 5, 0
 
         verdict = "Accepted : Passed #" + str(num_testcase) + " Test Cases."
+        verdict_type = 0
         runtime = -1
 
         for testcase_id in range(1, num_testcase + 1):
@@ -118,17 +120,23 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
             runtime = max(runtime, execution_info.runtime)
 
-            # Check result
+            if execution_info.runtime_cap_reached :
+                verdict = "TLE on TestCase #" + str(testcase_id)
+                verdict_type = 3
+                break
+
             if execution_info.failed:
                 verdict = execution_info.message + " on TestCase #" + str(testcase_id)
+                verdict_type = 2
                 break
 
             # compare and update verdict
             if not file_comparer_exact(out_file_path, expected_output_file_path):
                 verdict = "Wrong Answer on TestCase #" + str(testcase_id)
+                verdict_type = 1
                 break
 
-        return verdict, runtime
+        return verdict, verdict_type, runtime
 
 
 LanguageProcessorMapping = {
