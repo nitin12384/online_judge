@@ -88,6 +88,13 @@ h3{
 
 #submission-input-textarea{
     width: 100%;
+    padding: 0.3%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
 }
 
 /*verdict_type : -1 -> error, 0 -> AC, 1 -> WA, 2 -> RE, 3 -> TLE, 4 -> MLE, 5 -> CE*/
