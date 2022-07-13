@@ -213,8 +213,8 @@ class Manager{
         const csrftoken = getCookie('csrftoken');
 
         const body_str = this.get_request_body();
-        //const request_url = 'http://localhost:8000/submit/';
-        const request_url = 'https://ee4e-8-20-101-32.eu.ngrok.io/submit/';
+        const request_url = 'http://localhost:8000/submit/';
+        //const request_url = 'https://ee4e-8-20-101-32.eu.ngrok.io/submit/';
 
         const request = new Request(
             request_url,
