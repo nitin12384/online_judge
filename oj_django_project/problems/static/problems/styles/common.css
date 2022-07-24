@@ -89,6 +89,11 @@ h3{
 #submission-input-textarea{
     width: 100%;
     padding: 0.3%;
+
+    height: 70vh;
+
+    margin-bottom: 2vh;
+
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;

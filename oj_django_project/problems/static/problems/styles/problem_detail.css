@@ -1,3 +1,13 @@
 
+#detail-submit-content-root{
+    display: flex;
+}
 
 
+.main-column{
+    flex:50%;
+}
+
+#problem-submit-root{
+    margin-top: 10vh;
+}
