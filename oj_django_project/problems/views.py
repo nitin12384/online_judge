@@ -39,16 +39,6 @@ def submissions_detail(request, problem_id):
 
 
 
-# TODO : Remove
-def get_verdict(request, submission_id):
-    submission: Submission = get_object_or_404(Submission, pk=submission_id)
-    verdict_dict = dict({
-        'verdict': submission.verdict
-    })
-
-    return JsonResponse(verdict_dict)
-
-
 @csrf_exempt
 def submit(request):
     if request.method != 'POST':
