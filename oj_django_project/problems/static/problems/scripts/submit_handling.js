@@ -168,11 +168,11 @@ class Manager{
         //for(let c in str){
         for(let i=0; i<str.length; i++){
             let c = str[i];
-            if(c !== "\'" && c !== "\""){
-                res += String(c);
+            if(c === "\""){
+                res += "\\\"";
             }
             else{
-                res += "\\" + String(c) ;
+                res += String(c);
             }
         }
         return res;
