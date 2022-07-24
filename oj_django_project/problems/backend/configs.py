@@ -32,6 +32,8 @@ SECURITY_CHECK_FAILED_VERDICT = "Security check failed for your code"
 CONSOLE_FILE_PRINTER_WIN_1 = "type"
 CONSOLE_FILE_PRINTER_UBUNTU_1 = "cat"
 
+CONSOLE_FILE_COPIER_1 = "cp"
+
 CPP_COMPILER_PATH_1 = r"C:/MorePrograms/tdm_gcc_10.3.0/bin/g++.exe"
 CPP_COMPILER_PATH_2 = r"/usr/bin/g++"
 

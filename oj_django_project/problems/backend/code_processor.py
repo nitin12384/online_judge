@@ -36,12 +36,19 @@ class LanguageProcessorBase:
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         pass
     
+    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
+                            out_file_path: str):
+        pass 
+
+
+
+
+
+
     def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
                              out_file_path: str, runtime_limit: int, memory_limit: int) -> ExecutionInfo:
-        pass
-
-
-
+        command = self.get_execute_command(executable_file_path, inp_file_path, out_file_path)
+        return run_command(command, ExecutionCap(runtime_limit, memory_limit))
 
     # may generate compiler error
     # returns : executable_file_path, compilation_result
@@ -60,12 +67,7 @@ class LanguageProcessorBase:
 
         return executable_file_path, compilation_result
 
-    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
-                            out_file_path: str):
-        # for c++ executables
-        return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
-            " | " + quote_enclose(executable_file_path) + \
-            " > " + out_file_path
+    
 
     def process(self, code_file_path: str, code_file_name_without_extension: str,
                 num_testcase: int, testcases_dir_path: str, output_dir_path: str,
@@ -130,7 +132,32 @@ class CPPLanguageProcessor(LanguageProcessorBase):
 
 # Todo
 class PythonLangaugeProcessor(LanguageProcessorBase):
-    pass
+    def __init__(self):
+        # configs like compiler_path
+        self.compiler_full_path = configs.cur_config.python_compiler_path
+        self.executable_file_extension = ".py"
+
+    @overrides
+    def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
+        # for python we just copy file to executable path
+        return configs.CONSOLE_FILE_COPIER_1 + configs.SPACE + quote_enclose(code_file_path) + configs.SPACE  \
+            + quote_enclose(executable_file_full_path)
+
+    @overrides
+    def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
+        # dir path should not end with a slash ?
+        return executable_dir_path + configs.SLASH + code_file_name_without_extension \
+               + self.executable_file_extension
+
+    @overrides
+    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
+                            out_file_path: str):
+        # for python 
+        return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
+            " | " + "python3 " + quote_enclose(executable_file_path) + \
+            " > " + quote_enclose(out_file_path)
+
+    
 
 class CPP14LanguageProcessor(CPPLanguageProcessor):
 
@@ -152,11 +179,14 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
                + self.executable_file_extension
 
     @overrides
-    def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
-                             out_file_path: str, runtime_limit: int, memory_limit: int) -> ExecutionInfo:
-        command = self.get_execute_command(executable_file_path, inp_file_path, out_file_path)
-        return run_command(command, ExecutionCap(runtime_limit, memory_limit))
+    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
+                            out_file_path: str):
+        # for c++ executables
+        return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
+            " | " + quote_enclose(executable_file_path) + \
+            " > " + out_file_path
 
+    
 
 LanguageProcessorMapping = {
     1: CPP14LanguageProcessor(),
