@@ -32,5 +32,28 @@ SECURITY_CHECK_FAILED_VERDICT = "Security check failed for your code"
 CPP_COMPILER_PATH_1 = r"C:/MorePrograms/tdm_gcc_10.3.0/bin/g++.exe"
 CPP_COMPILER_PATH_2 = r"/usr/bin/g++"
 
+PYTHON_COMPILER_PATH_1 = r""
+PYTHON_COMPILER_PATH_2 = r"/usr/bin/python3"
 
+class Config:
+    def __init__(self, 
+        env_name            ,      
+        data_home           ,
+        cpp_compiler_path   ,
+        python_compiler_path
+    ):
+        self.env_name             = env_name            
+        self.data_home            = data_home           
+        self.cpp_compiler_path    = cpp_compiler_path   
+        self.python_compiler_path = python_compiler_path
 
+ubuntu_1_config = Config(ENV_UBUNTU1, DATA_HOME_UBUNTU_1, CPP_COMPILER_PATH_2, PYTHON_COMPILER_PATH_2)
+window_1_config = Config(ENV_WINDOWS1, DATA_HOME_WINDOWS_1, CPP_COMPILER_PATH_1, PYTHON_COMPILER_PATH_1)
+
+cur_config = None 
+
+if ENVIRONMENT == ENV_UBUNTU1 :
+    cur_config = ubuntu_1_config
+elif ENVIRONMENT == ENV_WINDOWS1 :
+    cur_config = window_1_config
+    
