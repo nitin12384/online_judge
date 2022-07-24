@@ -29,6 +29,9 @@ INITIAL_VERDICT_TEXT = "Processing"
 INITIAL_VERDICT_TYPE = -1
 SECURITY_CHECK_FAILED_VERDICT = "Security check failed for your code"
 
+CONSOLE_FILE_PRINTER_WIN_1 = "type"
+CONSOLE_FILE_PRINTER_UBUNTU_1 = "cat"
+
 CPP_COMPILER_PATH_1 = r"C:/MorePrograms/tdm_gcc_10.3.0/bin/g++.exe"
 CPP_COMPILER_PATH_2 = r"/usr/bin/g++"
 
@@ -40,12 +43,14 @@ class Config:
         env_name            ,      
         data_home           ,
         cpp_compiler_path   ,
-        python_compiler_path
+        python_compiler_path,
+        console_file_printer
     ):
         self.env_name             = env_name            
         self.data_home            = data_home           
         self.cpp_compiler_path    = cpp_compiler_path   
         self.python_compiler_path = python_compiler_path
+        self.console_file_printer = console_file_printer
 
         self.submission_data_dir_path = self.data_home + SUBMISSION_DATA_RELATIVE_PATH
         self.problem_data_dir_path = self.data_home + PROBLEM_DATA_RELATIVE_PATH
@@ -53,8 +58,8 @@ class Config:
         self.temp_executable_dir_path = self.submission_data_dir_path + TEMP_EXECUTABLE_DIR_RELATIVE_PATH
 
 
-ubuntu_1_config = Config(ENV_UBUNTU1, DATA_HOME_UBUNTU_1, CPP_COMPILER_PATH_2, PYTHON_COMPILER_PATH_2)
-window_1_config = Config(ENV_WINDOWS1, DATA_HOME_WINDOWS_1, CPP_COMPILER_PATH_1, PYTHON_COMPILER_PATH_1)
+ubuntu_1_config = Config(ENV_UBUNTU1, DATA_HOME_UBUNTU_1, CPP_COMPILER_PATH_2, PYTHON_COMPILER_PATH_2, CONSOLE_FILE_PRINTER_UBUNTU_1)
+window_1_config = Config(ENV_WINDOWS1, DATA_HOME_WINDOWS_1, CPP_COMPILER_PATH_1, PYTHON_COMPILER_PATH_1, CONSOLE_FILE_PRINTER_WIN_1)
 
 cur_config = None 
 

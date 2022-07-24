@@ -1,6 +1,8 @@
 # necessary to use abstract class
 from abc import abstractmethod
 
+from django import conf
+
 from .db_handler import get_problem
 from . import configs
 from .utils import quote_enclose
@@ -52,7 +54,7 @@ class LanguageProcessorBase:
     def get_execute_command(self, executable_file_path: str, inp_file_path: str,
                             out_file_path: str):
         # for c++ executables
-        return "type " + quote_enclose(inp_file_path) + \
+        return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
             " | " + quote_enclose(executable_file_path) + \
             " > " + out_file_path
 
