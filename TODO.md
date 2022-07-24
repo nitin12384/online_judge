@@ -3,17 +3,23 @@
 
 ## Current Todo With priorities
 
-- Option to see compiler error 
+
 - Add user log in
-- deploy on firebase
-- add python, java
-- merge submit and problem page
-- 
+- put in docker
+- deploy on firebase, heroku, AWS
+- Option to see compiler error 
+- Add multiple testcases for problems (big IO testcases)
+- Add More problems. Have 7-8 good and (nowhere else you could find) problems.
+- Improve the UI
+- Testing including NFR
+- send Friends
 
 
 * ToDo List
 ✔️ Done
 ▶️ In progress
+
+## Part 1
 
 -- Learning Basics (1 week)
 
@@ -54,13 +60,43 @@
 
 -- ✔️MVP done
 
--- Part 2 
+## Part 2 
 
-1. add authentication (1-2 days)
-2. add docker (2-3 days)
-3. add multiple testcases, and support of custom output checker program instead of simple file matcher (2-3 days)
-4. deploy on heroku(1 day)
-5. add some good problems on your OJ to make it actually usable ( 3-4 days and later : long continuous process )
-6. Improve the UI ( 2 days )
-7. Improve the backend ( 2 days )
-8. Migrate to postgreSQL ( ?? 3 days or more )
+- Add user authentication (1-2 days)
+- Add docker (2-3 days)
+
+- Add C, Ruby, Java 11, Kotlin
+- Add multiple testcases for problems (big IO testcases)
+- Add More problems. Have 7-8 good and (nowhere else you could find) problems.
+- Add support of custom output checker program instead of simple file matcher (2-3 days)
+
+- Deploy on heroku(1 day)
+- Deploy using AWS 
+
+- Get envioronment variable / VM args. like env, problem_data_path, etc.
+
+- Add Unit Testing
+- Add UI Testing
+- Add Functional and NFR Testing 
+
+- Make design more scalable : Put multiple docker instances, 
+- Use Ngnix and Gunicorn
+- Migrate to postgreSQL ( ?? 3 days or more )
+
+- Vague : Improve the UI ( 2 days )
+- Better Design of Table 
+
+- Vague : Improve the backend ( 2 days )
+- Todo Part in backend
+- more SOLID code.
+- divide code into more modules
+
+- Add run code with custom testcase feature
+- Add contests
+- User is able to see his old submissions
+- User is able to see which test case failed.
+- Syntax Highlighting in you text editor
+- Cache : Store most recent code to local storage (like leetcode)
+- copy button near sample IO
+
+
