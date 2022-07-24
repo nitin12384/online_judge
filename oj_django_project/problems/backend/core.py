@@ -52,7 +52,7 @@ class SubmissionHandler:
     # completed
     @staticmethod
     def get_new_file_full_path(file_relative_path: str) -> str:
-        return configs.SUBMISSION_DATA_BASE_PATH + file_relative_path
+        return configs.cur_config.submission_data_dir_path + file_relative_path
 
     # completed
     @staticmethod

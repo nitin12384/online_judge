@@ -75,18 +75,9 @@ out_1.txt, out_2.txt, ...
 
 
 def get_problem_detailed_context(problem: Problem) -> dict:
-    data_dir = None
 
-    # get the data directory
-    if configs.ENVIRONMENT == configs.ENV_WINDOWS1:
-        data_dir = configs.DATA_HOME_WINDOWS_1
-    elif configs.ENVIRONMENT == configs.ENV_UBUNTU1:
-        data_dir = configs.DATA_HOME_UBUNTU_1
-
-    data_dir += configs.PROBLEM_DATA_RELATIVE_PATH + problem.data_dir_path 
-
-    assert data_dir != None
-
+    data_dir = configs.cur_config.problem_data_dir_path + problem.data_dir_path 
+    
     description_file_path = data_dir + "/description.txt"
     input_file_path = data_dir + "/input.txt"
     output_file_path = data_dir + "/output.txt"
