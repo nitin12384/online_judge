@@ -1,0 +1,2 @@
+The first line of the input contains integers m and n . 
+The next n lines contain three integers each, t[i] , z[i] , and y[i], respectively

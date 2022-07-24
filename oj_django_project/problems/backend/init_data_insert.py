@@ -18,6 +18,13 @@ new_problem =   Problem(name='Naruto\'s Bracket Sequence', data_dir_path='/3', d
 new_problem.save()
 assert new_problem.id == 3
 
+new_problem =   Problem(name='Childrens Holiday', data_dir_path='/4', difficulty=1500, num_testcases=1, time_limit=1.0)
+new_problem.save()
+assert new_problem.id == 4
+
+
+
+
 new_language = Language(name='C++ 14')
 new_language.save()
 assert new_language.id == 1
@@ -25,6 +32,8 @@ assert new_language.id == 1
 new_language = Language(name='Python 3.10')
 new_language.save()
 assert new_language.id == 2
+
+
 
 
 new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=1), language_id=1)
@@ -50,6 +59,16 @@ assert new_plr.id == 5
 new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=3), language_id=2)
 new_plr.save()
 assert new_plr.id == 6
+
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=4), language_id=1)
+new_plr.save()
+assert new_plr.id == 7
+
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=4), language_id=2)
+new_plr.save()
+assert new_plr.id == 8
+
+
 
 new_submission = Submission(problem = Problem.objects.get(pk=1), source_file_path = 'data1/1.cpp', verdict = 'WA on Test Case 1', runtime = 1, language_id = 1, submission_time =  timezone.now())
 new_submission.save()

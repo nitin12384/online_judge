@@ -1,0 +1,39 @@
+https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/D
+
+ITMO Academy: pilot course » Binary Search » Step 2 » Practice
+
+D. Children Holiday
+2 seconds
+512 megabytes
+standard input
+standard output
+
+The organizers of the children's holiday are planning to inflate  
+balloons for it. They invited   assistants, the  -th assistant inflates a balloon in     minutes, but every time after     balloons are inflated he gets tired and rests for    
+
+minutes. Now the organizers of the holiday want to know after what time all the balloons will be inflated with the most optimal work of the assistants, and how many balloons each of them will inflate. (If the assistant has inflated the balloon and needs to rest, but he will not have to inflate more balloons, then it is considered that he finished the work immediately after the end of the last balloon inflation, and not after the rest).
+Input
+
+The first line of the input contains integers  
+and    . The next   lines contain three integers each,    ,    , and    , respectively        
+
+.
+Output
+
+In the first line print the number  
+, the time it takes for all the balloons to be inflated. On the second line print  
+
+numbers, the number of balloons inflated by each of the invited assistants. If there are several optimal answers, output any of them.
+Example
+Input
+Copy
+
+1 2
+2 1 1
+1 1 2
+
+Output
+Copy
+
+1
+0 1 

@@ -1,0 +1,10 @@
+The organizers of the children's holiday are planning to inflate  m balloons for it. 
+They invited n assistants, the i-th assistant inflates a balloon in  t[i]  minutes, 
+but every time after z[i] balloons are inflated he gets tired and rests for y[i] minutes. 
+
+Now the organizers of the holiday want to know after what time all the balloons will be inflated 
+with the most optimal work of the assistants (minimal overall time), and how many balloons each of them will inflate. 
+
+
+(If the assistant has inflated the balloon and needs to rest, but he will not have to inflate more balloons, 
+then it is considered that he finished the work immediately after the end of the last balloon inflation, and not after the rest).

@@ -1,0 +1,2 @@
+In the first line print the number T , the time it takes for all the balloons to be inflated. 
+On the second line print n numbers, the number of balloons inflated by each of the invited assistants. If there are several optimal answers, output any of them.
