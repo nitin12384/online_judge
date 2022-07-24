@@ -18,6 +18,8 @@ def get_num_submissions() -> int:
 def get_language_file_extension(langauge_id: int) -> str:
     if langauge_id == 1:
         return "cpp"
+    elif langauge_id == 2:
+        return "py"
     else:
         return "unknown"
 
