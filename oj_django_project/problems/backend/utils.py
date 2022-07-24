@@ -1,4 +1,5 @@
 from datetime import datetime
+from distutils.command.config import config
 
 from ..models import Problem, Language, ProblemLanguageRelation
 
@@ -78,7 +79,11 @@ def get_problem_detailed_context(problem: Problem) -> dict:
 
     # get the data directory
     if configs.ENVIRONMENT == configs.ENV_WINDOWS1:
-        data_dir = configs.PROBLEM_DATA_BASE_PATH + to_window_slash(problem.data_dir_path)
+        data_dir = configs.DATA_HOME_WINDOWS_1
+    elif configs.ENVIRONMENT == configs.ENV_UBUNTU1:
+        data_dir = configs.DATA_HOME_UBUNTU_1
+
+    data_dir += configs.PROBLEM_DATA_RELATIVE_PATH + problem.data_dir_path 
 
     assert data_dir != None
 

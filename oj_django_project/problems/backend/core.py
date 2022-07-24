@@ -64,7 +64,7 @@ class SubmissionHandler:
         data_dir = SubmissionHandler.get_next_sub_data_dir(num_sub)
 
         file_name = file_name_without_extension + "." + file_extension
-        file_path = "/" + data_dir + "/" + file_name
+        file_path = configs.SLASH + data_dir + configs.SLASH + file_name
         return file_path
 
     def get_next_sub_data_dir(num_sub: int) -> str:

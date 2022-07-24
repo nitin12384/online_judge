@@ -41,7 +41,10 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
     def __init__(self):
         # configs like compiler_path
-        self.compiler_full_path = configs.CPP_COMPILER_PATH
+        if configs.ENVIRONMENT == configs.ENV_UBUNTU1 :
+            self.compiler_full_path = configs.CPP_COMPILER_PATH_2
+        elif configs.ENVIRONMENT == configs.ENV_WINDOWS1 :
+            self.compiler_full_path = configs.CPP_COMPILER_PATH_1
         self.executable_file_extension = ".out"
 
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
