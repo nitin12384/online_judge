@@ -160,6 +160,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
 LanguageProcessorMapping = {
     1: CPP14LanguageProcessor(),
+    2: PythonLangaugeProcessor()
 }
 
 

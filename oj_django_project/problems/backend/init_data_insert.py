@@ -20,7 +20,9 @@ new_language = Language(name='C++ 14')
 new_language.save()
 assert new_language.id == 1
 
-
+new_language = Language(name='Python 3.10')
+new_language.save()
+assert new_language.id == 2
 
 
 new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=1), language_id=1)
