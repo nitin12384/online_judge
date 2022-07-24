@@ -23,11 +23,11 @@ def index(request):
     return render(request, 'problems/index.html', context)
 
 
-def detail(request, problem_id):
+def detail_submit(request, problem_id):
     problem = get_object_or_404(Problem, pk=problem_id)
     context = get_problem_detailed_context(problem)
 
-    return render(request, 'problems/detail.html', context)
+    return render(request, 'problems/detail_submit.html', context)
 
 
 def submissions_detail(request, problem_id):
@@ -38,14 +38,8 @@ def submissions_detail(request, problem_id):
     return render(request, 'problems/submissions_detail.html', context)
 
 
-def submit_page(request, problem_id):
-    problem = get_object_or_404(Problem, pk=problem_id)
 
-    # TODO : later replace it with only required things
-    context = get_problem_detailed_context(problem)
-    return render(request, 'problems/submit.html', context)
-
-
+# TODO : Remove
 def get_verdict(request, submission_id):
     submission: Submission = get_object_or_404(Submission, pk=submission_id)
     verdict_dict = dict({

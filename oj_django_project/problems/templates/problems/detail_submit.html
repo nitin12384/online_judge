@@ -9,6 +9,8 @@
     'example' : array of dict like 
     
     'languages_str' : string representation of array of languages as strings
+    
+    'languages' : array of Language objects 
 
 -->
 
@@ -35,7 +37,7 @@
                     <h2 class="heading2">P{{problem.id}} {{problem.name}}</h2>
                 </div>
                 <div class="problem-header-control">
-                    <a href="{% url 'problems:submit_page_path' problem.id %}" class="button-link" >
+                    <a href="" class="button-link" >
                         Submit
                     </a>
                     <a href="{% url 'problems:submissions_detail_path' problem.id %}" class="button-link" >

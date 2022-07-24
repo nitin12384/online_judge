@@ -34,7 +34,7 @@
                 <tr id="problem-{{problem.id}}">
                     <td>{{problem.id}}</td>
                     <td>
-                        <a href="{% url 'problems:detail_path' problem.id %}">{{problem.name}}</a>
+                        <a href="{% url 'problems:detail_submit_path' problem.id %}">{{problem.name}}</a>
                     </td>
                     <td>{{problem.difficulty}}</td>
                 </tr>
