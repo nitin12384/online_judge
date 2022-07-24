@@ -1,0 +1,53 @@
+--------------------------------------------------------
+1. Website Pages are accessible
+a. Index Page
+b. Each Problem's Page
+c. Submission Page for each problem
+
+
+--------------------------------------------------------
+2. Page are accessible in high Load case
+
+For pages : index page, problem page, submission page
+a. Load page 10000 times at once
+b. Load page 100 times with 100 concurrent clients
+
+--------------------------------------------------------
+3. Code Submission is working
+a. Submit empty code : Warning
+
+-> For each language : C++, Python, and for 2-3 problems
+a. Submit Code with compiler errors : Verdict is Compiler Error and Error is shown
+b. Submit compilable code, but which produce wrong answer : Verdict is wrong answer.
+c. Submit a code that can only pass small size test case : Verdict is wrong answer on Test Case #x, where x is not 1
+d. Submit a code that cause runtime error. : verdict is Runtime error and error is shown.
+e. Submit a code that cause TLE
+f. Submit a code that cause MLE
+g. Submit AC Code
+h. Submit AC Code for a problem with very heavy IO.
+
+---------------------------------------------------------
+4. User Login is working 
+
+
+----------------------------------------------------------
+5. Code Execution is secure
+a. Submit a code to delete all files in current directory
+b. Submit a code to make a external network call 
+c. Submit a code that forks threads infinitely
+d. Submit a code that attempt to read system information
+e. Submit a code that attempt to copy a file from one place to another
+f. Submit a code that tries to run any system() command ?? codeforces is allowing it ?
+
+
+----------------------------------------------------------
+6. Code Submission in high load case 
+
+-> For each language : C++, Python, and for 2-3 problems
+a. Submit a very big code > 5 MB size
+b. Submit code 1000 times back to back
+c. Submit code 10 times concurrently by 100 clients
+c. Submit code 100 times concurrently by 10 clients
+
+
+

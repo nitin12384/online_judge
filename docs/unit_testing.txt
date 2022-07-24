@@ -1,0 +1,14 @@
+----------------------------------------
+1. Util functions
+a. to window slash
+b. run command with 
+    -> echo commands
+    -> time taking commands 
+c. quote enclose
+
+
+-----------------------------------------
+DB Functions 
+
+a. get problem context
+b. LanguageProcessor process functions
