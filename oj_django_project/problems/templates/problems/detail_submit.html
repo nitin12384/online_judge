@@ -30,15 +30,16 @@
                     Codesmed
                 </a>
             </h1>
+            <div class="problem-title">
+                <h2 class="heading2">P{{problem.id}} {{problem.name}}</h2>
+            </div>
         </div>
 
         <div id="detail-submit-content-root">
 
             <div id="problem-detail-root" class="main-column">
                 <div id="problem-header">
-                    <div class="problem-title">
-                        <h2 class="heading2">P{{problem.id}} {{problem.name}}</h2>
-                    </div>
+                    
                     <div class="problem-header-control">
                         <a href="{% url 'problems:submissions_detail_path' problem.id %}" class="button-link" >
                             View All Submissions

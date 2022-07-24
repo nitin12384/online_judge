@@ -9,5 +9,9 @@
 }
 
 #problem-submit-root{
-    margin-top: 10vh;
+    background-color: #eeeeee;
+}
+
+#problem-detail-root{
+    background-color: #f5f5f5;
 }

@@ -171,6 +171,9 @@ class Manager{
             if(c === "\""){
                 res += "\\\"";
             }
+            else if(c === "\\"){
+                res += "\\\\"
+            }
             else{
                 res += String(c);
             }
