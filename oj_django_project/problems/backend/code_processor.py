@@ -29,9 +29,19 @@ class LanguageProcessorBase:
         return True
 
 
-    
+    # Override them
+    def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
+        pass
 
+    def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
+        pass
     
+    def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
+                             out_file_path: str, runtime_limit: int, memory_limit: int) -> ExecutionInfo:
+        pass
+
+
+
 
     # may generate compiler error
     # returns : executable_file_path, compilation_result
@@ -49,7 +59,6 @@ class LanguageProcessorBase:
             compilation_result.message = "Compilation Failed . Message : \n" + execution_info.message
 
         return executable_file_path, compilation_result
-
 
     def get_execute_command(self, executable_file_path: str, inp_file_path: str,
                             out_file_path: str):
@@ -130,19 +139,19 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
         self.compiler_full_path = configs.cur_config.cpp_compiler_path
         self.executable_file_extension = ".out"
 
-
+    @overrides
     def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
         return self.compiler_full_path + configs.SPACE + \
                quote_enclose(code_file_path) + " -o " + quote_enclose(executable_file_full_path)
 
+    @overrides
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         # dir path should not end with a slash ?
 
         return executable_dir_path + configs.SLASH + code_file_name_without_extension \
                + self.executable_file_extension
 
-    
-
+    @overrides
     def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
                              out_file_path: str, runtime_limit: int, memory_limit: int) -> ExecutionInfo:
         command = self.get_execute_command(executable_file_path, inp_file_path, out_file_path)
