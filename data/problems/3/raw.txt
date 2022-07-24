@@ -1,0 +1,60 @@
+Naruto's Bracket Sequence.
+
+Naruto had a Balanced Bracket Sequence of length n (Sequence is represented as a String).
+
+A Balanced bracket sequence (or, shortly, an RBS) is a bracket sequence that can be transformed into a correct arithmetic expression by inserting characters "1" and "+" between the original characters of the sequence. For example:
+
+-> Bracket sequences "()()" and "(())" are Balanced (the resulting expressions are: "(1)+(1)" and "((1+1)+1)");
+-> Bracket sequences ")(", "(" and ")" are not. 
+
+Unfortunately, Obito got his hands on Naruto's string and "deformed" it by replacing some (possible zero or all) of characers with '?'.
+
+Now, Naruto has given you the task to create a Balanced Bracket Sequence by replacing the '?' with either "(" or ")"
+
+It is guranteed that there is always at least one way to form a Balanced Bracket Sequence from given deformed sequence.
+
+Find the no. of distinct ways to form a Balanced Bracket Sequence from given deformed sequence.
+Since output could be very large, output it modulo 1000000007 .
+
+Note : two ways are considered distinct, if there's at least one position for which one sequence has a differnt character than the other.
+
+Input : 
+
+First line contain one integer 'T', denoting no. of testcases
+T lines follow, one for each testcase, containing the deformed sequence of Naruto as string
+
+Output :
+
+Print one integer for each testcase - no. of distinct ways to form a Balanced Bracket Sequence from given deformed sequence, modulo 1000000007.
+
+Constraints
+
+1 <= T <= 10^3
+1 <= n <= 10^3
+
+Sum of n in all testcases does not exceeds 5*10^3
+
+Sample IO 
+
+Input :
+
+4
+()
+(?))
+????
+?(?)()?)
+
+
+Output :
+1
+1
+2
+2
+
+Explanation :
+
+Following are possible Balanced Bracket Sequence that can be formed : 
+
+For testcase 2 - (())
+For testcase 3 - ()(), (())
+For testcase 4 - (())()(), ((()()))

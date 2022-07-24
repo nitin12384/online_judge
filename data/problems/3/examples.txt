@@ -1,0 +1,23 @@
+
+Input :
+
+4
+()
+(?))
+????
+?(?)()?)
+
+
+Output :
+1
+1
+2
+2
+
+Explanation :
+
+Following are possible Balanced Bracket Sequence that can be formed : 
+
+For testcase 2 - (())
+For testcase 3 - ()(), (())
+For testcase 4 - (())()(), ((()()))

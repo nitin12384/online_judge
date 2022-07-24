@@ -1,0 +1,2 @@
+First line contain one integer 'T', denoting no. of testcases
+T lines follow, one for each testcase, containing the deformed sequence of Naruto as string

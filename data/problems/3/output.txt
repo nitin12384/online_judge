@@ -1,0 +1,1 @@
+Print one integer for each testcase - no. of distinct ways to form a Balanced Bracket Sequence from given deformed sequence, modulo 1000000007.

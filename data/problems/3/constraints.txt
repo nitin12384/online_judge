@@ -1,0 +1,4 @@
+1 <= T <= 10^3
+1 <= n <= 10^3
+Sum of n in all testcases does not exceeds 5*10^3
+Given string is made up of only these characters : "(", ")", "?"

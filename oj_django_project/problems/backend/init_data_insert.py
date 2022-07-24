@@ -14,7 +14,9 @@ new_problem =   Problem(name='Amazon - Robot With Strings', data_dir_path='/2', 
 new_problem.save()
 assert new_problem.id == 2 
 
-
+new_problem =   Problem(name='Naruto\'s Bracket Sequence', data_dir_path='/3', difficulty=1200, num_testcases=1, time_limit=1.0)
+new_problem.save()
+assert new_problem.id == 3
 
 new_language = Language(name='C++ 14')
 new_language.save()
@@ -29,11 +31,25 @@ new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=1), language_id
 new_plr.save()
 assert new_plr.id == 1
 
-new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=2), language_id=1)
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=1), language_id=2)
 new_plr.save()
 assert new_plr.id == 2
 
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=2), language_id=1)
+new_plr.save()
+assert new_plr.id == 3
 
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=2), language_id=2)
+new_plr.save()
+assert new_plr.id == 4
+
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=3), language_id=1)
+new_plr.save()
+assert new_plr.id == 5
+
+new_plr = ProblemLanguageRelation(problem=Problem.objects.get(pk=3), language_id=2)
+new_plr.save()
+assert new_plr.id == 6
 
 new_submission = Submission(problem = Problem.objects.get(pk=1), source_file_path = 'data1/1.cpp', verdict = 'WA on Test Case 1', runtime = 1, language_id = 1, submission_time =  timezone.now())
 new_submission.save()
