@@ -84,10 +84,12 @@
 - Migrate to postgreSQL ( ?? 3 days or more )
 
 - Vague : Improve the UI ( 2 days )
+- Use React
 - Better Design of Table 
 
 - Vague : Improve the backend ( 2 days )
 - Todo Part in backend
+- Function based views to class based views
 - more SOLID code.
 - divide code into more modules
 
