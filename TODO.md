@@ -19,7 +19,7 @@
 ## Unordered todo items
 
 - User Login success, user signup success message/alert
-
+- Put validation in username and password and email . Cross Sire Scripting attacks!!
 
 * ToDo List
 ✔️ Done

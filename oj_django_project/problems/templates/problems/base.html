@@ -1,0 +1,48 @@
+<!--
+    required context (base.html)
+
+    is_logged_in : bool
+    username : string
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block title%}
+        <title>Codesmed</title>
+        {% endblock title %}
+
+        {% load static %}
+
+        {% block static_loads %}
+        <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
+        {% endblock static_loads %}
+
+    </head>
+    <body>
+
+        {% block header_root %}
+        <div id="header-root">
+            <div class="main-heading">
+                <h1>
+                    <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                        Codesmed
+                    </a>
+                </h1>
+            </div>
+            <div id="user-profile-heading">
+                {% if is_logged_in %}
+                <a href = "{% url 'problems:user_profile_path' username %}"> My Profile </a>
+                {% else %}
+                <a href="{% url 'problems:login_page_path' %}" > Login </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock header_root %}
+
+        {% block content_root %}
+        {% endblock content_root %}
+    </body>
+</html>
