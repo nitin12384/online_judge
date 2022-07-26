@@ -1,0 +1,37 @@
+<!--
+    required context 
+    
+    is_logged_in : bool
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Codesmed - My Profile</title>
+        {% load static %}
+        <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
+    </head>
+    <body>
+        <div id="header-root">
+            <div class="main-heading">
+                <h1>
+                    <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                        Codesmed
+                    </a>
+                </h1>
+            </div>
+            <div id="user-profile-heading">
+                {% if is_logged_in %}
+                <a href = "todo"> My Profile </a>
+                {% else %}
+                <a href="todo" > Login </a>
+                {% endif %}
+            </div>
+        </div>
+        <div id="content-root">
+            <p> Username : {{user.username}}</p>
+        </div>
+    </body>
+</html>
