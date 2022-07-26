@@ -1,53 +1,40 @@
 <!--
-    required context 
+    required context (base.html)
+
+    is_logged_in : bool
+    username : string (cur user who is logged in , or '' if not logged in)
+
+    required context apart from base.html
+
     user_public_info : UserPublicInfo object  with these fields
         -> username : string 
         -> full_name : string
         -> num_problems_solved : int  
-    is_logged_in : bool
-    cur_username : string (username of current user if logged in , else '')
 
     user_private_info : None if not logged in, else UserPrivateInfo object with these fields 
         -> email 
 
 -->
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Codesmed - My Profile</title>
-        {% load static %}
-        <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
-    </head>
-    <body>
-        <div id="header-root">
-            <div class="main-heading">
-                <h1>
-                    <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
-                        Codesmed
-                    </a>
-                </h1>
-            </div>
-            <div id="user-profile-heading">
-                {% if is_logged_in %}
-                <a href = "{% url 'problems:user_profile_path' cur_username %}"> My Profile </a>
-                {% else %}
-                <a href="{% url 'problems:login_page_path' %}" > Login </a>
-                {% endif %}
-            </div>
-        </div>``
-        <div id="content-root">
-            <p> Username : {{user_public_info.username}}</p>
-            <p> Name : {{user_public_info.full_name}}</p>
-            <p> Problems Solved : {{user_public_info.num_problems_solved}}</p>
+{% extends "problems/base.html" %}
 
-            {% if is_logged_in %}
 
-            <p> Email : {{user_private_info.email}}</p>
-            <a href="{% url 'problems:logout_action_path' %}"> Logout </a>    
-            {% endif %}
+{% block title%}
+<title>Codesmed - User {{user_public_info.username}}</title>
+{% endblock title %}
 
-        </div>
-    </body>
-</html>
+{% block content_root %}
+<div id="content-root">
+    <p> Username : {{user_public_info.username}}</p>
+    <p> Name : {{user_public_info.full_name}}</p>
+    <p> Problems Solved : {{user_public_info.num_problems_solved}}</p>
+
+    {% if is_logged_in %}
+    <p> Email : {{user_private_info.email}}</p>
+    <a href="{% url 'problems:logout_action_path' %}"> Logout </a>    
+    {% endif %}
+
+</div>
+{% endblock content_root %}
+
+

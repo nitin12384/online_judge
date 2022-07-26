@@ -6,7 +6,26 @@
 
 -->
 
+{% extends "problems/base.html" %}
 
+
+{% block title%}
+<title>Codesmed - Signup Page </title>
+{% endblock title %}
+
+{% block header_root %}
+<div id="header-root">
+    <div class="main-heading">
+        <h1>
+            <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                Codesmed
+            </a>
+        </h1>
+    </div>
+</div>
+{% endblock header_root %}
+
+{% block content_root %}
 <h1>SignUp Page</h1>
 <form action="{{post_url}}" method="post">
     {% csrf_token %}
@@ -36,3 +55,6 @@
     
     <input type="submit" value="submit"></input>
 </form>
+{% endblock content_root %}
+
+

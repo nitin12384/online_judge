@@ -1,50 +1,52 @@
 <!--
-    required context 
+    required context (base.html)
+
+    is_logged_in : bool
+    username : string
+
+    required context apart from base.html
 
     problem : a Problem object
 
 -->
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Submissions P-{{problem.id}}</title>
-        {% load static %}
-        <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
-    </head>
-    <body>
-        <div id="header-root">
-            <h1>
-                <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
-                    Codesmed
-                </a>
-            </h1>
-        </div>
-        <div id="content-root">
-            <h2 class="heading2">Submissions of 
-                <a href="{% url 'problems:detail_submit_path' problem.id %}">
-                    P{{problem.id}} {{problem.name}}
-                </a>
-            </h2>
-            <table>
-                <thead>
-                    <td class="table-header-cell" >ID</td>
-                    <td class="table-header-cell" >Time of Submission</td>
-                    <td class="table-header-cell" >Runtime</td>
-                    <td class="table-header-cell" >Verdict</td>
-                </thead>
-            <tbody>
-                {% for submission in problem.submission_set.all %}
-                <tr id="submission-{{submission.id}}">
-                    <td>{{submission.id}}</td>
-                    <td>{{submission.submission_time}}</td>
-                    <td>{{submission.runtime}}</td>
-                    <td class="verdict-text-{{submission.verdict_type}}">{{submission.verdict}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            </table>
-        </div>
-    </body>
-</html>
+{% extends "problems/base.html" %}
+
+
+{% block title%}
+<title>Submissions P-{{problem.id}}</title>
+{% endblock title %}
+
+{% block content_root %}
+<div id="content-root">
+    <h2 class="heading2">Submissions of 
+        <a href="{% url 'problems:detail_submit_path' problem.id %}">
+            P{{problem.id}} {{problem.name}}
+        </a>
+    </h2>
+    <table>
+        <thead>
+            <td class="table-header-cell" >ID</td>
+            <td class="table-header-cell" >Time of Submission</td>
+            <td class="table-header-cell" >Runtime</td>
+            <td class="table-header-cell" >Verdict</td>
+        </thead>
+    <tbody>
+        {% for submission in problem.submission_set.all %}
+        <tr id="submission-{{submission.id}}">
+            <td>{{submission.id}}</td>
+            <td>{{submission.submission_time}}</td>
+            <td>{{submission.runtime}}</td>
+            <td class="verdict-text-{{submission.verdict_type}}">{{submission.verdict}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock content_root %}
+
+
+
+
+
+

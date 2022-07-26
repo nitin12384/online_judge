@@ -1,13 +1,34 @@
+
 <!--
     required context 
+
     post_url : string
     form_input_error : bool
     error_message : string
 
 -->
 
+{% extends "problems/base.html" %}
 
-<h1>Login Page</h1>
+
+{% block title%}
+<title>Codesmed - Login Page </title>
+{% endblock title %}
+
+{% block header_root %}
+<div id="header-root">
+    <div class="main-heading">
+        <h1>
+            <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                Codesmed
+            </a>
+        </h1>
+    </div>
+</div>
+{% endblock header_root %}
+
+{% block content_root %}
+<h2>Login Page</h2>
 <form action="{{post_url}}" method="post">
     {% csrf_token %}
     <label for="username-input">Enter Username</label>
@@ -28,3 +49,5 @@
 </form>
 
 <a href="{% url 'problems:signup_page_path' %}">Not logged In? Sign Up</a>
+{% endblock content_root %}
+
