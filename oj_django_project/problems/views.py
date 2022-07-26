@@ -65,3 +65,8 @@ def submit(request):
     })
 
     return JsonResponse(verdict_dict)
+
+# View for profile
+def user_profile(request, username):
+    context = {}
+    return render(request, 'problems/profile.html', context)
