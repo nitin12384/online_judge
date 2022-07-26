@@ -18,6 +18,8 @@
 
 ## Unordered todo items
 
+- Forgot password/change password thing
+- CSRF protection in Submit code. Learn how CSRF works, what kind of thing a hacker do with it.
 - User Login success, user signup success message/alert
 - Put validation in username and password and email . Cross Sire Scripting attacks!!
 

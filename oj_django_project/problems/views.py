@@ -54,7 +54,7 @@ def submit(request):
     # request body contain code, and language and problem id
     req_body = request.body
 
-    print(req_body)
+    #print(req_body)
 
     body = json.loads(req_body, strict=False)
     problem_id = int(body['problem_id'])
@@ -282,7 +282,7 @@ def get_user_private_info(user_obj) -> UserPrivateInfo:
 
 def is_user_logged_in(request, username):
     # Todo : Find out what user.is_active means
-    if request.user.is_anonymous :
+    if not is_cur_user_logged_in(request) :
         return False
     else :
         return request.user.username == username 
@@ -291,7 +291,7 @@ def get_cur_user_context(request):
     is_logged_in = True
     username = ''
 
-    if request.user.is_anonymous :
+    if not is_cur_user_logged_in(request) :
         is_logged_in = False
     else :
         username = request.user.username
@@ -299,4 +299,6 @@ def get_cur_user_context(request):
         'is_logged_in' : is_logged_in,
         'username' : username,
     }
-    
+
+def is_cur_user_logged_in(request):
+    return request.user.is_authenticated
