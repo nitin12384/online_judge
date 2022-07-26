@@ -18,9 +18,18 @@ from .backend import db_handler
 
 def index(request):
     Logger.log('Index page requested')
+    is_logged_in = True
+    username = ''
+    
+    if request.user.is_anonymous :
+        is_logged_in = False
+    else :
+        username = request.user.username
 
     context = {
-        'problem_list': Problem.objects.all()
+        'problem_list': Problem.objects.all(),
+        'is_logged_in' : is_logged_in,
+        'username' : username,
     }
 
     return render(request, 'problems/index.html', context)
