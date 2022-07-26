@@ -1,0 +1,19 @@
+--------- Copying files here and there
+docker cp foo.txt <container_id>:/foo.txt
+
+-> Pull ubuntu
+docker pull ubuntu
+
+-> Run
+sudo docker run  --name 'cont1' ubuntu
+sudo docker run -it --name 'cont1' ubuntu
+
+sudo docker build -t python_image1 -f ubuntu_with_python.dockerfile .
+
+-----
+Simple image of a Ubuntu system with basic network utilities 
+(ping, host, curl) pre-installed. 
+Useful to debug network issues (e.g. when the network is broken enough within the 
+container and "apt install" doesn't work).
+sudo docker pull mmoy/ubuntu-netutils
+
