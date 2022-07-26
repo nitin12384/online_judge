@@ -1,7 +1,13 @@
 <!--
     required context 
-    
+    user_public_info : UserPublicInfo object  with these fields
+        -> username : string 
+        -> full_name : string
+        -> num_problems_solved : int  
     is_logged_in : bool
+
+    user_private_info : None if not logged in, else UserPrivateInfo object with these fields 
+        -> email 
 
 -->
 
@@ -31,7 +37,16 @@
             </div>
         </div>
         <div id="content-root">
-            <p> Username : {{user.username}}</p>
+            <p> Username : {{user_public_info.username}}</p>
+            <p> Name : {{user_public_info.full_name}}</p>
+            <p> Problems Solved : {{user_public_info.num_problems_solved}}</p>
+
+            {% if is_logged_in %}
+
+            <p> Email : {{user_private_info.email}}</p>
+            <a href="todo"> Logout </a>    
+            {% endif %}
+
         </div>
     </body>
 </html>
