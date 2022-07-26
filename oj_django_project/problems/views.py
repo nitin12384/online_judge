@@ -20,7 +20,8 @@ def index(request):
     Logger.log('Index page requested')
     is_logged_in = True
     username = ''
-    
+
+    # Modularize this code 
     if request.user.is_anonymous :
         is_logged_in = False
     else :
