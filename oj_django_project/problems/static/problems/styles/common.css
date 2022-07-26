@@ -15,7 +15,6 @@
 
 h1{
     padding : 5px;
-    text-align: center;
 }
 
 .heading2{
@@ -131,3 +130,16 @@ h3{
 .verdict-text-5{
     color: var(--wa_red_colour);
 }
+
+#header-root{
+    display: flex;
+}
+
+.main-heading{
+    flex:100%;
+}
+
+#user-profile-heading{
+    padding: 5px;
+}
+

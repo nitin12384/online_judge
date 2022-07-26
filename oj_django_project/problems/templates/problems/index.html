@@ -2,6 +2,7 @@
     required context 
 
     problems_list : an QuerySet of Problem 
+    is_logged_in : bool
 
 -->
 
@@ -15,11 +16,20 @@
     </head>
     <body>
         <div id="header-root">
-            <h1>
-                <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
-                    Codesmed
-                </a>
-            </h1>
+            <div class="main-heading">
+                <h1>
+                    <a href="{% url 'problems:index' %}" id="title-link" class="invisible-link">
+                        Codesmed
+                    </a>
+                </h1>
+            </div>
+            <div id="user-profile-heading">
+                {% if is_logged_in %}
+                <a href = "todo"> My Profile </a>
+                {% else %}
+                <a href="todo" > Login </a>
+                {% endif %}
+            </div>
         </div>
         <div id="content-root">
             <h2 class="heading2">Problemset</h2>
