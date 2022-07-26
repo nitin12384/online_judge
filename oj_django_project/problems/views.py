@@ -1,21 +1,19 @@
-from cmath import log
 import json
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from .backend import configs
-from .models import Problem, Submission
-from .backend.utils import get_problem_detailed_context
 from django.views.decorators.csrf import csrf_exempt
-from .backend.utils import Logger
-from .backend.core import SubmissionHandler
 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 
-# Create your views here.
 
+from .backend import configs
+from .models import Problem, Submission
+from .backend.utils import get_problem_detailed_context
+from .backend.utils import Logger
+from .backend.core import SubmissionHandler
 from .backend import db_handler
 
 
@@ -104,7 +102,8 @@ def user_profile(request, username):
 
 
 #next_page_field_name = 'next'
-default_next_page = reverse('problems:index')
+#default_next_page = reverse('problems:index')
+default_next_page = '/'
 
 ## User Auth related views : 
 
