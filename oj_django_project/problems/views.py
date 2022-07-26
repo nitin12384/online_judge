@@ -19,16 +19,18 @@ from .backend import db_handler
 
 def index(request):
     Logger.log('Index page requested')
-    context = {
-        'problem_list': Problem.objects.all(),
-        **get_cur_user_context(request), # Add the fields of this dictionray too, basically a merge
-    }
+
+    # merging the two dictionaries by using |
+    context = {'problem_list': Problem.objects.all() } | get_cur_user_context(request)
+    
     return render(request, 'problems/index.html', context)
 
 
 def detail_submit(request, problem_id):
     problem = get_object_or_404(Problem, pk=problem_id)
-    context = get_problem_detailed_context(problem)
+
+    # merging the two dictionaries by using |
+    context = get_problem_detailed_context(problem) | get_cur_user_context(request) 
 
     return render(request, 'problems/detail_submit.html', context)
 
@@ -36,7 +38,9 @@ def detail_submit(request, problem_id):
 def submissions_detail(request, problem_id):
     # all submission with that problem id 
     problem = get_object_or_404(Problem, pk=problem_id)
-    context = {'problem': problem}
+
+    # merging the two dictionaries by using |
+    context = {'problem': problem} | get_cur_user_context(request) 
 
     return render(request, 'problems/submissions_detail.html', context)
 
@@ -93,7 +97,11 @@ def user_profile(request, username):
 
 
 #next_page_field_name = 'next'
+
+# cant use reverse globally
 #default_next_page = reverse('problems:index')
+
+# Todo Test if works
 default_next_page = '/'
 
 ## User Auth related views : 
