@@ -1,7 +1,8 @@
 from cmath import log
 import json
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from .backend import configs
 from .models import Problem, Submission
@@ -11,6 +12,8 @@ from .backend.utils import Logger
 from .backend.core import SubmissionHandler
 
 from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
+
 # Create your views here.
 
 from .backend import db_handler
@@ -100,7 +103,52 @@ def user_profile(request, username):
         return render(request, 'problems/profile.html', context)
 
 
+#next_page_field_name = 'next'
+default_next_page = reverse('problems:index')
+
+## User Auth related views : 
+
+def login_page(request):
+    next_page = get_next_page(request)
+    context = get_login_page_context(next_page)
+    return render(request, 'welcome/login.html', context)
+
+
+def logout_action(request):
+    logout(request)
+    return HttpResponseRedirect(get_next_page(request))
+
+
 ## Utility Code : Later, move them to seperate file
+
+def get_login_page_context(next_page : str, error_message : str=''):
+    post_url = reverse('problems:login_action_path') + '?next=' + next_page
+    return get_form_page_context(post_url, error_message)
+
+def get_signup_page_context(next_page : str, error_message : str=''):
+    post_url = reverse('problems:signup_action_path') + '?next=' + next_page
+    return get_form_page_context(post_url, error_message)
+
+def get_form_page_context(post_url:str, error_message : str=''):
+    form_input_error = False
+
+    if error_message != '' :
+        form_input_error = True
+    
+    context = {
+        'post_url':post_url,
+        'form_input_error' : form_input_error,
+        'error_message' : error_message
+    }
+    return context
+
+
+def get_next_page(request):
+    try:
+        return request.GET['next']
+    except KeyError:
+        print("KeyError in get_next_page")
+        return default_next_page
 
 class UserPublicInfo:
     
