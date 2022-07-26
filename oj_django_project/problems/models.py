@@ -56,6 +56,26 @@ class UserInfo(models.Model) :
     num_problems_solved = models.IntegerField()
     score = models.IntegerField()
 
+    def get_full_name(self) -> str :
+        return self.first_name + " " + self.last_name
+
+    # return id 
+    # return -1 if there was error
+    def create_userinfo(user, first_name:str, last_name:str, num_problems_solved:int=0, score:int=0) -> int :
+
+        try:
+            userinfo_obj = UserInfo(
+                user                = user                ,
+                first_name          = first_name          ,
+                last_name           = last_name           ,
+                num_problems_solved = num_problems_solved ,
+                score               = score               ,
+            )
+            userinfo_obj.save()
+            return userinfo_obj.id
+        except :
+            raise "UserInfo Creation Exception"
+            #return -1
 
 """
 status : 1 -> attempted, 2 -> solved 
@@ -64,6 +84,8 @@ class UserProblemRelation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     status = models.IntegerField()
+
+    
 
 """
 id,
