@@ -79,7 +79,15 @@ new_submission.save()
 assert new_submission.id == 2
 
 
+# Add the user 
+from django.contrib.auth.models import User 
+# username, email, password
+user1 = User.objects.create_user('dummy', 'dummy@dummy.com', 'dummy')
+user1.first_name = 'Dummy'
+user1.last_name = 'User'
+user1.save()
+
+assert user1.id == 1
 
 
 
-    
