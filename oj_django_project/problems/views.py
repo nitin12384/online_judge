@@ -93,6 +93,10 @@ def user_profile(request, username):
 ## Utility Code : Later, move them to seperate file
 
 class UserPublicInfo:
+    
+    def __init__(self):
+        self.is_valid = False
+
     def __init__(self,
         username            ,
         full_name           ,
@@ -102,8 +106,7 @@ class UserPublicInfo:
         self.username             = username            
         self.full_name            = full_name           
         self.num_problems_solved  = num_problems_solved 
-    def __init__(self):
-        self.is_valid = False
+    
 
 class UserPrivateInfo:
     def __init__(self,
