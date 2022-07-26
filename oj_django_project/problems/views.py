@@ -51,6 +51,12 @@ def submit(request):
     if request.method != 'POST':
         return HttpResponse("This endpoint is only for code submission. Use POST request only.")
 
+    if not is_cur_user_logged_in(request):
+        return JsonResponse({
+            'verdict': 'Please Login to Submit code.',
+            'verdict_type' : -1
+        })        
+
     # request body contain code, and language and problem id
     req_body = request.body
 

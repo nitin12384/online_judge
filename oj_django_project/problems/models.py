@@ -24,6 +24,7 @@ problem_id : int foreign key
 source_file_path : string
 verdict : string,
 verdict_type : 0 -> AC, 1 -> WA, 2 -> RE, 3 -> TLE, 4 -> MLE, 5 -> CE
+verdict_type : -1 -> Not Logged In  (this is just for submit buttton, never saved in database)
 runtime : int, (in msec)
 language_id : int 
 submission_time : timestamp
