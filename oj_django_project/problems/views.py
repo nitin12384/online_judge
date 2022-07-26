@@ -108,15 +108,105 @@ default_next_page = reverse('problems:index')
 
 ## User Auth related views : 
 
-def login_page(request):
+def login_page(request, error_message : str = ''):
     next_page = get_next_page(request)
-    context = get_login_page_context(next_page)
-    return render(request, 'welcome/login.html', context)
+    context = get_login_page_context(next_page, error_message)
+    return render(request, 'problems/login.html', context)
+
+# for post request of login
+def login_action(request):
+
+    Logger.log("login action initialted")
+    error_message = ''
+    next_page = get_next_page(request)
+
+    try:
+        username = request.POST['username-input']
+        password = request.POST['password-input']
+
+        user_obj_qset = User.objects.filter(username=username)
+
+        if not user_obj_qset.exists() : 
+            error_message = "No user with username - " + username
+        else :
+            log = ""
+            user_obj = user_obj_qset[0]
+
+            if user_obj.is_authenticated :
+                log += "Given user is Already authenticated .\n"
+
+            user = authenticate(username=username, password=password)
+
+            if user is None :
+                res += "Given password is wrong\n"
+                error_message = "Wrong Password"
+                Logger.log(log)
+            else :
+                res += "Successfully authenticated\n"
+                # just sets the cookie
+                login(request, user)
+                res += "Successfully logged in .\n"
+                Logger.log(log)
+                # we are done here. Now redirect
+
+                return HttpResponseRedirect(next_page)
+
+    except KeyError:
+        print("KeyError")
+        error_message = 'KeyError in form. Invalid form input field names'
+        
+    Logger.log("!!!!! Error Message : ", error_message)
+
+    return login_page(request, error_message)
+
+# for post request of signup
+def signup_action(request):
+
+    Logger.log("signup action initialted")
+    
+    error_message = ''
+    next_page = get_next_page(request)
+
+    try:
+        username = request.POST['username-input']
+        email = request.POST['email-input']
+        password = request.POST['password-input']
+        re_password = request.POST['re-enter-password-input']
+
+        user_obj_qset = User.objects.filter(username=username)
+
+        if user_obj_qset.exists() : 
+            error_message = "There are existing user with username - " + username
+        elif password != re_password:
+            error_message = "Password dont match" 
+        # no need to check for email validation
+        else :
+            # create user
+            new_user = User.objects.create_user(username, email, password)
+            new_user.save()
+
+            log = "Signup of username - " + username + " Completed\n"
+            Logger.log(log)
+            return HttpResponseRedirect(next_page)
+
+    except KeyError:
+        print("KeyError")
+        error_message = 'KeyError in form. Invalid form input field names'
+        
+    Logger.log("!!!!! Error Message : ", error_message)
+
+    return signup_page(request, error_message)
+
+def signup_page(request, error_message : str = ''):
+    next_page = get_next_page(request)
+    context = get_signup_page_context(next_page, error_message)
+    return render(request, 'problems/signup.html', context)
 
 
 def logout_action(request):
+    next_page = get_next_page(request)
     logout(request)
-    return HttpResponseRedirect(get_next_page(request))
+    return HttpResponseRedirect(next_page)
 
 
 ## Utility Code : Later, move them to seperate file
@@ -147,7 +237,7 @@ def get_next_page(request):
     try:
         return request.GET['next']
     except KeyError:
-        print("KeyError in get_next_page")
+        Logger.log("KeyError in get_next_page")
         return default_next_page
 
 class UserPublicInfo:
