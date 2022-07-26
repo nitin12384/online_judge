@@ -58,9 +58,15 @@ class UserInfo(models.Model) :
 
     def get_full_name(self) -> str :
         return self.first_name + " " + self.last_name
+    
+    # Make sure it works
+    def add_num_problem_solved(self) :
+        self.num_problems_solved += 1
+        self.save()
 
     # return id 
     # return -1 if there was error
+    @staticmethod
     def create_userinfo(user, first_name:str, last_name:str, num_problems_solved:int=0, score:int=0) -> int :
 
         try:
@@ -74,7 +80,8 @@ class UserInfo(models.Model) :
             userinfo_obj.save()
             return userinfo_obj.id
         except :
-            raise "UserInfo Creation Exception"
+            # check if it works
+            raise Exception("UserInfo Creation Exception")
             #return -1
 
 """
@@ -85,7 +92,41 @@ class UserProblemRelation(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     status = models.IntegerField()
 
-    
+    def add_attempted(user, problem):
+        # check if already attempted, or solved
+        qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
+
+        if qset.exists() : 
+            
+            # Todo May remvoe this.
+            assert qset[0].status == 1 or qset[0].status == 2
+            # do nothing
+            pass
+        else :
+            upr_obj = UserProblemRelation(user, problem, 1)
+            upr_obj.save()
+
+    def add_solved(user, problem):
+        
+        # check if already attempted, or solved
+        qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
+
+        if qset.exists() : 
+            if qset[0].status == 1 :
+                # attempted => solved
+                qset[0].status = 2
+                qset[0].save()
+                # add num_solved in userinfo
+                UserInfo.objects.get(user=user).add_num_problems_solved()
+
+        else :
+            upr_obj = UserProblemRelation(user, problem, 2)
+            upr_obj.save()
+            # add num_solved in userinfo
+            UserInfo.objects.get(user=user).add_num_problems_solved()
+            #upr_obj.user.num_problems_solved += 1
+            #upr_obj.user.save()
+
 
 """
 id,
