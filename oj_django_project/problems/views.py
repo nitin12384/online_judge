@@ -137,6 +137,6 @@ def get_user_private_info(user_obj) -> UserPrivateInfo:
 def is_user_logged_in(request, username):
     # Todo : Find out what user.is_active means
     if request.user.is_anonymous :
-        return True
+        return False
     else :
         return request.user.username == username 
