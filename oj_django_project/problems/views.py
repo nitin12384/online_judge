@@ -19,21 +19,10 @@ from .backend import db_handler
 
 def index(request):
     Logger.log('Index page requested')
-    is_logged_in = True
-    username = ''
-
-    # Modularize this code 
-    if request.user.is_anonymous :
-        is_logged_in = False
-    else :
-        username = request.user.username
-
     context = {
         'problem_list': Problem.objects.all(),
-        'is_logged_in' : is_logged_in,
-        'username' : username,
+        **get_cur_user_context(request), # Add the fields of this dictionray too, basically a merge
     }
-
     return render(request, 'problems/index.html', context)
 
 
@@ -88,17 +77,17 @@ def user_profile(request, username):
         # 404 page
         return render(request, 'problems/404.html')
     else:
-        is_logged_in = is_user_logged_in(request, username)
-        cur_username = request.user.username
+        is_requested_user_logged_in = is_user_logged_in(request, username)
         user_private_info = None 
-        if is_logged_in :
+        if is_requested_user_logged_in :
             user_private_info = get_user_private_info(user)
 
         context = {
             'user_public_info' : get_user_public_info(user),
-            'is_logged_in' : is_logged_in,
+            'is_requested_user_logged_in' : is_requested_user_logged_in,
             'user_private_info' : user_private_info,
-            'cur_username' : cur_username,
+            **get_cur_user_context(request),
+            
         }
         return render(request, 'problems/profile.html', context)
 
@@ -289,3 +278,17 @@ def is_user_logged_in(request, username):
         return False
     else :
         return request.user.username == username 
+
+def get_cur_user_context(request):
+    is_logged_in = True
+    username = ''
+
+    if request.user.is_anonymous :
+        is_logged_in = False
+    else :
+        username = request.user.username
+    return {
+        'is_logged_in' : is_logged_in,
+        'username' : username,
+    }
+    
