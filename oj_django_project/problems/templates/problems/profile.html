@@ -30,12 +30,12 @@
             </div>
             <div id="user-profile-heading">
                 {% if is_logged_in %}
-                <a href = "todo"> My Profile </a>
+                <a href = "{% url 'problems:user_profile_path' username %}"> My Profile </a>
                 {% else %}
-                <a href="todo" > Login </a>
+                <a href="{% url 'problems:login_page_path' %}" > Login </a>
                 {% endif %}
             </div>
-        </div>
+        </div>``
         <div id="content-root">
             <p> Username : {{user_public_info.username}}</p>
             <p> Name : {{user_public_info.full_name}}</p>
@@ -44,7 +44,7 @@
             {% if is_logged_in %}
 
             <p> Email : {{user_private_info.email}}</p>
-            <a href="todo"> Logout </a>    
+            <a href="{% url 'problems:logout_action_path' %}"> Logout </a>    
             {% endif %}
 
         </div>
