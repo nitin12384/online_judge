@@ -89,6 +89,7 @@ def user_profile(request, username):
         return render(request, 'problems/404.html')
     else:
         is_logged_in = is_user_logged_in(request, username)
+        cur_username = request.user.username
         user_private_info = None 
         if is_logged_in :
             user_private_info = get_user_private_info(user)
@@ -96,7 +97,8 @@ def user_profile(request, username):
         context = {
             'user_public_info' : get_user_public_info(user),
             'is_logged_in' : is_logged_in,
-            'user_private_info' : user_private_info
+            'user_private_info' : user_private_info,
+            'cur_username' : cur_username,
         }
         return render(request, 'problems/profile.html', context)
 
@@ -137,14 +139,14 @@ def login_action(request):
             user = authenticate(username=username, password=password)
 
             if user is None :
-                res += "Given password is wrong\n"
+                log += "Given password is wrong\n"
                 error_message = "Wrong Password"
                 Logger.log(log)
             else :
-                res += "Successfully authenticated\n"
+                log += "Successfully authenticated\n"
                 # just sets the cookie
                 login(request, user)
-                res += "Successfully logged in .\n"
+                log += "Successfully logged in .\n"
                 Logger.log(log)
                 # we are done here. Now redirect
 
@@ -154,7 +156,7 @@ def login_action(request):
         print("KeyError")
         error_message = 'KeyError in form. Invalid form input field names'
         
-    Logger.log("!!!!! Error Message : ", error_message)
+    Logger.log("!!!!! Error Message : " + error_message)
 
     return login_page(request, error_message)
 
@@ -192,7 +194,7 @@ def signup_action(request):
         print("KeyError")
         error_message = 'KeyError in form. Invalid form input field names'
         
-    Logger.log("!!!!! Error Message : ", error_message)
+    Logger.log("!!!!! Error Message : " + error_message)
 
     return signup_page(request, error_message)
 
