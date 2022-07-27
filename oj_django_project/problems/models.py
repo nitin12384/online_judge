@@ -67,7 +67,7 @@ class UserInfo(models.Model) :
     # return id 
     # return -1 if there was error
     @staticmethod
-    def create_userinfo(user, first_name:str, last_name:str, num_problems_solved:int=0, score:int=0) -> int :
+    def create_userinfo(user, first_name:str='', last_name:str='', num_problems_solved:int=0, score:int=0) :
         userinfo_obj = UserInfo(
             user                = user                ,
             first_name          = first_name          ,
@@ -76,7 +76,6 @@ class UserInfo(models.Model) :
             score               = score               ,
         )
         userinfo_obj.save()
-        return userinfo_obj.id
     
     def get_num_problems_solved(user)->int:
         return UserInfo.objects.get(user=user).num_problems_solved 

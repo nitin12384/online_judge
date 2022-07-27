@@ -188,6 +188,9 @@ def signup_action(request):
             new_user = User.objects.create_user(username, email, password)
             new_user.save()
 
+            # create userinfo
+            UserInfo.create_userinfo(new_user)
+
             log = "Signup of username - " + username + " Completed\n"
             Logger.log(log)
             return HttpResponseRedirect(next_page)
