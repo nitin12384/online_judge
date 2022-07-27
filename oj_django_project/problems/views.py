@@ -196,7 +196,7 @@ def signup_action(request):
             authenticate(username=username, password=password)
             login(request, new_user)
             log += "Loggin In the user\n" 
-            log = "Signup of username - " + username + " Completed\n"
+            log += "Signup of username - " + username + " Completed\n"
             Logger.log(log)
             return HttpResponseRedirect(next_page)
 
@@ -290,7 +290,6 @@ def get_user_public_info(user_obj) -> UserPublicInfo:
 def get_user_private_info(user_obj) -> UserPrivateInfo:
     email = user_obj.email 
     return UserPrivateInfo(email)
-
 
 def is_user_logged_in(request, username):
     # Todo : Find out what user.is_active means

@@ -1,6 +1,7 @@
 
 # run these commands in $ python manage.py shell
 
+from re import sub
 from problems.models import Problem,Submission,Language,ProblemLanguageRelation
 from django.utils import timezone
 
@@ -88,6 +89,33 @@ user1.last_name = 'User'
 user1.save()
 
 assert user1.id == 1
+
+
+
+
+## All user who doesnt have a userinfo object, needs one now
+
+from django.contrib.auth.models import User 
+from problems.models import UserInfo
+
+for user in User.objects.all():
+    if not UserInfo.objects.filter(user=user).exists():
+        # no userinfo
+        UserInfo.create_userinfo(user)
+
+# All submissions, add in userproblem relation, accepted or tried
+from django.contrib.auth.models import User 
+from problems.models import UserInfo, UserProblemRelation, Submission
+
+for submission in Submission.objects.all():
+    # for AC , type = 0
+    if submission.verdict_type == 0:
+        UserProblemRelation.add_solved(submission.user, submission.problem)
+    else:
+        UserProblemRelation.add_attempted(submission.user, submission.problem)
+    
+    print("-------- done iter")
+
 
 
 

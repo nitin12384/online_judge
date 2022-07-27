@@ -44,13 +44,17 @@ class Submission(models.Model) :
 
 """
 user,
+
+first name and last name are redundant here
+might going to be removed
+
 first_name, 
 last_name,
 num_problems_solved : integer 
 score : integer,
 """
 class UserInfo(models.Model) :
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     num_problems_solved = models.IntegerField()
@@ -60,7 +64,7 @@ class UserInfo(models.Model) :
         return self.first_name + " " + self.last_name
     
     # Make sure it works
-    def add_num_problem_solved(self) :
+    def add_num_problems_solved(self) :
         self.num_problems_solved += 1
         self.save()
 
@@ -103,7 +107,7 @@ class UserProblemRelation(models.Model):
             # do nothing
             pass
         else :
-            upr_obj = UserProblemRelation(user, problem, 1)
+            upr_obj = UserProblemRelation(user=user, problem=problem, status=1)
             upr_obj.save()
 
     def add_solved(user, problem):
@@ -120,7 +124,7 @@ class UserProblemRelation(models.Model):
                 UserInfo.objects.get(user=user).add_num_problems_solved()
 
         else :
-            upr_obj = UserProblemRelation(user, problem, 2)
+            upr_obj = UserProblemRelation(user=user, problem=problem, status=2)
             upr_obj.save()
             # add num_solved in userinfo
             UserInfo.objects.get(user=user).add_num_problems_solved()

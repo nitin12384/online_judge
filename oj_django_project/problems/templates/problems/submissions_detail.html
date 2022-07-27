@@ -27,6 +27,7 @@
     <table>
         <thead>
             <td class="table-header-cell" >ID</td>
+            <td class="table-header-cell" >User</td>
             <td class="table-header-cell" >Time of Submission</td>
             <td class="table-header-cell" >Runtime</td>
             <td class="table-header-cell" >Verdict</td>
@@ -35,6 +36,9 @@
         {% for submission in problem.submission_set.all %}
         <tr id="submission-{{submission.id}}">
             <td>{{submission.id}}</td>
+            <td>
+                <a href="{% url 'problems:user_profile_path' submission.user.username %}">{{submission.user.username}}</a>
+            </td>
             <td>{{submission.submission_time}}</td>
             <td>{{submission.runtime}}</td>
             <td class="verdict-text-{{submission.verdict_type}}">{{submission.verdict}}</td>
