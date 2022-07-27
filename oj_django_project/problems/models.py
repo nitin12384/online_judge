@@ -102,10 +102,11 @@ class UserProblemRelation(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     status = models.IntegerField()
 
+    @staticmethod
     def add_attempted(user, problem):
         # check if already attempted, or solved
-        qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
         Logger.log("add_attempted() for user = " + user + "problem = " + problem)
+        qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
 
         if qset.exists() : 
             Logger.log("Already Attempted")
@@ -118,6 +119,7 @@ class UserProblemRelation(models.Model):
             upr_obj = UserProblemRelation(user=user, problem=problem, status=1)
             upr_obj.save()
 
+    @staticmethod
     def add_solved(user, problem):
         Logger.log("add_solved() for user = " + user + "problem = " + problem)
         
