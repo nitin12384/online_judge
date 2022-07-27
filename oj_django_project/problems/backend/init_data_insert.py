@@ -113,8 +113,6 @@ for submission in Submission.objects.all():
         UserProblemRelation.add_solved(submission.user, submission.problem)
     else:
         UserProblemRelation.add_attempted(submission.user, submission.problem)
-    
-    print("-------- done iter")
 
 
 

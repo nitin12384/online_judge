@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from .backend.utils import Logger
+
 # Create your models here.
 
 """
@@ -64,9 +66,13 @@ class UserInfo(models.Model) :
         return self.first_name + " " + self.last_name
     
     # Make sure it works
-    def add_num_problems_solved(self) :
+    def function1(self):
+        pass
+
+    def add_num_problems_solved(self):
         self.num_problems_solved += 1
         self.save()
+
 
     # return id 
     # return -1 if there was error
@@ -99,31 +105,38 @@ class UserProblemRelation(models.Model):
     def add_attempted(user, problem):
         # check if already attempted, or solved
         qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
+        Logger.log("add_attempted() for user = " + user + "problem = " + problem)
 
         if qset.exists() : 
-            
+            Logger.log("Already Attempted")
             # Todo May remvoe this.
             assert qset[0].status == 1 or qset[0].status == 2
             # do nothing
             pass
         else :
+            Logger.log("Adding as Attempted")
             upr_obj = UserProblemRelation(user=user, problem=problem, status=1)
             upr_obj.save()
 
     def add_solved(user, problem):
+        Logger.log("add_solved() for user = " + user + "problem = " + problem)
         
-        # check if already attempted, or solved
-        qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
+        try:
+            upr_obj = UserProblemRelation.objects.get(user=user, problem=problem)
+            # query set's save doesnt works
+            # qset[0].save()
 
-        if qset.exists() : 
-            if qset[0].status == 1 :
-                # attempted => solved
-                qset[0].status = 2
-                qset[0].save()
+            if upr_obj.status == 1:
+                Logger.log("Already Attempted. Adding as Solved")
+                upr_obj.status = 2
+                upr_obj.save()
                 # add num_solved in userinfo
                 UserInfo.objects.get(user=user).add_num_problems_solved()
+            else:
+                Logger.log("Already Solved")
 
-        else :
+        except UserProblemRelation.DoesNotExist :
+            Logger.log("Adding as Solved")
             upr_obj = UserProblemRelation(user=user, problem=problem, status=2)
             upr_obj.save()
             # add num_solved in userinfo
