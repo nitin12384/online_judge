@@ -184,6 +184,7 @@ def signup_action(request):
             error_message = "Password dont match" 
         # no need to check for email validation
         else :
+            log = ""
             # create user
             new_user = User.objects.create_user(username, email, password)
             new_user.save()
@@ -191,6 +192,10 @@ def signup_action(request):
             # create userinfo
             UserInfo.create_userinfo(new_user)
 
+            log += "Created User and UserInfo object\n"
+            authenticate(username=username, password=password)
+            login(request, new_user)
+            log += "Loggin In the user\n" 
             log = "Signup of username - " + username + " Completed\n"
             Logger.log(log)
             return HttpResponseRedirect(next_page)
