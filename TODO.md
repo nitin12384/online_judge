@@ -6,12 +6,14 @@
 
 - Add user log in
 - put in docker
+- Add Time, Memory limit, Network security, ....
 - deploy on firebase, heroku, AWS
 - Option to see compiler error 
 - Add multiple testcases for problems (big IO testcases)
 - Add More problems. Have 7-8 good and (nowhere else you could find) problems.
 - Improve the UI
 - Testing including NFR
+- Django . gets logged out automatically 
 - send Friends
 
 
