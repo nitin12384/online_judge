@@ -10,11 +10,10 @@ from django.contrib.auth import login, logout, authenticate
 
 
 from .backend import configs
-from .models import Problem, Submission
+from .models import Problem, UserInfo
 from .backend.utils import get_problem_detailed_context
 from .backend.utils import Logger
 from .backend.core import SubmissionHandler
-from .backend import db_handler
 
 
 def index(request):
@@ -276,9 +275,8 @@ def get_user_obj(username : str):
 
 def get_user_public_info(user_obj) -> UserPublicInfo:
     username = user_obj.username
-    user_id = user_obj.id 
     full_name = user_obj.first_name + configs.SPACE + user_obj.last_name
-    num_problems_solved = 0
+    num_problems_solved = UserInfo.get_num_problems_solved(user_obj)
     return UserPublicInfo(username, full_name, num_problems_solved)
 
 def get_user_private_info(user_obj) -> UserPrivateInfo:

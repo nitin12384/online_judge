@@ -68,21 +68,22 @@ class UserInfo(models.Model) :
     # return -1 if there was error
     @staticmethod
     def create_userinfo(user, first_name:str, last_name:str, num_problems_solved:int=0, score:int=0) -> int :
-
-        try:
-            userinfo_obj = UserInfo(
-                user                = user                ,
-                first_name          = first_name          ,
-                last_name           = last_name           ,
-                num_problems_solved = num_problems_solved ,
-                score               = score               ,
-            )
-            userinfo_obj.save()
-            return userinfo_obj.id
-        except :
-            # check if it works
-            raise Exception("UserInfo Creation Exception")
-            #return -1
+        userinfo_obj = UserInfo(
+            user                = user                ,
+            first_name          = first_name          ,
+            last_name           = last_name           ,
+            num_problems_solved = num_problems_solved ,
+            score               = score               ,
+        )
+        userinfo_obj.save()
+        return userinfo_obj.id
+    
+    def get_num_problems_solved(user)->int:
+        return UserInfo.objects.get(user=user).num_problems_solved 
+    
+    # Todo : make user public, private info fucntions here
+    def get_user_public_info(user):
+        pass
 
 """
 status : 1 -> attempted, 2 -> solved 
