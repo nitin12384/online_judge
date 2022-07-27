@@ -3,15 +3,16 @@
 from ast import Sub
 import math
 from datetime import datetime
-from .db_handler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission
+from .db_handler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission, update_user_problem_relation
 from . import configs
 from .code_processor import process
 
+from django.contrib.auth.models import User
 
 class SubmissionHandler:
 
     @staticmethod
-    def submit(code: str, problem_id: int, language_id: int) -> str:
+    def submit(code: str, user: User, problem_id: int, language_id: int) -> str:
         # save code to file 
 
         num_sub = get_num_submissions()
@@ -23,7 +24,7 @@ class SubmissionHandler:
 
         # now to insert into Submission Database
         submission_id = save_new_submission(
-            problem_id, file_relative_path,
+            user, problem_id, file_relative_path,
             language_id,  datetime.now()
         )
 
@@ -39,6 +40,10 @@ class SubmissionHandler:
         # save to submission database
         update_submission(submission_id, verdict=verdict, verdict_type=verdict_type, 
                           runtime=runtime)
+        
+        # User problem relation databse
+        update_user_problem_relation(user, problem_id, verdict_type)
+
         return verdict, verdict_type
 
     # completed

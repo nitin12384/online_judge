@@ -5,6 +5,8 @@ from .backend.utils import Logger
 
 # Create your models here.
 
+# Todo : Add Proper contraints
+
 """
 Fields 
 id (default) ,
@@ -34,8 +36,8 @@ submission_time : timestamp
 
 """
 class Submission(models.Model) :
-    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     source_file_path = models.CharField(max_length=200)
     verdict = models.CharField(max_length=50) # Time Limit Exceeded on Test Case 1000 (37 chars)
     verdict_type = models.IntegerField()
@@ -105,7 +107,7 @@ class UserProblemRelation(models.Model):
     @staticmethod
     def add_attempted(user, problem):
         # check if already attempted, or solved
-        Logger.log("add_attempted() for user = " + user + "problem = " + problem)
+        Logger.log("add_attempted() for user = " + str(user) + "problem = " + str(problem))
         qset = UserProblemRelation.objects.filter(user=user).filter(problem=problem)
 
         if qset.exists() : 
@@ -121,7 +123,7 @@ class UserProblemRelation(models.Model):
 
     @staticmethod
     def add_solved(user, problem):
-        Logger.log("add_solved() for user = " + user + "problem = " + problem)
+        Logger.log("add_solved() for user = " + str(user) + "problem = " + str(problem))
         
         try:
             upr_obj = UserProblemRelation.objects.get(user=user, problem=problem)

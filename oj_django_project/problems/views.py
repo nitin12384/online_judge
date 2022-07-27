@@ -1,4 +1,5 @@
 import json
+import re
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -49,8 +50,10 @@ def submissions_detail(request, problem_id):
 def submit(request):
     if request.method != 'POST':
         return HttpResponse("This endpoint is only for code submission. Use POST request only.")
-
-    if not is_cur_user_logged_in(request):
+    
+    user = get_cur_user_obj(request)
+    if user is None:
+        # Not logged in.
         return JsonResponse({
             'verdict': 'Please Login to Submit code.',
             'verdict_type' : -1
@@ -69,7 +72,7 @@ def submit(request):
     Logger.log("(views.py)Received submission for P-" + str(problem_id)
                + " language_id " + str(language_id))
 
-    verdict, verdict_type = SubmissionHandler.submit(code, problem_id, language_id)
+    verdict, verdict_type = SubmissionHandler.submit(code, user, problem_id, language_id)
 
     verdict_dict = dict({
         'verdict': verdict,
@@ -272,6 +275,13 @@ class UserPrivateInfo:
         email
     ):
         self.email = email
+
+def get_cur_user_obj(request):
+    if not is_cur_user_logged_in(request):
+        return None 
+    else:
+        # Still may return none.
+        return get_user_obj(request.user.username)
 
 def get_user_obj(username : str):
     user_qset = User.objects.filter(username=username)
