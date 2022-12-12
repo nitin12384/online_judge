@@ -25,10 +25,7 @@ SECRET_KEY = 'django-insecure-)(x^y@lk-8$fty=-=46s7g%e69l)k3+=#c#)l$h_du8ql(h3tc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# codesmed.local : 127.0.0.1 in windows/system32/drivers/etc/hosts
-ALLOWED_HOSTS = ['localhost','codesmed.local',
-'4dee-103-213-214-44.in.ngrok.io', 'ee4e-8-20-101-32.eu.ngrok.io',
-] 
+ALLOWED_HOSTS = ['localhost'] 
 
 
 # Application definition
