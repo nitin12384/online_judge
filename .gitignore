@@ -67,3 +67,6 @@ target/
 # code files
 # not being tracked for now .
 data/submissions/
+
+#node modules 
+node_modules/
