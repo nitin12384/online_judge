@@ -1,0 +1,6 @@
+1. Sign up on heroku
+2. get hreoku cli
+3. login with heroky cli
+
+
+Firebase config
