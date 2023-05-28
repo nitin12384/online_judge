@@ -17,11 +17,12 @@ from .backend.utils import Logger
 from .backend.core import SubmissionHandler
 
 
+
 def index(request):
     Logger.log('Index page requested')
 
     # merging the two dictionaries by using |
-    context = {'problem_list': Problem.objects.all() } | get_cur_user_context(request)
+    context = {'problem_list': Problem.objects.all(), **get_cur_user_context(request) }
     
     return render(request, 'problems/index.html', context)
 
@@ -30,7 +31,7 @@ def detail_submit(request, problem_id):
     problem = get_object_or_404(Problem, pk=problem_id)
 
     # merging the two dictionaries by using |
-    context = get_problem_detailed_context(problem) | get_cur_user_context(request) 
+    context = { **get_problem_detailed_context(problem) , **get_cur_user_context(request) } 
 
     return render(request, 'problems/detail_submit.html', context)
 
@@ -40,7 +41,7 @@ def submissions_detail(request, problem_id):
     problem = get_object_or_404(Problem, pk=problem_id)
 
     # merging the two dictionaries by using |
-    context = {'problem': problem} | get_cur_user_context(request) 
+    context = {'problem': problem, **get_cur_user_context(request) }
 
     return render(request, 'problems/submissions_detail.html', context)
 
