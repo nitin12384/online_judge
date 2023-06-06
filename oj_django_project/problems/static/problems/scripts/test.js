@@ -31,5 +31,5 @@ function test_classes1(){
 
 
 
-test_classes1()
+test_classes1();
 test_localstorage();

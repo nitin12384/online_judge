@@ -1,4 +1,3 @@
 django
 overrides
 gunicorn
-whitenoise
