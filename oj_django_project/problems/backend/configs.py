@@ -110,4 +110,13 @@ CONSOLE_FILE_PRINTER_UBUNTU_1,
 ubuntu_path_formatter_1
 )
 
-cur_config = dockerised_1_config
+cur_config = ubuntu_1_config
+
+# current config acc to evironment variable
+import os
+ENVIRONMENT = os.environ['OS_TYPE']
+
+if ENVIRONMENT == 'WINDOWS':
+    cur_config = window_1_config
+elif ENVIRONMENT == 'UBUNTU_DOCKERIZED':
+    cur_config = dockerised_1_config
