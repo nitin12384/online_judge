@@ -1,8 +1,8 @@
 NUM_SUBMISSION_IN_DIR = 100000
 
 
-DATA_HOME_WINDOWS_1 = r"../data"
-#DATA_HOME_WINDOWS_1 = r"C:/Users/nitin/Programming/projects/online_judge/data"
+#DATA_HOME_WINDOWS_1 = r"../data"
+DATA_HOME_WINDOWS_1 = r"C:/Users/nitin/Programming/projects/online_judge/data"
 DATA_HOME_UBUNTU_1 = r"/home/nitin/Programming/projects/online_judge/data"
 
 SUBMISSION_DATA_RELATIVE_PATH = r"/submissions"

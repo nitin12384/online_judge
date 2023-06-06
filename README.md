@@ -3,6 +3,12 @@
 
 ## Prerequisites to run
 
+## How to run locally (for windows)
+
+0. Make sure ??? is installed
+
+1. make user temp_executables directory exist in /data/submissions 
+
 ## How to run locally (for linux)
 
 0. Open terminal in ./oj_django_project directory
