@@ -37,10 +37,6 @@ SECURITY_CHECK_FAILED_VERDICT = "Security check failed for your code"
 DATA_HOME_WINDOWS_1 = r"C:/Users/nitin/Programming/projects/online_judge/data"
 DATA_HOME_UBUNTU_1 = r"/home/nitin/Programming/projects/online_judge/data"
 
-ENVIRONMENT = "WINDOWS_1"
-ENV_WINDOWS1 = "WINDOWS_1"
-ENV_UBUNTU1 = "UBUNTU_1"
-
 CONSOLE_FILE_PRINTER_WIN_1 = "type"
 CONSOLE_FILE_PRINTER_UBUNTU_1 = "cat"
 
@@ -71,13 +67,12 @@ class Config:
         self.temp_out_data_dir_path = self.submission_data_dir_path + TEMP_OUTPUT_DATA_RELATIVE_PATH
         self.temp_executable_dir_path = self.submission_data_dir_path + TEMP_EXECUTABLE_DIR_RELATIVE_PATH
 
+##########################################
+#   Choose Environment                   #
+##########################################
 
-ubuntu_1_config = Config(ENV_UBUNTU1, DATA_HOME_UBUNTU_1, CPP_COMPILER_PATH_2, PYTHON_COMPILER_PATH_2, CONSOLE_FILE_PRINTER_UBUNTU_1)
-window_1_config = Config(ENV_WINDOWS1, DATA_HOME_WINDOWS_1, CPP_COMPILER_PATH_1, PYTHON_COMPILER_PATH_1, CONSOLE_FILE_PRINTER_WIN_1)
 
-cur_config = None 
+ubuntu_1_config = Config("ENV_UBUNTU1", DATA_HOME_UBUNTU_1, CPP_COMPILER_PATH_UBUNTU_1, PYTHON_COMPILER_PATH_UBUNTU_1, CONSOLE_FILE_PRINTER_UBUNTU_1)
+window_1_config = Config("ENV_WINDOWS1", DATA_HOME_WINDOWS_1, CPP_COMPILER_PATH_WIN_1, PYTHON_COMPILER_PATH_WIN_1, CONSOLE_FILE_PRINTER_WIN_1)
 
-if ENVIRONMENT == ENV_UBUNTU1 :
-    cur_config = ubuntu_1_config
-elif ENVIRONMENT == ENV_WINDOWS1 :
-    cur_config = window_1_config
+cur_config = window_1_config
