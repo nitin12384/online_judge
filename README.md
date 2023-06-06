@@ -9,6 +9,8 @@
 - [ ] Add TLE and MLE detection mechanism.
 - [ ] Add more test cases and test problems.
 - [ ] Add 4-5 new problems.
+- [ ] Creating Demo video and code walkthrough video.
+- [ ] Adding proper documentation in ReadMe.md
 
 ## Prerequisites to run
 
@@ -38,13 +40,13 @@
 - Can use username = `dummy` and password = `dummy` .
 
 ## screenshots
-![image](./docs/screenshots/v1/ss (1).png)
-![image](./docs/screenshots/v1/ss (2).png)
-![image](./docs/screenshots/v1/ss (3).png)
-![image](./docs/screenshots/v1/ss (4).png)
-![image](./docs/screenshots/v1/ss (5).png)
-![image](./docs/screenshots/v1/ss (6).png)
-![image](./docs/screenshots/v1/ss (7).png)
+!(image)[./docs/screenshots/v1/ss (1).png]
+!(image)[./docs/screenshots/v1/ss (2).png]
+!(image)[./docs/screenshots/v1/ss (3).png]
+!(image)[./docs/screenshots/v1/ss (4).png]
+!(image)[./docs/screenshots/v1/ss (5).png]
+!(image)[./docs/screenshots/v1/ss (6).png]
+!(image)[./docs/screenshots/v1/ss (7).png]
 
 
 # Detailed Todo list (Most of that is not gonna happen now. )
