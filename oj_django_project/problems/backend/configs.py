@@ -116,6 +116,8 @@ cur_config = ubuntu_1_config
 import os
 ENVIRONMENT = os.getenv('OS_TYPE')
 
+print("Environemt : ", ENVIRONMENT)
+
 if ENVIRONMENT == 'WINDOWS':
     cur_config = window_1_config
 elif ENVIRONMENT == 'UBUNTU_DOCKERIZED':

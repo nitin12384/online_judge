@@ -13,7 +13,8 @@ ADD ./oj_django_project /root/oj_django_project
 # G++ and python are also preinstalled
 
 # To configure the environment
-ARG OS_TYPE=UBUNTU_DOCKERIZED
+# This does not works, maybe ENV OS_TYPE UBUNTU_DOCKERIZED will work
+# ARG OS_TYPE=UBUNTU_DOCKERIZED
 
 # used --noreload, because otherwise it gets stuck at "Watching for file changes with statsreloader"
 # There may be one more way to do so, by Setting ENV variable PYTHONBUFFERED to 1, 
@@ -24,4 +25,6 @@ CMD ["python", "/root/oj_django_project/manage.py", "runserver", "0.0.0.0:8071",
 # Build with `docker build -t oj1 -f full.dockerfile .`
 
 # -d for detached ?
-# Run with `docker run --name ojcont2 -d -p 8072:8072 oj1`
+# Run with `docker run --name ojcont1 -d -p 8071:8071 -e OS_TYPE=UBUNTU_DOCKERIZED oj1`
+
+# goto localhost:8071 and access the website
