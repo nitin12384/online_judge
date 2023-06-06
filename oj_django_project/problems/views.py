@@ -12,7 +12,6 @@ from django.contrib.auth import login, logout, authenticate
 
 from .backend import configs
 from .models import Problem, UserInfo, Language
-from .backend.utils import to_window_slash
 from .backend.utils import Logger
 from .backend.core import SubmissionHandler
 
