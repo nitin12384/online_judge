@@ -352,10 +352,6 @@ def get_problem_detailed_context(problem: Problem) -> dict:
     file_paths = [description_file_path, input_file_path, output_file_path,
                   constraints_file_path, examples_file_path]
 
-    if configs.ENVIRONMENT == configs.ENV_WINDOWS1:
-        # convert slash acc. to windows
-        file_paths = [to_window_slash(s) for s in file_paths]
-
     files = [open(s, "r") for s in file_paths]
     file_data = [f.read() for f in files]
 

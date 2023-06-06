@@ -31,17 +31,6 @@ def quote_enclose(s: str) -> str:
     return "\"" + s + "\""
 
 
-def to_window_slash(s: str) -> str:
-    assert s != None
-    res = ""
-    for i in range(0, len(s)):
-        if s[i] == '/':
-            res += '\\'
-        else:
-            res += s[i]
-    return res
-
-
 def read_br_seperated_file(inp_file) -> str:
     res = ""
     lines_list = inp_file.readlines()
