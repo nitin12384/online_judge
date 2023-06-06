@@ -1,3 +1,4 @@
+import os
 ##########################################
 # Environment Independent configurations #
 ##########################################
@@ -110,10 +111,28 @@ CONSOLE_FILE_PRINTER_UBUNTU_1,
 ubuntu_path_formatter_1
 )
 
+
+# for deployment
+render_data_home = os.getcwd() + '/data'
+print("os.getcwd() ", os.getcwd())
+
+test_path = render_data_home + "/problems/1/description.txt" 
+
+print("test_path = ", test_path, " exist : ", os.path.exists(test_path))
+
+render_deploy_config = Config("RENDER_DEPLOY",
+render_data_home,
+_SLASH,
+"g++",
+"python",
+CONSOLE_FILE_PRINTER_UBUNTU_1,
+ubuntu_path_formatter_1                              
+)
+
 cur_config = ubuntu_1_config
 
 # current config acc to evironment variable
-import os
+
 ENVIRONMENT = os.getenv('OS_TYPE')
 
 print("Environemt : ", ENVIRONMENT)
@@ -122,3 +141,5 @@ if ENVIRONMENT == 'WINDOWS':
     cur_config = window_1_config
 elif ENVIRONMENT == 'UBUNTU_DOCKERIZED':
     cur_config = dockerised_1_config
+elif ENVIRONMENT == 'RENDER_DEPLOYED':
+    cur_config = render_deploy_config
