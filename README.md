@@ -40,13 +40,13 @@
 - Can use username = `dummy` and password = `dummy` .
 
 ## screenshots
-![image]('./docs/screenshots/version1/ss (1).png')
-![image]('./docs/screenshots/version1/ss (2).png')
-![image]('./docs/screenshots/version1/ss (3).png')
-![image]('./docs/screenshots/version1/ss (4).png')
-![image]('./docs/screenshots/version1/ss (5).png')
-![image]('./docs/screenshots/version1/ss (6).png')
-![image]('./docs/screenshots/version1/ss (7).png')
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(1).png?raw=true)
+![image]()
+![image]()
+![image]()
+![image]()
+![image]()
+![image]()
 
 
 # Detailed Todo list (Most of that is not gonna happen now. )
