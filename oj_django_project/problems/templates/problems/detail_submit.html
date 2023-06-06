@@ -281,7 +281,6 @@ class Config{
     // element id
     static verdict_element_id = 'verdict-element' ;
     static submitted_verdict_text = 'Code Submitted. Processing '
-    static verdict_loading_gif_id = 'verdict-loading-gif' ;
     static code_input_element_id = 'submission-input-textarea';
     static language_selector_element_id = 'language-selector-list';
 }
@@ -328,15 +327,6 @@ class VerdictManager{
 
     constructor(){
         this.verdict_element = document.getElementById(Config.verdict_element_id);
-        this.verdict_loading_gif = document.getElementById(Config.verdict_loading_gif_id);
-    }
-
-    show_loading_gif(){
-        this.verdict_loading_gif.style.display = "inline";
-    }
-
-    hide_loading_gif(){
-        this.verdict_loading_gif.style.display = "none";
     }
 
     set_verdict(verdict, verdict_type){
@@ -417,7 +407,7 @@ class Manager{
         
         // update verdict to processing
         VerdictManager.instance.set_verdict(Config.sending_submission_text);
-        VerdictManager.instance.show_loading_gif();
+        
         
         // send data to server
         // asynchronously update the verdict on recieving from server
@@ -428,7 +418,7 @@ class Manager{
         })
         .then( (data) => {
             VerdictManager.instance.set_verdict(data.verdict, data.verdict_type);
-            VerdictManager.instance.hide_loading_gif();
+            
         });
     }
 
@@ -537,7 +527,6 @@ function handle_tab_textarea(){
 }
 
 function onLoad(){
-    VerdictManager.instance.hide_loading_gif();
     handle_tab_textarea();
 }
 
