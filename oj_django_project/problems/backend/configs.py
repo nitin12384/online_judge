@@ -1,6 +1,8 @@
 NUM_SUBMISSION_IN_DIR = 100000
 
-DATA_HOME_WINDOWS_1 = r"C:/Users/kumniti/prog/Projects/online_judge/data"
+
+DATA_HOME_WINDOWS_1 = r"../data"
+#DATA_HOME_WINDOWS_1 = r"C:/Users/nitin/Programming/projects/online_judge/data"
 DATA_HOME_UBUNTU_1 = r"/home/nitin/Programming/projects/online_judge/data"
 
 SUBMISSION_DATA_RELATIVE_PATH = r"/submissions"
@@ -13,7 +15,7 @@ BACKSLASH = "\\"
 SLASH = "/"
 SPACE = " "
 
-ENVIRONMENT = "UBUNTU_1"
+ENVIRONMENT = "WINDOWS_1"
 ENV_WINDOWS1 = "WINDOWS_1"
 ENV_UBUNTU1 = "UBUNTU_1"
 COMPILED_SUCCESSFULLY_MESSAGE = "Compiled Successfully"
@@ -34,10 +36,10 @@ CONSOLE_FILE_PRINTER_UBUNTU_1 = "cat"
 
 CONSOLE_FILE_COPIER_1 = "cp"
 
-CPP_COMPILER_PATH_1 = r"C:/MorePrograms/tdm_gcc_10.3.0/bin/g++.exe"
+CPP_COMPILER_PATH_1 = r"C:\Users\nitin\MorePrograms\mingw64\bin\g++.exe"
 CPP_COMPILER_PATH_2 = r"/usr/bin/g++"
 
-PYTHON_COMPILER_PATH_1 = r""
+PYTHON_COMPILER_PATH_1 = r"C:\Users\nitin\AppData\Local\Programs\Python\Python37\python.exe"
 PYTHON_COMPILER_PATH_2 = r"/usr/bin/python3"
 
 class Config:
