@@ -75,4 +75,12 @@ class Config:
 ubuntu_1_config = Config("ENV_UBUNTU1", DATA_HOME_UBUNTU_1, CPP_COMPILER_PATH_UBUNTU_1, PYTHON_COMPILER_PATH_UBUNTU_1, CONSOLE_FILE_PRINTER_UBUNTU_1)
 window_1_config = Config("ENV_WINDOWS1", DATA_HOME_WINDOWS_1, CPP_COMPILER_PATH_WIN_1, PYTHON_COMPILER_PATH_WIN_1, CONSOLE_FILE_PRINTER_WIN_1)
 
+# for image with python, django, and gcc installed
+dockerised_1_config = Config("DOCKERIZED_1",
+"/root/data", # Data Home
+"g++", # CPP compiler Path
+"python", # Python compiler Path
+CONSOLE_FILE_PRINTER_UBUNTU_1
+)
+
 cur_config = window_1_config

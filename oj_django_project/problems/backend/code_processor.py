@@ -154,7 +154,8 @@ class PythonLangaugeProcessor(LanguageProcessorBase):
                             out_file_path: str):
         # for python 
         return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
-            " | " + "python3 " + quote_enclose(executable_file_path) + \
+            " | " + quote_enclose(configs.cur_config.python_compiler_path) + configs.SPACE +  \
+            quote_enclose(executable_file_path) + \
             " > " + quote_enclose(out_file_path)
 
     
