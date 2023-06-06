@@ -1,3 +1,5 @@
+# Todo : Needs lot of cleanup, etc to make it easy to use
+
 NUM_SUBMISSION_IN_DIR = 100000
 
 

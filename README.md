@@ -9,6 +9,9 @@
 
 1. make user temp_executables directory exist in /data/submissions 
 
+2. Open oj_django_project/problems/backend/config.py
+   - Make sure that Python compiler path and C++ compiler path is mentioned
+
 ## How to run locally (for linux)
 
 0. Open terminal in ./oj_django_project directory
