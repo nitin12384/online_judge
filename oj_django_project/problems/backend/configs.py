@@ -114,7 +114,7 @@ cur_config = ubuntu_1_config
 
 # current config acc to evironment variable
 import os
-ENVIRONMENT = os.environ['OS_TYPE']
+ENVIRONMENT = os.getenv('OS_TYPE')
 
 if ENVIRONMENT == 'WINDOWS':
     cur_config = window_1_config
