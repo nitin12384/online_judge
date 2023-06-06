@@ -177,7 +177,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         # dir path should not end with a slash ?
 
-        return executable_dir_path + configs.SLASH + code_file_name_without_extension \
+        return executable_dir_path + cur_config.slash + code_file_name_without_extension \
                + self.executable_file_extension
 
     @overrides
