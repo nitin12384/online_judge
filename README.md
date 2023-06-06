@@ -7,10 +7,14 @@
 - [ ] Add some CSS, and make the design at least look like mediocre. 
 - [ ] Add some CSS, and make website responsive.
 - [ ] Add TLE and MLE detection mechanism.
+- [ ] Deploy Again 
+
 - [ ] Add more test cases and test problems.
 - [ ] Add 4-5 new problems.
 - [ ] Creating Demo video and code walkthrough video.
 - [ ] Adding proper documentation in ReadMe.md
+
+- [ ] Decouple database and problem data
 
 ## Prerequisites to run
 
