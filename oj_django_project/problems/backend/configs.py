@@ -113,8 +113,9 @@ ubuntu_path_formatter_1
 
 
 # for deployment
-render_data_home = os.getcwd() + '/data'
-print("os.getcwd() ", os.getcwd())
+# This works only if the deployment in render is started on 'oj_django_project' directory
+render_data_home = os.path.dirname( os.getcwd() ) + '/data'
+print("render_data_home : ", render_data_home)
 
 test_path = render_data_home + "/problems/1/description.txt" 
 
