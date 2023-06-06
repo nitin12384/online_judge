@@ -41,12 +41,13 @@
 
 ## screenshots
 ![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(1).png?raw=true)
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(2).png?raw=true)
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(3).png?raw=true)
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(4).png?raw=true)
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(5).png?raw=true)
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(6).png?raw=true)
+![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(7).png?raw=true)
+
 
 
 # Detailed Todo list (Most of that is not gonna happen now. )
