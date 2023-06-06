@@ -110,4 +110,4 @@ CONSOLE_FILE_PRINTER_UBUNTU_1,
 ubuntu_path_formatter_1
 )
 
-cur_config = window_1_config
+cur_config = dockerised_1_config
