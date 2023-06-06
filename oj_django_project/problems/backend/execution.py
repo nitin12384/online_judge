@@ -38,7 +38,7 @@ def run_command(command: str, execution_cap: ExecutionCap = default_execution_ca
     if len(command) >= configs.COMMAND_LENGTH_LIMIT:
         Logger.log("Command is too big " + command)
         return None
-
+    
     Logger.log("Executing command : " + command)
     ret_val = os.system(command)
     Logger.log("ret_val of command : " + str(ret_val))

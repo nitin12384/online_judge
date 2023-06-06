@@ -14,7 +14,7 @@ from .backend import configs
 from .models import Problem, UserInfo, Language
 from .backend.utils import Logger
 from .backend.core import SubmissionHandler
-
+from .backend.configs import cur_config
 
 
 def index(request):
@@ -350,6 +350,9 @@ def get_problem_detailed_context(problem: Problem) -> dict:
 
     file_paths = [description_file_path, input_file_path, output_file_path,
                   constraints_file_path, examples_file_path]
+    
+    # require backslash formatting in windows, otherwize "type" command wont work
+    file_paths = [ cur_config.path_formatter(path) for path in file_paths ]
 
     files = [open(s, "r") for s in file_paths]
     file_data = [f.read() for f in files]

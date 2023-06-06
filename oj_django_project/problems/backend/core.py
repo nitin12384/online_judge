@@ -5,6 +5,7 @@ import math
 from datetime import datetime
 from .db_handler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission, update_user_problem_relation
 from . import configs
+from .configs import cur_config
 from .code_processor import process
 
 from django.contrib.auth.models import User
@@ -69,7 +70,7 @@ class SubmissionHandler:
         data_dir = SubmissionHandler.get_next_sub_data_dir(num_sub)
 
         file_name = file_name_without_extension + "." + file_extension
-        file_path = configs.SLASH + data_dir + configs.SLASH + file_name
+        file_path = cur_config.slash + data_dir + cur_config.slash + file_name
         return file_path
 
     def get_next_sub_data_dir(num_sub: int) -> str:

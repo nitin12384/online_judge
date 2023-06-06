@@ -5,6 +5,7 @@ from django import conf
 
 from .db_handler import get_problem
 from . import configs
+from .configs import cur_config
 from .utils import quote_enclose
 from .execution import run_command, ExecutionInfo, ExecutionCap
 from ..models import Problem
@@ -54,7 +55,7 @@ class LanguageProcessorBase:
     # returns : executable_file_path, compilation_result
     def create_executable_file(self, code_file_path: str,
                                code_file_name_without_extension: str) -> tuple:
-        executable_file_path = self.get_executable_path(configs.cur_config.temp_executable_dir_path,
+        executable_file_path = self.get_executable_path(cur_config.temp_executable_dir_path,
                                                         code_file_name_without_extension)
 
         command = self.get_compiler_command(code_file_path, executable_file_path)
@@ -134,7 +135,7 @@ class CPPLanguageProcessor(LanguageProcessorBase):
 class PythonLangaugeProcessor(LanguageProcessorBase):
     def __init__(self):
         # configs like compiler_path
-        self.compiler_full_path = configs.cur_config.python_compiler_path
+        self.compiler_full_path = cur_config.python_compiler_path
         self.executable_file_extension = ".py"
 
     @overrides
@@ -146,15 +147,15 @@ class PythonLangaugeProcessor(LanguageProcessorBase):
     @overrides
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         # dir path should not end with a slash ?
-        return executable_dir_path + configs.SLASH + code_file_name_without_extension \
+        return executable_dir_path + cur_config.slash + code_file_name_without_extension \
                + self.executable_file_extension
 
     @overrides
     def get_execute_command(self, executable_file_path: str, inp_file_path: str,
                             out_file_path: str):
         # for python 
-        return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
-            " | " + quote_enclose(configs.cur_config.python_compiler_path) + configs.SPACE +  \
+        return cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
+            " | " + quote_enclose(cur_config.python_compiler_path) + configs.SPACE +  \
             quote_enclose(executable_file_path) + \
             " > " + quote_enclose(out_file_path)
 
@@ -164,7 +165,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
     def __init__(self):
         # configs like compiler_path
-        self.compiler_full_path = configs.cur_config.cpp_compiler_path
+        self.compiler_full_path = cur_config.cpp_compiler_path
         self.executable_file_extension = ".out"
 
     @overrides
@@ -183,7 +184,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
     def get_execute_command(self, executable_file_path: str, inp_file_path: str,
                             out_file_path: str):
         # for c++ executables
-        return configs.cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
+        return cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
             " | " + quote_enclose(executable_file_path) + \
             " > " + out_file_path
 
@@ -201,24 +202,24 @@ def get_language_processor(language_id: int) -> LanguageProcessorBase:
 
 
 def get_testcases_dir_path(problem: Problem) -> str:
-    return configs.cur_config.problem_data_dir_path + \
-           problem.data_dir_path + configs.TESTCASES_DIR_RELATIVE_PATH
+    return cur_config.problem_data_dir_path + \
+           problem.data_dir_path + cur_config.testcase_dir_relative_path
 
 
 def get_output_dir_path() -> str:
-    return configs.cur_config.temp_out_data_dir_path
+    return cur_config.temp_out_data_dir_path
 
 
 def get_inp_file_path(testcases_dir_path: str, testcase_id: int) -> str:
-    return testcases_dir_path + r"/inp_" + str(testcase_id) + ".txt"
+    return testcases_dir_path + cur_config.slash + "inp_" + str(testcase_id) + ".txt"
 
 
 def get_expected_output_file_path(testcases_dir_path: str, testcase_id: int) -> str:
-    return testcases_dir_path + r"/out_" + str(testcase_id) + ".txt"
+    return testcases_dir_path + cur_config.slash + "out_" + str(testcase_id) + ".txt"
 
 
 def get_output_file_path(output_dir_path: str, testcase_id: int = 0) -> str:
-    return output_dir_path + r"/gen_out_" + str(testcase_id) + ".txt"
+    return output_dir_path + cur_config.slash + "gen_out_" + str(testcase_id) + ".txt"
 
 
 def process(code_file_full_path: str, language_id: int,

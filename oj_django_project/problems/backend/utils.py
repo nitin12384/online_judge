@@ -25,7 +25,6 @@ class Logger:
 
 
 
-
 # global properties
 def quote_enclose(s: str) -> str:
     return "\"" + s + "\""
