@@ -4,11 +4,11 @@
 ## Current Todo With priorities
 
 - [x] Deploy for once.
-- [] Add some CSS, and make the design at least look like mediocre. 
-- [] Add some CSS, and make website responsive.
-- [] Add TLE and MLE detection mechanism.
-- [] Add more test cases and test problems.
-- [] Add 4-5 new problems.
+- [ ] Add some CSS, and make the design at least look like mediocre. 
+- [ ] Add some CSS, and make website responsive.
+- [ ] Add TLE and MLE detection mechanism.
+- [ ] Add more test cases and test problems.
+- [ ] Add 4-5 new problems.
 
 ## Prerequisites to run
 
@@ -49,22 +49,22 @@
 
 # Detailed Todo list (Most of that is not gonna happen now. )
 - [x] Add user log in
-- [] put in docker
-- [] Add Time, Memory limit, Network security, ....
-- [] deploy on firebase, heroku, AWS
-- [] Option to see compiler error 
-- [] Add multiple testcases for problems (big IO testcases)
-- [] Add More problems. Have 7-8 good and (nowhere else you could find) problems.
-- [] Improve the UI
-- [] Testing including NFR
-- [] Django . gets logged out automatically 
-- [] send Friends
-- [] Forgot password/change password thing
-- [] CSRF protection in Submit code. Learn how CSRF works, what kind of thing a hacker do with it.
-- [] User Login success, user signup success message/alert
-- [] Put validation in username and password and email . Cross Sire Scripting attacks!!
-- [] Put db handling code in models
-
+- [ ] put in docker
+- [ ] Add Time, Memory limit, Network security, ....
+- [ ] deploy on firebase, heroku, AWS
+- [ ] Option to see compiler error 
+- [ ] Add multiple testcases for problems (big IO testcases)
+- [ ] Add More problems. Have 7-8 good and (nowhere else you could find) problems.
+- [ ] Improve the UI
+- [ ] Testing including NFR
+- [ ] Django . gets logged out automatically 
+- [ ] send Friends
+- [ ] Forgot password/change password thing
+- [ ] CSRF protection in Submit code. Learn how CSRF works, what kind of thing a hacker do with it.
+- [ ] User Login success, user signup success message/alert
+- [ ] Put validation in username and password and email . Cross Sire Scripting attacks!!
+- [ ] Put db handling code in models
+ 
 * ToDo List
 ✔️ Done
 ▶️ In progress
