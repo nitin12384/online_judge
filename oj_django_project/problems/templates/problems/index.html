@@ -20,18 +20,19 @@
 {% block content_root %}
 <div id="content-root">
     <h2 class="heading2">Problemset</h2>
-    <table>
-        <thead>
-            <td class="table-header-cell">ID</td>
-            <td class="table-header-cell">Problem Name</td>
-            <td class="table-header-cell">Difficulty</td>
-        </thead>
+    <table class="fancy-table-1">
+        
         <tbody>
+            <tr>
+                <td class="table-header-cell">ID</td>
+                <td class="table-header-cell">Problem Name</td>
+                <td class="table-header-cell">Difficulty</td>
+            </tr>
         {% for problem in problem_list %}
         <tr id="problem-{{problem.id}}">
             <td>{{problem.id}}</td>
             <td>
-                <a href="{% url 'problems:detail_submit_path' problem.id %}">{{problem.name}}</a>
+                <a href="{% url 'problems:detail_submit_path' problem.id %}" class="">{{problem.name}}</a>
             </td>
             <td>{{problem.difficulty}}</td>
         </tr>

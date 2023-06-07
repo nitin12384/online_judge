@@ -36,9 +36,10 @@
 
 
 {% block content_root %}
-<div class="problem-title">
-    <h2 class="heading2">P{{problem.id}} {{problem.name}}</h2>
-</div>
+
+<div id="content-root">
+
+<h2 class="heading2">P{{problem.id}} {{problem.name}}</h2>
 
 <div id="detail-submit-content-root">
 
@@ -102,6 +103,7 @@
         </div>
     </div>
 
+</div>
 </div>
 <script>
     const cur_page_problem_id = {{problem.id}} ;

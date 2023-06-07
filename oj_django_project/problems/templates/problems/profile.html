@@ -28,14 +28,28 @@
 
 {% block content_root %}
 <div id="content-root">
-    <p> Username : {{user_public_info.username}}</p>
-    <p> Name : {{user_public_info.full_name}}</p>
-    <p> Problems Solved : {{user_public_info.num_problems_solved}}</p>
+    <table class="fancy-table-1">
+        <tr>
+            <td>Username</td> <td>{{user_public_info.username}}</td>
+        </tr>
+        <tr> 
+            <td>Name</td><td>{{user_public_info.full_name}}</td>
+        </tr>
+        <tr>
+            <td>Problems Solved</td><td>{{user_public_info.num_problems_solved}}</td>
+        </tr>
+        {% if is_requested_user_logged_in %}
+        <tr>
+            <td>Email(Only visible to you)</td><td>{{user_private_info.email}}</td>
+        </tr>
+        {% endif %}
+    </table>
 
-    {% if is_requested_user_logged_in %}
-    <p> Email : {{user_private_info.email}}</p>
-    <a href="{% url 'problems:logout_action_path' %}"> Logout </a>    
-    {% endif %}
+{% if is_requested_user_logged_in %}
+<div class="footer-button-div">
+<a href="{% url 'problems:logout_action_path' %}" class="button-link"> Logout </a>    
+</div>
+{% endif %}
 
 </div>
 {% endblock content_root %}

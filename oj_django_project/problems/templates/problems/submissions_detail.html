@@ -24,15 +24,16 @@
             P{{problem.id}} {{problem.name}}
         </a>
     </h2>
-    <table>
-        <thead>
+    <table class="fancy-table-1">
+        
+    <tbody>
+        <tr>
             <td class="table-header-cell" >ID</td>
             <td class="table-header-cell" >User</td>
             <td class="table-header-cell" >Time of Submission</td>
             <td class="table-header-cell" >Runtime</td>
             <td class="table-header-cell" >Verdict</td>
-        </thead>
-    <tbody>
+        </tr>
         {% for submission in problem.submission_set.all %}
         <tr id="submission-{{submission.id}}">
             <td>{{submission.id}}</td>
