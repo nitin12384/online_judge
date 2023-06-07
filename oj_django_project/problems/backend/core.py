@@ -1,6 +1,5 @@
 # contains SubmissionManger
 
-from ast import Sub
 import math
 from datetime import datetime
 from .db_handler import get_num_submissions, get_language_file_extension, save_new_submission, update_submission, update_user_problem_relation

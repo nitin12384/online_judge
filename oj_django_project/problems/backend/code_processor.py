@@ -1,8 +1,4 @@
 # necessary to use abstract class
-from abc import abstractmethod
-
-from django import conf
-
 from .db_handler import get_problem
 from . import configs
 from .configs import cur_config

@@ -1,7 +1,6 @@
 
 # run these commands in $ python manage.py shell
 
-from re import sub
 from problems.models import Problem,Submission,Language,ProblemLanguageRelation
 from django.utils import timezone
 

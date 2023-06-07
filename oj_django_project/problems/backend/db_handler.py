@@ -1,4 +1,3 @@
-from re import sub
 from ..models import Problem, Language, ProblemLanguageRelation, Submission, UserProblemRelation
 from django.contrib.auth.models import User
 
