@@ -72,10 +72,6 @@ class LanguageProcessorBase:
         # preprocess
         self.preprocess(code_file_path)
 
-        # security check
-        if not self.check_security(code_file_path):
-            return configs.SECURITY_CHECK_FAILED_VERDICT
-
         executable_file_path, compilation_result = self.create_executable_file(code_file_path,
                                                                                code_file_name_without_extension)
         # verdict_type : 0 -> AC, 1 -> WA, 2 -> RE, 3 -> TLE, 4 -> MLE, 5 -> CE
@@ -227,7 +223,7 @@ def process(code_file_full_path: str, language_id: int,
 
     # Task : Initial security checks etc.
     if not language_processor.check_security(code_file_full_path):
-        return configs.SECURITY_CHECK_FAILED_VERDICT
+        return configs.SECURITY_CHECK_FAILED_VERDICT,5,0
 
     # Task : get input path, output path ..
     problem = get_problem(problem_id)
