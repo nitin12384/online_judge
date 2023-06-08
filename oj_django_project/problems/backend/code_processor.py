@@ -67,7 +67,7 @@ class LanguageProcessorBase:
 
         if execution_info.failed:
             compilation_result.failed = True
-            compilation_result.message = "Compilation Failed . Message : \n"
+            compilation_result.message = ""
             # read stderr_file and add to message
             with open(cur_config.compilation_stderr_file, 'r') as err_file:
                 for line in err_file.readlines():

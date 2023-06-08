@@ -11,7 +11,8 @@ import time
 import datetime
 
 class ExecutionInfo:
-    def __init__(self, memory_usage: int = -1, runtime: float = -1, failed: bool = True,
+    # default value for a succesful process executing in 0s and taking 0bytes memory
+    def __init__(self, memory_usage: int = 0, runtime: float = 0, failed: bool = False,
                  return_code: int = 0, runtime_cap_reached: bool=False,
                  memory_cap_reached: bool=False,
                  message: str = ""):
