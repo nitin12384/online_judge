@@ -58,6 +58,7 @@
 ### Implementation issues
 - get_next_sub_dir() in core.py not implemented, just returns "data1" for now.
 - Python version used is 3.7 (in windows_1 environment), but Python Language is visible with name Python 3.10
+- Compiler error displays code file path. Can be used maliciously
 
 ### Design Issues
 - Problem Model does not contain memory_limit
