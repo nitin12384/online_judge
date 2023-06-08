@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 class SubmissionHandler:
 
     @staticmethod
-    def submit(code: str, user: User, problem_id: int, language_id: int) -> str:
+    def submit(code: str, user: User, problem_id: int, language_id: int) -> tuple:
         # save code to file 
 
         num_sub = get_num_submissions()
@@ -34,7 +34,7 @@ class SubmissionHandler:
         # compile and run with input
         # match output
         # get verdict
-        verdict, verdict_type, runtime = process(file_full_path, language_id, submission_id,
+        verdict, verdict_type, verdict_details, runtime = process(file_full_path, language_id, submission_id,
                                    problem_id, file_name_without_extension)
 
         # save to submission database
@@ -44,7 +44,7 @@ class SubmissionHandler:
         # User problem relation databse
         update_user_problem_relation(user, problem_id, verdict_type)
 
-        return verdict, verdict_type
+        return verdict, verdict_type, verdict_details
 
     # completed
 

@@ -11,6 +11,8 @@ TEMP_OUTPUT_DATA_DIR_NAME   = "temp_out_data"
 TEMP_EXECUTABLE_DIR_NAME    = "temp_executables"
 TESTCASES_DIR_NAME          = "testcases"
 
+COMPILATION_STDERR_FILE_NAME = "comp_out.txt"
+
 _BACKSLASH = "\\"
 _SLASH = "/"
 SPACE = " "
@@ -22,7 +24,8 @@ RUNTIME_ERROR_MESSAGE = "Runtime Terror"
 
 LINE_LENGTH_LIMIT = 100_000_000_000_000_000
 
-DEFAULT_MEMORY_LIMIT = 500  # MB
+COMPILATION_TIME_LIMIT = 5 # seconds
+DEFAULT_MEMORY_LIMIT = 500 * 1024 * 1024  # Bytes
 
 COMMAND_LENGTH_LIMIT = 8191
 
@@ -90,6 +93,8 @@ class Config:
         self.temp_out_data_dir_path = self.submission_data_dir_path + self.slash + TEMP_OUTPUT_DATA_DIR_NAME
         self.temp_executable_dir_path = self.submission_data_dir_path + self.slash + TEMP_EXECUTABLE_DIR_NAME
         self.testcase_dir_relative_path = self.slash + TESTCASES_DIR_NAME
+
+        self.compilation_stderr_file = self.temp_out_data_dir_path + self.slash + COMPILATION_STDERR_FILE_NAME
 ##########################################
 #   Choose Environment                   #
 ##########################################

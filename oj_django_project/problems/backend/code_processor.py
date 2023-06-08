@@ -3,7 +3,7 @@ from .db_handler import get_problem
 from . import configs
 from .configs import cur_config
 from .utils import quote_enclose
-from .execution import run_command, ExecutionInfo, ExecutionCap
+from .execution import Executor, ExecutionInfo
 from ..models import Problem
 from .validation import file_comparer_exact
 
@@ -27,7 +27,7 @@ class LanguageProcessorBase:
 
 
     # Override them
-    def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
+    def get_compiler_exec_args(self, code_file_path: str, executable_file_full_path: str) -> list:
         pass
 
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
@@ -54,13 +54,21 @@ class LanguageProcessorBase:
         executable_file_path = self.get_executable_path(cur_config.temp_executable_dir_path,
                                                         code_file_name_without_extension)
 
-        command = self.get_compiler_command(code_file_path, executable_file_path)
-        execution_info = run_command(command)
+        exec_args = self.get_compiler_exec_args(code_file_path, executable_file_path)
+        execution_info = Executor(exec_args, tlimit=configs.COMPILATION_TIME_LIMIT,
+                                  memlimit=configs.DEFAULT_MEMORY_LIMIT,
+                                  stdin_file=None, stdout_file=None,
+                                  stderr_file=cur_config.compilation_stderr_file
+                                  ).execute()
 
         compilation_result = CompilationResult()
         if execution_info.failed:
             compilation_result.failed = True
-            compilation_result.message = "Compilation Failed . Message : \n" + execution_info.message
+            compilation_result.message = "Compilation Failed . Message : \n"
+            # read stderr_file and add to message
+            with open(cur_config.compilation_stderr_file, 'r') as err_file:
+                for line in err_file.readlines():
+                    compilation_result.message += line
 
         return executable_file_path, compilation_result
 
@@ -68,7 +76,8 @@ class LanguageProcessorBase:
 
     def process(self, code_file_path: str, code_file_name_without_extension: str,
                 num_testcase: int, testcases_dir_path: str, output_dir_path: str,
-                runtime_limit: int, memory_limit: int) -> tuple:
+                runtime_limit: float, memory_limit: int) -> tuple:
+        
         # preprocess
         self.preprocess(code_file_path)
 
@@ -76,13 +85,13 @@ class LanguageProcessorBase:
                                                                                code_file_name_without_extension)
         # verdict_type : 0 -> AC, 1 -> WA, 2 -> RE, 3 -> TLE, 4 -> MLE, 5 -> CE
         if compilation_result.failed :
-            # runtime 0
-            # verdict_type  5
-            return "Compilation Error", 5, 0
+            # runtime 0, verdict_type  5, verdict_detail ""
+            return "Compilation Error", 5, compilation_result.message, 0
 
         verdict = "Accepted : Passed #" + str(num_testcase) + " Test Cases."
         verdict_type = 0
         runtime = -1
+        verdict_details = ""
 
         for testcase_id in range(1, num_testcase + 1):
             # get inp file path
@@ -114,7 +123,7 @@ class LanguageProcessorBase:
                 verdict_type = 1
                 break
 
-        return verdict, verdict_type, runtime
+        return verdict, verdict_type, verdict_details, runtime
 
 
 
@@ -131,10 +140,9 @@ class PythonLangaugeProcessor(LanguageProcessorBase):
         self.executable_file_extension = ".py"
 
     @overrides
-    def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
+    def get_compiler_exec_args(self, code_file_path: str, executable_file_full_path: str) -> list:
         # for python we just copy file to executable path
-        return configs.CONSOLE_FILE_COPIER_1 + configs.SPACE + quote_enclose(code_file_path) + configs.SPACE  \
-            + quote_enclose(executable_file_full_path)
+        return [ configs.CONSOLE_FILE_COPIER_1, code_file_path, executable_file_full_path ]
 
     @overrides
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
@@ -161,9 +169,8 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
         self.executable_file_extension = ".out"
 
     @overrides
-    def get_compiler_command(self, code_file_path: str, executable_file_full_path: str) -> str:
-        return self.compiler_full_path + configs.SPACE + \
-               quote_enclose(code_file_path) + " -o " + quote_enclose(executable_file_full_path)
+    def get_compiler_exec_args(self, code_file_path: str, executable_file_full_path: str) -> list:
+        return [ self.compiler_full_path, code_file_path, "-o", executable_file_full_path]
 
     @overrides
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
@@ -214,9 +221,10 @@ def get_output_file_path(output_dir_path: str, testcase_id: int = 0) -> str:
     return output_dir_path + cur_config.slash + "gen_out_" + str(testcase_id) + ".txt"
 
 
+# return verdict, verdict_type, runtime
 def process(code_file_full_path: str, language_id: int,
             submission_id: int, problem_id: int, code_file_name_without_extension: str) -> tuple:
-    # return verdict, runtime
+    
     language_processor = get_language_processor(language_id)
     # Task : preprocess
     language_processor.preprocess(code_file_full_path)
@@ -230,8 +238,8 @@ def process(code_file_full_path: str, language_id: int,
     num_testcases = problem.num_testcases
     testcases_dir_path = get_testcases_dir_path(problem)
     output_dir_path = get_output_dir_path()
-    runtime_limit = problem.time_limit
-    memory_limit = configs.DEFAULT_MEMORY_LIMIT  # MB , by default
+    runtime_limit = problem.time_limit # float
+    memory_limit = configs.DEFAULT_MEMORY_LIMIT  # bytes , by default
 
     # Task : compile and run and generate output
     # match output of testcase i, before running for testcase i+1

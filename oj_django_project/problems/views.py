@@ -71,11 +71,12 @@ def submit(request):
     Logger.log("(views.py)Received submission for P-" + str(problem_id)
                + " language_id " + str(language_id))
 
-    verdict, verdict_type = SubmissionHandler.submit(code, user, problem_id, language_id)
+    verdict, verdict_type, verdict_details = SubmissionHandler.submit(code, user, problem_id, language_id)
 
     verdict_dict = dict({
         'verdict': verdict,
-        'verdict_type' : verdict_type
+        'verdict_type' : verdict_type,
+        'verdict_details' : verdict_details
     })
 
     return JsonResponse(verdict_dict)
@@ -103,10 +104,10 @@ def user_profile(request, username):
         return render(request, 'problems/profile.html', context)
 
 
-#next_page_field_name = 'next'
+# next_page_field_name = 'next'
 
 # cant use reverse globally
-#default_next_page = reverse('problems:index')
+# default_next_page = reverse('problems:index')
 
 # Todo Test if works
 default_next_page = '/'

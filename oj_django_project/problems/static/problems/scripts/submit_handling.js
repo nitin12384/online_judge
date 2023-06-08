@@ -69,11 +69,11 @@ class VerdictManager{
         this.verdict_loading_gif.style.display = "none";
     }
 
-    set_verdict(verdict, verdict_type){
+    set_verdict(verdict_data){
         // set verdict message in HTML DOM element.
-        this.verdict_element.innerHTML = verdict;
+        this.verdict_element.innerHTML = verdict_data.verdict + verdict_data.verdict_details;
         // make sure to assign correct class 
-        let verdict_element_class = "verdict-text-" + verdict_type
+        let verdict_element_class = "verdict-text-" + verdict_data.verdict_type
         this.verdict_element.className = verdict_element_class
     }
 
@@ -156,8 +156,8 @@ class Manager{
             Logger.log("Response recieved");
             return response.json();
         })
-        .then( (data) => {
-            VerdictManager.instance.set_verdict(data.verdict, data.verdict_type);
+        .then( (verdict_data) => {
+            VerdictManager.instance.set_verdict(verdict_data);
             VerdictManager.instance.hide_loading_gif();
         });
     }

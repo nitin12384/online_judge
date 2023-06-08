@@ -24,19 +24,14 @@ class ExecutionInfo:
         self.message                = message # when code is failed, but time/memory limit are not exceeded
     def __str__(self):
         return "memory_usage"   + str(self.memory_usage       ) + \
-        "runtime"               + str(self.runtime            ) + \
-        "failed"                + str(self.failed             ) + \
-        "return_code"           + str(self.return_code        ) + \
-        "runtime_cap_reached"   + str(self.runtime_cap_reached) + \
-        "memory_cap_reached"    + str(self.memory_cap_reached ) + \
-        "message"               + str(self.message            )
+              "B = " + str(self.memory_usage/(2**20)) + "MB" \
+        " runtime"               + str(self.runtime            ) + \
+        " failed"                + str(self.failed             ) + \
+        " return_code"           + str(self.return_code        ) + \
+        " runtime_cap_reached"   + str(self.runtime_cap_reached) + \
+        " memory_cap_reached"    + str(self.memory_cap_reached ) + \
+        " message"               + str(self.message            )
 
-
-
-
-
-
-    "[memo]"
 
 class Executor:
     def_memchecker_period = 0.1 # seconds
@@ -57,15 +52,18 @@ class Executor:
                 proc_obj.kill()
             time.sleep(check_delay_sec)
         
-        # convert to KB ?
-        result.memory_usage //= 1024
+        result.memory_usage
 
     
-    def __init__(self, exec_args : list, tlimit: float, memlimit: int):
+    def __init__(self, exec_args : list, tlimit: float, memlimit: int,
+                 stdin_file  = None,
+                 stdout_file = None,
+                 stderr_file = None
+                 ):
         # file paths
-        self.stdin_file = None
-        self.stdout_file = None
-        self.stderr_file = None
+        self.stdin_file  = stdin_file 
+        self.stdout_file = stdout_file
+        self.stderr_file = stderr_file
 
         self.tlimit = tlimit
         self.memlimit = memlimit

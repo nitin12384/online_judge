@@ -14,7 +14,7 @@ name,
 data_dir_path,
 difficulty,
 num_testcases,
-time_limit
+time_limit : floating point, unit : second
 """
 class Problem(models.Model) :
     name = models.CharField(max_length=200)
