@@ -36,6 +36,7 @@ class ExecutionInfo:
 
 class Executor:
     def_memchecker_period = 0.1 # seconds
+    def_memchecker_join_wait = 0.5 # seconds
     @staticmethod
     def memcheck_worker(pid : int, memlim_bytes : int, check_delay_sec: float, result : ExecutionInfo):
         proc_obj = psutil.Process(pid)
@@ -54,7 +55,6 @@ class Executor:
             time.sleep(check_delay_sec)
         
         Logger.log("memchecker_thread ended()")
-        result.memory_usage
 
     
     def __init__(self, exec_args : list, tlimit: float, memlimit: int,
@@ -122,7 +122,7 @@ class Executor:
         
         Logger.log("Trying to join memchecker_thread")
         # Join memchecker_thread
-        memchecker_thread.join()
+        memchecker_thread.join(timeout=Executor.def_memchecker_join_wait)
 
         Logger.log("Process execution done")
 
