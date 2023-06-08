@@ -53,6 +53,7 @@ class Executor:
                 proc_obj.kill()
             time.sleep(check_delay_sec)
         
+        Logger.log("memchecker_thread ended()")
         result.memory_usage
 
     
@@ -115,8 +116,11 @@ class Executor:
         except subprocess.TimeoutExpired:
             Logger.log("Time Limit Exceed while executing.")
             proc.kill()
+            Logger.log("Process killed")
             result.runtime_cap_reached = True
         
+        
+        Logger.log("Trying to join memchecker_thread")
         # Join memchecker_thread
         memchecker_thread.join()
 
