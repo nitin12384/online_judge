@@ -147,7 +147,9 @@ class Manager{
         
         // update verdict to processing
         VerdictManager.instance.set_verdict({
-            'verdict' : Config.sending_submission_text
+            'verdict' : Config.sending_submission_text,
+            'verdict_type' : 0,
+            'verdict_details' : "" 
         });
         VerdictManager.instance.show_loading_gif();
         

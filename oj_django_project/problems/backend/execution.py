@@ -26,12 +26,12 @@ class ExecutionInfo:
     def __str__(self):
         return "memory_usage "   + str(self.memory_usage       ) + \
               "B = " + str(self.memory_usage/(2**20)) + "MB" \
-        " runtime "               + str(self.runtime            ) + \
-        " failed "                + str(self.failed             ) + \
-        " return_code "           + str(self.return_code        ) + \
-        " runtime_cap_reached "   + str(self.runtime_cap_reached) + \
-        " memory_cap_reached "    + str(self.memory_cap_reached ) + \
-        " message "               + str(self.message            )
+        ", runtime "               + str(self.runtime            ) + \
+        ", failed "                + str(self.failed             ) + \
+        ", return_code "           + str(self.return_code        ) + \
+        ", runtime_cap_reached "   + str(self.runtime_cap_reached) + \
+        ", memory_cap_reached "    + str(self.memory_cap_reached ) + \
+        ", message "               + str(self.message            )
 
 
 class Executor:
@@ -123,7 +123,7 @@ class Executor:
         Logger.log("Process execution done")
 
         t_end = datetime.datetime.now()
-        result.runtime = int ( (t_end - t_start).total_seconds()*1000 ) # msecs
+        result.runtime =  (t_end - t_start).total_seconds() 
 
         # Close IO Files
         self.close_io()
