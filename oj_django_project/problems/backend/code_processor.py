@@ -114,12 +114,12 @@ class LanguageProcessorBase:
             memory_usage = max(memory_usage, execution_info.memory_usage)
 
             if execution_info.runtime_cap_reached :
-                verdict = "TLE on TestCase #" + str(testcase_id)
+                verdict = "TLE on TestCase #" + str(testcase_id) + ". Time Taken " + str(runtime) + "sec."
                 verdict_type = 3
                 break
 
             if execution_info.memory_cap_reached :
-                verdict = "MLE on TestCase #" + str(testcase_id)
+                verdict = "MLE on TestCase #" + str(testcase_id) + ". Memory Used " + str(memory_usage/(2**20)) + "MB."
                 verdict_type = 4
                 break
             if execution_info.failed:
