@@ -3,14 +3,21 @@ see problems/backend/init_data_insert.py
 $ 
 python manage.py shell
 
->>> 
+# Updata a problem object
+
 from problems.models import Problem
-
->>>
 p1 = Problem.objects.get(pk = 1)
-
->>>
 p1.time_limit = 5
-
->>>
 p1.save()
+
+# delelte all submission data 
+
+from problems.models import UserInfo, UserProblemRelation, Submission
+
+Submission.objects.all().delete()
+UserProblemRelation.objects.all().delete()
+
+for userinfo in UserInfo.objects.all():
+    userinfo.num_problems_solved = 0
+    userinfo.score = 0
+    userinfo.save()

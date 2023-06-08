@@ -176,7 +176,7 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
 
     @overrides
     def get_compiler_exec_args(self, code_file_path: str, executable_file_full_path: str) -> list:
-        return [ self.compiler_full_path, code_file_path, "-o", executable_file_full_path]
+        return [ self.compiler_full_path, code_file_path,  "-DONLINE_JUDGE", "-o",executable_file_full_path]
 
     @overrides
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:

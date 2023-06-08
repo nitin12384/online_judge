@@ -4,9 +4,9 @@
 ## Current Todo With priorities
 
 - [x] Deploy for once.
-- [ ] Add some CSS, and make the design at least look like mediocre. 
-- [ ] Add some CSS, and make website responsive.
-- [ ] Add TLE and MLE detection mechanism.
+- [x] Add some CSS, and make the design at least look like mediocre. 
+- [x] Add some CSS, and make website responsive.
+- [x] Add TLE and MLE detection mechanism.
 - [ ] Deploy Again 
 
 - [ ] Add more test cases and test problems.
@@ -57,6 +57,7 @@
 
 ### Implementation issues
 - get_next_sub_dir() in core.py not implemented, just returns "data1" for now.
+- Python version used is 3.7 (in windows_1 environment), but Python Language is visible with name Python 3.10
 
 ### Design Issues
 - Problem Model does not contain memory_limit

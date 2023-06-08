@@ -145,6 +145,10 @@ a:link, a:visited{
 }
 
 
+#notice-board p{
+    margin-left: 2vw;
+}
+
 .button-link{
     background-color: var(--button_colour);
     border-radius: 3px;
