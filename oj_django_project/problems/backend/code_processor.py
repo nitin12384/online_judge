@@ -33,8 +33,7 @@ class LanguageProcessorBase:
     def get_executable_path(self, executable_dir_path: str, code_file_name_without_extension: str) -> str:
         pass
     
-    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
-                            out_file_path: str):
+    def get_execute_args(self, executable_file_path: str):
         pass 
 
 
@@ -43,10 +42,13 @@ class LanguageProcessorBase:
 
 
     def execute_file_with_io(self, executable_file_path: str, inp_file_path: str,
-                             out_file_path: str, runtime_limit: int, memory_limit: int) -> ExecutionInfo:
-        command = self.get_execute_command(executable_file_path, inp_file_path, out_file_path)
-        return run_command(command, ExecutionCap(runtime_limit, memory_limit))
-
+                             out_file_path: str, runtime_limit: float, memory_limit: int) -> ExecutionInfo:
+        
+        exec_args = self.get_execute_args(executable_file_path)
+        
+        return Executor(exec_args, tlimit=runtime_limit, memlimit=memory_limit, 
+                 stdin_file=inp_file_path, stdout_file=out_file_path, stderr_file=None).execute()
+        
     # may generate compiler error
     # returns : executable_file_path, compilation_result
     def create_executable_file(self, code_file_path: str,
@@ -62,6 +64,7 @@ class LanguageProcessorBase:
                                   ).execute()
 
         compilation_result = CompilationResult()
+
         if execution_info.failed:
             compilation_result.failed = True
             compilation_result.message = "Compilation Failed . Message : \n"
@@ -72,8 +75,9 @@ class LanguageProcessorBase:
 
         return executable_file_path, compilation_result
 
-    
-
+    # returns tuple of
+    # (verdict : str, verdict_type : int, verdict_detail : str, runtime : float )
+    # points of exit : 2
     def process(self, code_file_path: str, code_file_name_without_extension: str,
                 num_testcase: int, testcases_dir_path: str, output_dir_path: str,
                 runtime_limit: float, memory_limit: int) -> tuple:
@@ -91,6 +95,7 @@ class LanguageProcessorBase:
         verdict = "Accepted : Passed #" + str(num_testcase) + " Test Cases."
         verdict_type = 0
         runtime = -1
+        memory_usage = -1
         verdict_details = ""
 
         for testcase_id in range(1, num_testcase + 1):
@@ -106,6 +111,7 @@ class LanguageProcessorBase:
                                                        runtime_limit, memory_limit)
 
             runtime = max(runtime, execution_info.runtime)
+            memory_usage = max(memory_usage, execution_info.memory_usage)
 
             if execution_info.runtime_cap_reached :
                 verdict = "TLE on TestCase #" + str(testcase_id)
@@ -151,13 +157,9 @@ class PythonLangaugeProcessor(LanguageProcessorBase):
                + self.executable_file_extension
 
     @overrides
-    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
-                            out_file_path: str):
+    def get_execute_args(self, executable_file_path: str):
         # for python 
-        return cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
-            " | " + quote_enclose(cur_config.python_compiler_path) + configs.SPACE +  \
-            quote_enclose(executable_file_path) + \
-            " > " + quote_enclose(out_file_path)
+        return [cur_config.python_compiler_path, executable_file_path]
 
     
 
@@ -180,12 +182,9 @@ class CPP14LanguageProcessor(CPPLanguageProcessor):
                + self.executable_file_extension
 
     @overrides
-    def get_execute_command(self, executable_file_path: str, inp_file_path: str,
-                            out_file_path: str):
+    def get_execute_args(self, executable_file_path: str):
         # for c++ executables
-        return cur_config.console_file_printer + configs.SPACE + quote_enclose(inp_file_path) + \
-            " | " + quote_enclose(executable_file_path) + \
-            " > " + out_file_path
+        return [executable_file_path]
 
     
 
