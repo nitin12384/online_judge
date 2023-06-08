@@ -52,7 +52,7 @@ a:link, a:visited{
     font-size: large;
     background-color: #777777;
     margin: 0px;
-    
+    flex : 30%;
     display: flex;
     align-items: center;
 }
