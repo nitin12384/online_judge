@@ -47,7 +47,7 @@ class LanguageProcessorBase:
         exec_args = self.get_execute_args(executable_file_path)
         
         return Executor(exec_args, tlimit=runtime_limit, memlimit=memory_limit, 
-                 stdin_file=inp_file_path, stdout_file=out_file_path, stderr_file=None).execute()
+                 stdin_file=inp_file_path, stdout_file=out_file_path, stderr_file="").execute()
         
     # may generate compiler error
     # returns : executable_file_path, compilation_result
@@ -59,7 +59,7 @@ class LanguageProcessorBase:
         exec_args = self.get_compiler_exec_args(code_file_path, executable_file_path)
         execution_info = Executor(exec_args, tlimit=configs.COMPILATION_TIME_LIMIT,
                                   memlimit=configs.DEFAULT_MEMORY_LIMIT,
-                                  stdin_file=None, stdout_file=None,
+                                  stdin_file="", stdout_file="",
                                   stderr_file=cur_config.compilation_stderr_file
                                   ).execute()
 

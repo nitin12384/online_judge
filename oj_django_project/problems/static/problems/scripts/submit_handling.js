@@ -146,7 +146,9 @@ class Manager{
     send_submission_to_server(){
         
         // update verdict to processing
-        VerdictManager.instance.set_verdict(Config.sending_submission_text);
+        VerdictManager.instance.set_verdict({
+            'verdict' : Config.sending_submission_text
+        });
         VerdictManager.instance.show_loading_gif();
         
         // send data to server

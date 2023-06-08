@@ -14,7 +14,7 @@ class ExecutionInfo:
     def __init__(self, memory_usage: int = -1, runtime: float = -1, failed: bool = True,
                  return_code: int = 0, runtime_cap_reached: bool=False,
                  memory_cap_reached: bool=False,
-                 message: str = None):
+                 message: str = ""):
         self.memory_usage           = memory_usage # peak memory usage
         self.runtime                = runtime
         self.failed                 = failed
@@ -23,14 +23,14 @@ class ExecutionInfo:
         self.memory_cap_reached     = memory_cap_reached
         self.message                = message # when code is failed, but time/memory limit are not exceeded
     def __str__(self):
-        return "memory_usage"   + str(self.memory_usage       ) + \
+        return "memory_usage "   + str(self.memory_usage       ) + \
               "B = " + str(self.memory_usage/(2**20)) + "MB" \
-        " runtime"               + str(self.runtime            ) + \
-        " failed"                + str(self.failed             ) + \
-        " return_code"           + str(self.return_code        ) + \
-        " runtime_cap_reached"   + str(self.runtime_cap_reached) + \
-        " memory_cap_reached"    + str(self.memory_cap_reached ) + \
-        " message"               + str(self.message            )
+        " runtime "               + str(self.runtime            ) + \
+        " failed "                + str(self.failed             ) + \
+        " return_code "           + str(self.return_code        ) + \
+        " runtime_cap_reached "   + str(self.runtime_cap_reached) + \
+        " memory_cap_reached "    + str(self.memory_cap_reached ) + \
+        " message "               + str(self.message            )
 
 
 class Executor:
@@ -56,9 +56,9 @@ class Executor:
 
     
     def __init__(self, exec_args : list, tlimit: float, memlimit: int,
-                 stdin_file  = None,
-                 stdout_file = None,
-                 stderr_file = None
+                 stdin_file  = "",
+                 stdout_file = "",
+                 stderr_file = ""
                  ):
         # file paths
         self.stdin_file  = stdin_file 
@@ -72,20 +72,20 @@ class Executor:
     
     def init_io(self):
         self.inp,self.out,self.error = None, None, None 
-        if self.stdin_file :
+        if self.stdin_file != "":
             self.inp = open(self.stdin_file, 'r')
-        if self.stdout_file:
+        if self.stdout_file!= "":
             self.out = open(self.stdout_file, 'w')
-        if self.stderr_file:
+        if self.stderr_file!= "":
             self.error = open(self.stderr_file, 'w')
     
     def close_io(self):
-        if self.stdin_file:
+        if self.stdin_file  != "":
             self.inp.close()
-        if self.stdout_file:
+        if self.stdout_file != "":
             self.out.flush()
             self.out.close()
-        if self.stderr_file:
+        if self.stderr_file != "":
             self.error.flush()
             self.error.close()
     
@@ -93,7 +93,7 @@ class Executor:
 
         self.init_io()
 
-        Logger.log("Executing process with args : ", self.exec_args)
+        Logger.log("Executing process with args : " + str(self.exec_args))
 
         proc = subprocess.Popen(self.exec_args, stdin=self.inp, stdout=self.out, stderr=self.error)
         result = ExecutionInfo()
@@ -121,7 +121,7 @@ class Executor:
 
         Logger.log("Process execution done")
 
-        t_end = datetime.datatime.now()
+        t_end = datetime.datetime.now()
         result.runtime = int ( (t_end - t_start).total_seconds()*1000 ) # msecs
 
         # Close IO Files
@@ -136,7 +136,7 @@ class Executor:
 
         result.failed |= result.memory_cap_reached | result.runtime_cap_reached
         
-        Logger.log("Execution Result : ", result)
+        Logger.log("Execution Result : " + str(result))
 
         return result
 
