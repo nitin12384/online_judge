@@ -118,6 +118,10 @@ class LanguageProcessorBase:
                 verdict_type = 3
                 break
 
+            if execution_info.memory_cap_reached :
+                verdict = "MLE on TestCase #" + str(testcase_id)
+                verdict_type = 4
+                break
             if execution_info.failed:
                 verdict = execution_info.message + " on TestCase #" + str(testcase_id)
                 verdict_type = 2

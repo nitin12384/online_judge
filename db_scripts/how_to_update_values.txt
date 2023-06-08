@@ -1,0 +1,16 @@
+see problems/backend/init_data_insert.py
+
+$ 
+python manage.py shell
+
+>>> 
+from problems.models import Problem
+
+>>>
+p1 = Problem.objects.get(pk = 1)
+
+>>>
+p1.time_limit = 5
+
+>>>
+p1.save()
