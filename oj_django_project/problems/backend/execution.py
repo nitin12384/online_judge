@@ -8,21 +8,35 @@ import psutil
 import threading
 import subprocess
 import time
-import datatime
+import datetime
 
 class ExecutionInfo:
     def __init__(self, memory_usage: int = -1, runtime: int = -1, failed: bool = True,
                  return_code: int = 0, runtime_cap_reached: bool=False,
                  memory_cap_reached: bool=False,
                  message: str = None):
-        self.memory_usage = memory_usage # peak memory usage
-        self.runtime = runtime
-        self.failed = failed
-        self.return_code = return_code
-        self.runtime_cap_reached = runtime_cap_reached
-        self.memory_cap_reached = memory_cap_reached
-        self.message = message # when code is failed, but time/memory limit are not exceeded
+        self.memory_usage           = memory_usage # peak memory usage
+        self.runtime                = runtime
+        self.failed                 = failed
+        self.return_code            = return_code
+        self.runtime_cap_reached    = runtime_cap_reached
+        self.memory_cap_reached     = memory_cap_reached
+        self.message                = message # when code is failed, but time/memory limit are not exceeded
+    def __str__(self):
+        return "memory_usage"   + str(self.memory_usage       ) + \
+        "runtime"               + str(self.runtime            ) + \
+        "failed"                + str(self.failed             ) + \
+        "return_code"           + str(self.return_code        ) + \
+        "runtime_cap_reached"   + str(self.runtime_cap_reached) + \
+        "memory_cap_reached"    + str(self.memory_cap_reached ) + \
+        "message"               + str(self.message            )
 
+
+
+
+
+
+    "[memo]"
 
 class Executor:
     def_memchecker_period = 0.1 # seconds
@@ -37,6 +51,7 @@ class Executor:
             mem_used = proc_obj.memory_info().rss
             result.memory_usage = max(mem_used, result.memory_usage)
             if mem_used > memlim_bytes :
+                Logger.log("Memory Limit Exceeded")
                 # need to somehow also return the information to thread starter
                 result.memory_cap_reached = True
                 proc_obj.kill()
@@ -80,26 +95,35 @@ class Executor:
 
         self.init_io()
 
+        Logger.log("Executing process with args : ", self.exec_args)
+
         proc = subprocess.Popen(self.exec_args, stdin=self.inp, stdout=self.out, stderr=self.error)
         result = ExecutionInfo()
+
+        Logger.log("Process created")
 
         memchecker_thread = threading.Thread(target=Executor.memcheck_worker,
         args=[proc.pid, self.memlimit, Executor.def_memchecker_period,result])
         memchecker_thread.start()
 
-        t_start = datatime.datetime.now()
+        Logger.log("memcheck_thread started")
+
+        t_start = datetime.datetime.now()
 
         # Time Limit checker code
         try:
             proc.wait(timeout=self.tlimit)
         except subprocess.TimeoutExpired:
+            Logger.log("Time Limit Exceed while executing.")
             proc.kill()
             result.runtime_cap_reached = True
         
         # Join memchecker_thread
         memchecker_thread.join()
 
-        t_end = datatime.datatime.now()
+        Logger.log("Process execution done")
+
+        t_end = datetime.datatime.now()
         result.runtime = (t_end - t_start).total_seconds()*1000 # msecs
 
         # Close IO Files
@@ -114,6 +138,8 @@ class Executor:
 
         result.failed |= result.memory_cap_reached | result.runtime_cap_reached
         
+        Logger.log("Execution Result : ", result)
+
         return result
 
 
