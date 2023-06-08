@@ -77,6 +77,7 @@ class SubmissionHandler:
 
         old_dir_num = math.ceil(num_sub / configs.NUM_SUBMISSION_IN_DIR)
         num_sub_in_dir = num_sub % configs.NUM_SUBMISSION_IN_DIR
+        
         # Todo : Properly implement this
         # return 'data1' for now
 

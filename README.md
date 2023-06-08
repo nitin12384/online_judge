@@ -53,7 +53,15 @@
 ![image](https://github.com/nitin12384/online_judge/blob/main/docs/screenshots/version1/ss%20(7).png?raw=true)
 
 
+## Issues that could cause trouble
 
+### Implementation issues
+- get_next_sub_dir() in core.py not implemented, just returns "data1" for now.
+
+### Design Issues
+- Problem Model does not contain memory_limit
+- Submission Model does not contains memory_usage
+- Memory usage and runtime units are not specified.
 # Detailed Todo list (Most of that is not gonna happen now. )
 - [x] Add user log in
 - [ ] put in docker

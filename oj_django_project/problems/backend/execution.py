@@ -124,7 +124,7 @@ class Executor:
         Logger.log("Process execution done")
 
         t_end = datetime.datatime.now()
-        result.runtime = (t_end - t_start).total_seconds()*1000 # msecs
+        result.runtime = int ( (t_end - t_start).total_seconds()*1000 ) # msecs
 
         # Close IO Files
         self.close_io()
