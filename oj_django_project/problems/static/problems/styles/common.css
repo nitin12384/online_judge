@@ -145,7 +145,7 @@ a:link, a:visited{
 }
 
 
-#notice-board p{
+#notice-board > p{
     margin-left: 2vw;
 }
 
