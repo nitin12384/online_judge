@@ -37,9 +37,10 @@ class SubmissionHandler:
         verdict, verdict_type, verdict_details, runtime = process(file_full_path, language_id, submission_id,
                                    problem_id, file_name_without_extension)
 
+        runtime_msec = int(runtime * 1000) # convert to msec
         # save to submission database
         update_submission(submission_id, verdict=verdict, verdict_type=verdict_type, 
-                          runtime=runtime)
+                          runtime=runtime_msec)
         
         # User problem relation databse
         update_user_problem_relation(user, problem_id, verdict_type)
