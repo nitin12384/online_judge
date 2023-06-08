@@ -29,6 +29,9 @@
 
 {% load static %}
 {% block static_loads %}
+<link rel="shortcut icon" type="image/png" href="https://oj-r1pi.onrender.com/static/problems/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="https://oj-r1pi.onrender.com/static/problems/common.css"/>
+<link rel="stylesheet" type="text/css" href="https://oj-r1pi.onrender.com/static/problems/problem_detail.css"/>
 {% endblock static_loads %}
 
 
@@ -97,7 +100,7 @@
         <div id="verdict">
             <span>Verdict : </span>
             <span id="verdict-element">No code submitted.</span>
-            <img src= "" id="verdict-loading-gif"
+            <img src= "https://oj-r1pi.onrender.com/static/problems/loading_1.gif" id="verdict-loading-gif"
             alt="loading gif" hieght="15" width="15"/>
         </div>
     </div>
@@ -107,6 +110,8 @@
 <script>
     const cur_page_problem_id = {{problem.id}} ;
 </script>
+<script src="https://oj-r1pi.onrender.com/static/problems/submit_handling.js"></script>
+<script src="https://oj-r1pi.onrender.com/static/problems/test.js"></script>
 
 
 {% endblock content_root %}
