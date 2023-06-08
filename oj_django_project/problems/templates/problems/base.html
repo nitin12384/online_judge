@@ -13,9 +13,16 @@
         <title>Codesmed</title>
         {% endblock title %}
 
-        <link rel="stylesheet" type="test/css"
-        href="https://raw.githubusercontent.com/nitin12384/online_judge/render_deploy2/oj_django_project/problems/static/problems/styles/common.css?raw=true" />
-        
+<<<<<<< HEAD
+=======
+        {% load static %}
+
+        {% block static_loads %}
+        <link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
+        {% endblock static_loads %}
+
+>>>>>>> parent of 65767de (Render 500 error Fix Try 2 : remove all static content)
     </head>
     <body>
 

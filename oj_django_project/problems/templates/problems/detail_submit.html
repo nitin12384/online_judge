@@ -27,6 +27,12 @@
 <title>Problems-{{problem.id}}</title>
 {% endblock title %}
 
+{% load static %}
+{% block static_loads %}
+<link rel="shortcut icon" type="image/png" href="{% static '/problems/images/favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static '/problems/styles/common.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static '/problems/styles/problem_detail.css' %}"/>
+{% endblock static_loads %}
 
 
 {% block content_root %}
@@ -94,7 +100,7 @@
         <div id="verdict">
             <span>Verdict : </span>
             <span id="verdict-element">No code submitted.</span>
-            <img src= "" id="verdict-loading-gif"
+            <img src= "{% static '/problems/images/loading_1.gif' %}" id="verdict-loading-gif"
             alt="loading gif" hieght="15" width="15"/>
         </div>
     </div>
@@ -104,6 +110,8 @@
 <script>
     const cur_page_problem_id = {{problem.id}} ;
 </script>
+<script src="{% static '/problems/scripts/submit_handling.js' %}"></script>
+<script src="{% static '/problems/scripts/test.js' %}"></script>
 
 
 {% endblock content_root %}
