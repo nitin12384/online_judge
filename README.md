@@ -5,16 +5,21 @@
 
 - [x] Deploy for once.
 - [x] Add some CSS, and make the design at least look like mediocre. 
-- [x] Add some CSS, and make website responsive.
+- [ ] Add some CSS, and make website responsive.
 - [x] Add TLE and MLE detection mechanism.
-- [ ] Deploy Again 
+- [x] Deploy Again 
 
+- [ ] Try to make static content work in render again
+- [ ] Use PostgreSQL DB, and put all problem data in DB .
+
+- [ ] Proper method to show compiler error
 - [ ] Add more test cases and test problems.
 - [ ] Add 4-5 new problems.
 - [ ] Creating Demo video and code walkthrough video.
 - [ ] Adding proper documentation in ReadMe.md
 
-- [ ] Decouple database and problem data
+- [ ] Decouple backend and frontend, and use React
+- [ ] Decouple serving problem details and submitting problems.
 
 ## Prerequisites to run
 
@@ -66,9 +71,9 @@
 - Memory usage and runtime units are not specified.
 # Detailed Todo list (Most of that is not gonna happen now. )
 - [x] Add user log in
-- [ ] put in docker
+- [ ] ~put in docker~
 - [ ] Add Time, Memory limit, Network security, ....
-- [ ] deploy on firebase, heroku, AWS
+- [ ] ~deploy on firebase, heroku, AWS~
 - [ ] Option to see compiler error 
 - [ ] Add multiple testcases for problems (big IO testcases)
 - [ ] Add More problems. Have 7-8 good and (nowhere else you could find) problems.
